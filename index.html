@@ -253,6 +253,13 @@ button.li:hover{background:var(--surface-2)}
 .form .check.fail{margin-top:14px;color:var(--muted)}
 @media (max-width:560px){.album-head{grid-template-columns:minmax(0,1fr)}.big-cover{max-width:240px}}
 
+/* 소셜 로그인 버튼: 각 브랜드 가이드 색상을 테마와 무관하게 고정 */
+.form .sso{width:100%;margin-top:6px;padding:12px 18px;gap:10px}
+.sso svg{width:18px;height:18px;flex:none}
+.sso.kakao{background:#FEE500;border-color:#FEE500;color:rgba(0,0,0,.85)}
+.sso.google{background:#ffffff;border-color:#747775;color:#1f1f1f}
+.sso.kakao:hover,.sso.google:hover{filter:brightness(.96)}
+
 /* ---------- 토스트 ---------- */
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:50;background:var(--fg);color:var(--bg);padding:12px 18px;border-radius:8px;font-size:14px;font-weight:500;max-width:calc(100% - 32px);box-shadow:0 8px 24px rgba(0,0,0,.25)}
 
@@ -375,7 +382,7 @@ const CONCERTS = [
 /* ===== 상태 ===== */
 const S = {
   route:'signup', p:{},
-  user:{nick:'새벽청취자', email:'listener@example.com', genres:[], follows:{}, onboarded:false},
+  user:{nick:'새벽청취자', email:'', provider:null, genres:[], follows:{}, onboarded:false},
   draft:{genres:[], artists:[]},
   wish:new Set(), owned:new Set(['al8']), interest:new Set(),
   bookings:[], activity:[], lastSeen:0, feedFilter:'전체', simStep:0,
@@ -474,15 +481,18 @@ V.signup = () => `
       <li><b>AI</b><span>내 취향을 아는 자연어 검색으로 새 밴드를 찾아요</span></li>
     </ul>
   </div>
-  <form class="panel form" data-submit="signup">
-    <h2>회원가입</h2>
-    <label for="nick">닉네임</label><input id="nick" name="nick" type="text" value="${esc(S.user.nick)}" required>
-    <label for="email">이메일</label><input id="email" name="email" type="email" value="${esc(S.user.email)}" required>
-    <label for="pw">비밀번호</label><input id="pw" name="pw" type="password" value="indie-archive-2026" required>
-    <button class="btn btn-primary" type="submit">가입하고 취향 고르기</button>
-    ${dev('POST /api/members/signup → BCrypt 해싱 · member_db.users')}
-    <p class="tag" style="text-align:center;margin-top:6px">샘플 값이 채워져 있어요. 그대로 눌러도 돼요.</p>
-  </form>
+  <div class="panel form">
+    <h2>시작하기</h2>
+    <p class="tag">처음이면 바로 가입되고, 이미 가입했다면 로그인돼요.</p>
+    <button class="btn sso kakao" data-act="sso" data-v="kakao">
+      <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#000" d="M12 3C6.48 3 2 6.58 2 11c0 2.85 1.86 5.35 4.66 6.77l-.95 3.48c-.08.3.26.54.52.37l4.15-2.75c.53.07 1.07.11 1.62.11 5.52 0 10-3.58 10-8S17.52 3 12 3z"/></svg>
+      카카오로 시작하기</button>
+    <button class="btn sso google" data-act="sso" data-v="google">
+      <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
+      Google로 시작하기</button>
+    ${dev('GET /oauth2/authorization/{kakao|google} → 콜백 → Member: provider + provider_id 로 users 조회·생성 → JWT 발급')}
+    <p class="tag" style="text-align:center;margin-top:6px">프로토타입이라 실제 로그인은 일어나지 않아요. 누르면 가입된 것처럼 넘어가요.</p>
+  </div>
 </section>`;
 
 V.genre = () => `
@@ -875,7 +885,7 @@ V.my = () => {
   return `
 <div class="page-head"><div style="display:flex;gap:14px;align-items:center">
   <span class="avatar" style="--c1:var(--accent);--c2:#c46bd8;--s:56px" aria-hidden="true">${esc(S.user.nick[0] || '나')}</span>
-  <div><h1>${esc(S.user.nick)}</h1><p class="muted">${esc(S.user.email)}</p></div></div></div>
+  <div><h1>${esc(S.user.nick)}</h1><p class="muted">${S.user.provider ? `${S.user.provider === 'kakao' ? '카카오' : 'Google'} 계정 · ${esc(S.user.email)}` : '로그인 정보 없음'}</p></div></div></div>
 <div class="tabs" role="tablist">${tabs.map(t => `<button role="tab" aria-selected="${S.mtab === t}" data-act="mtab" data-v="${t}">${t}</button>`).join('')}</div>
 ${body}`;
 };
@@ -975,7 +985,17 @@ const flip = (arr, v) => { const i = arr.indexOf(v); if (i >= 0) arr.splice(i, 1
 
 /* ===== 동작 ===== */
 const ACT = {
-  signup(f) { S.user.nick = f.nick.value.trim() || '새벽청취자'; S.user.email = f.email.value.trim(); go('genre'); },
+  sso(d, el) {
+    const label = d.v === 'kakao' ? '카카오' : 'Google';
+    document.querySelectorAll('.sso').forEach(b => { b.disabled = true; });
+    el.textContent = `${label} 계정 확인 중…`;
+    timers.push(setTimeout(() => {
+      S.user.provider = d.v;
+      S.user.email = d.v === 'kakao' ? 'listener@kakao.com' : 'listener@gmail.com';
+      toast(`${label} 계정으로 가입했어요. 이제 취향을 골라 주세요`);
+      go('genre');
+    }, 900));
+  },
   pickGenre(d) { flip(S.draft.genres, d.v); rerender(); },
   toArtists() { go('pickArtists'); },
   pickArtist(d) { flip(S.draft.artists, d.id); rerender(); },
