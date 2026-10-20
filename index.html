@@ -174,6 +174,10 @@ button.li:hover{background:var(--surface-2)}
 .pick.on .ck{background:var(--accent);border-color:var(--accent)}
 .saved{display:grid;gap:6px;font-size:13px;color:var(--muted)}
 
+/* ---------- 첫 진입 (비로그인): 좌측 후킹 문구 · 우측 오늘 공연 ---------- */
+.display.xl{font-size:clamp(40px,6.4vw,72px);line-height:1.08}
+.tm{flex:none;width:52px;font-family:var(--font-mono);font-size:15px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--accent)}
+
 /* ---------- 아티스트 상세 ---------- */
 .hero-a{display:flex;flex-wrap:wrap;align-items:center;gap:20px 24px;padding-bottom:28px;border-bottom:1px solid var(--line);margin-bottom:28px}
 .hero-a .meta{flex:1;min-width:220px;display:grid;gap:6px}
@@ -225,17 +229,47 @@ button.li:hover{background:var(--surface-2)}
 .legend i{display:inline-block;width:14px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:6px}
 .sumbar{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between}
 
-/* ---------- AI ---------- */
-.ai{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:28px;align-items:start}
-.ai > *{min-width:0}
-.chat{display:grid;gap:18px}
+/* ---------- AI 챗봇: 모든 화면 우측 하단 버튼 → 채팅 창 ---------- */
+.fab{position:fixed;right:16px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:30;width:56px;height:56px;border-radius:50%;border:0;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.fab:hover{filter:brightness(1.08)}
+.fab svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.cpanel{position:fixed;right:16px;bottom:calc(88px + env(safe-area-inset-bottom,0px));z-index:30;width:min(400px,calc(100vw - 32px));height:min(600px,calc(100vh - 120px));display:flex;flex-direction:column;background:var(--bg);border:1px solid var(--line);border-radius:14px;box-shadow:0 16px 48px rgba(0,0,0,.35);overflow:hidden}
+.cpanel-head{display:flex;align-items:center;gap:10px;padding:12px 12px 12px 16px;background:var(--surface);border-bottom:1px solid var(--line)}
+.cpanel-head .t{flex:1;min-width:0;display:grid;line-height:1.35}
+.cpanel-head small{color:var(--muted);font-size:12px}
+.chat{flex:1;overflow-y:auto;padding:14px;display:grid;align-content:start;gap:14px}
+.chat .grid{gap:10px}
+.chat .grid.albums{grid-template-columns:repeat(3,minmax(0,1fr))}
 .msg{display:grid;gap:12px;max-width:100%}
 .msg.me{justify-self:end;background:var(--accent);color:var(--on-accent);padding:10px 16px;border-radius:14px 14px 4px 14px;max-width:80%}
-.msg.bot{background:var(--surface);border:1px solid var(--line);border-radius:14px 14px 14px 4px;padding:16px}
+.msg.bot{background:var(--surface);border:1px solid var(--line);border-radius:14px 14px 14px 4px;padding:14px}
 .ctx{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12.5px;color:var(--muted);padding-top:10px;border-top:1px solid var(--line)}
-.ask{display:flex;gap:8px;position:sticky;bottom:12px}
-.ask input{flex:1;min-width:0;background:var(--surface);border:1px solid var(--line);border-radius:var(--r);padding:12px 14px}
+.ask{display:flex;gap:8px;padding:10px;background:var(--surface);border-top:1px solid var(--line)}
+.ask input{flex:1;min-width:0;background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:11px 14px}
 .typing{color:var(--muted);font-size:14px}
+.ask-tools{display:flex;justify-content:flex-end;padding:8px 10px 0;background:var(--surface);border-top:1px solid var(--line)}
+.ask-tools + .ask{border-top:0}
+.ask-tools svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.eq{display:inline-flex;align-items:flex-end;gap:3px;height:14px;margin-right:8px;vertical-align:-1px}
+.eq i{width:3px;height:100%;border-radius:2px;background:currentColor;transform-origin:bottom;animation:eq .9s ease-in-out infinite}
+.eq i:nth-child(2){animation-delay:-.2s}.eq i:nth-child(3){animation-delay:-.4s}.eq i:nth-child(4){animation-delay:-.6s}.eq i:nth-child(5){animation-delay:-.8s}
+@keyframes eq{0%,100%{transform:scaleY(.3)}50%{transform:scaleY(1)}}
+.btn-danger{background:var(--bad);border-color:var(--bad);color:#fff}
+.btn-danger:hover{filter:brightness(1.08);border-color:var(--bad)}
+
+/* ---------- 관리자 · 무대 편집 (꼭짓점 좌표만 저장 · 좌석은 네모 격자 유지) ---------- */
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+.toolbar label{cursor:pointer}
+.canvas{display:block;width:100%;aspect-ratio:4/3;background:var(--bg);border:1px dashed var(--line);border-radius:8px;cursor:crosshair;touch-action:manipulation}
+.canvas .hint{fill:var(--muted);font-size:13px;font-family:var(--font-body)}
+.canvas polyline{fill:none;stroke:var(--accent);stroke-width:2;stroke-dasharray:5 4}
+.canvas circle{fill:var(--accent);stroke:var(--bg);stroke-width:2}
+.stage-shape{fill:color-mix(in srgb,var(--accent) 22%,transparent);stroke:var(--accent);stroke-width:2;vector-effect:non-scaling-stroke}
+.stage-drawn{position:relative;margin-bottom:18px}
+.stage-drawn svg{display:block;width:100%;height:auto;max-height:140px}
+.stage-drawn span{position:absolute;inset:0;display:grid;place-items:center;font-size:12px;letter-spacing:.3em;color:var(--muted);pointer-events:none}
+.mini-seats{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:3px}
+.mini-seats i{aspect-ratio:1;border-radius:2px;background:var(--seat)}
 
 /* ---------- 보조 ---------- */
 .acard button.row{background:none;border:0;padding:0;text-align:left;color:inherit}
@@ -265,19 +299,23 @@ button.li:hover{background:var(--surface-2)}
 
 /* ---------- 반응형 ---------- */
 @media (max-width:960px){
-  .split,.ai{grid-template-columns:minmax(0,1fr)}
+  .split{grid-template-columns:minmax(0,1fr)}
   .signup{grid-template-columns:minmax(0,1fr);gap:32px}
 }
 @media (max-width:760px){
   .nav,.proto{display:none}
-  .tabbar{display:grid;grid-template-columns:repeat(6,1fr);position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
+  .tabbar{display:grid;grid-template-columns:repeat(5,1fr);position:fixed;left:0;right:0;bottom:0;z-index:20;background:var(--surface);border-top:1px solid var(--line);padding-bottom:env(safe-area-inset-bottom,0px)}
   .tabbar button{background:none;border:0;padding:10px 2px;font-size:11.5px;color:var(--muted);font-weight:500}
   .tabbar button[aria-current="page"]{color:var(--accent)}
   .tabbar .badge{min-width:16px;height:16px;font-size:10px;padding:0 4px}
   .cal .d{min-height:54px}
   .cal .ev{font-size:0;height:6px;padding:0}
-  .wrap{padding-block:20px 110px}
+  .wrap{padding-block:20px 140px}
   .onb-foot{bottom:0}
+  .fab{bottom:calc(68px + env(safe-area-inset-bottom,0px))}
+  .cpanel{inset:0;width:auto;height:auto;border:0;border-radius:0;z-index:40}
+  .cpanel-head{padding-top:calc(12px + env(safe-area-inset-top,0px))}
+  .ask{padding-bottom:calc(10px + env(safe-area-inset-bottom,0px))}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
@@ -296,17 +334,35 @@ img{max-width:100%}
     <div class="tools">
       <label class="devtoggle" for="devmode"><input type="checkbox" id="devmode"> API·이벤트 보기</label>
       <span class="proto">프로토타입 · 샘플 데이터</span>
+      <button class="btn btn-s btn-primary" id="loginBtn" data-go="signup" hidden>로그인 / 회원가입</button>
     </div>
   </div>
 </header>
 <main id="app" class="wrap"></main>
 <nav class="tabbar" id="tabbar" aria-label="주요 메뉴"></nav>
 <div class="toast" id="toast" role="status" hidden></div>
+<button class="fab" id="fab" data-act="toggleChat" aria-controls="cpanel" aria-expanded="false" aria-label="AI 챗봇 열기" hidden><svg viewBox="0 0 24 24" aria-hidden="true"></svg></button>
+<section class="cpanel" id="cpanel" aria-label="AI 챗봇" hidden>
+  <header class="cpanel-head">
+    <span class="avatar" style="--c1:var(--accent);--c2:#c46bd8;--s:32px" aria-hidden="true">AI</span>
+    <span class="t"><b>AI 챗봇</b><small>취향과 앞선 대화를 기억해요</small></span>
+    <button class="btn btn-s" data-act="toggleChat">닫기</button>
+  </header>
+  <div class="chat" id="chatLog"></div>
+  <div class="ask-tools"><button class="btn btn-s" data-act="hum" aria-label="허밍으로 노래 찾기"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>허밍으로 찾기</button></div>
+  <form class="ask" data-submit="ask"><input id="askq" name="q" type="text" placeholder="예: 비 오는 날 듣기 좋은 밴드" aria-label="AI에게 질문" autocomplete="off"><button class="btn btn-primary" type="submit">보내기</button></form>
+</section>
 
 <script>
 /* ===== 샘플 데이터 (가상의 밴드 · 실제 공연장 이름) ===== */
 const TODAY = new Date('2026-10-08T12:00:00');
 const GENRES = ['인디록','슈게이징','드림팝','포스트록','포크','신스팝','시티팝','펑크','사이키델릭','재즈 인디'];
+// 온보딩 1단계: 큰 장르를 고르면 아래에 세부 장르가 열림. 아티스트 태그는 세부 장르(GENRES) 기준
+const GENRE_TREE = [
+  {name:'록', subs:['인디록','슈게이징','포스트록','펑크','사이키델릭']},
+  {name:'팝', subs:['드림팝','신스팝','시티팝']},
+  {name:'포크·재즈', subs:['포크','재즈 인디']}
+];
 
 const ARTISTS = [
   {id:'a1',name:'소음정원',en:'Noise Garden',genres:['슈게이징','드림팝'],city:'서울',label:'밤새레코드',debut:2019,colors:['#4b3bc4','#c46bd8'],followers:18420,
@@ -374,20 +430,24 @@ const CONCERTS = [
   {id:'c6',artists:['a9'],title:'유리온실 첫 정규 쇼케이스',venue:'벨로주 망원',region:'서울',addr:'서울 마포구 망원동',date:'2026-11-21',time:'19:30',type:'단독',price:45000,queue:420},
   {id:'c7',artists:['a8','a10','a2'],title:'라우드 시티 2026',venue:'송도 달빛축제공원',region:'인천',addr:'인천 연수구 송도동',date:'2026-12-05',time:'12:00',type:'페스티벌',price:120000,queue:2860},
   {id:'c8',artists:['a5'],title:'새벽세탁소 연말 공연',venue:'롤링홀',region:'서울',addr:'서울 마포구 어울마당로 35',date:'2026-12-19',time:'18:00',type:'단독',price:55000,queue:560},
-  {id:'c9',artists:['a12'],title:'반지하 오케스트라 정기 공연',venue:'무대륙',region:'서울',addr:'서울 마포구 독막로',date:'2026-10-10',time:'19:00',type:'단독',price:40000,queue:180}
+  {id:'c9',artists:['a12'],title:'반지하 오케스트라 정기 공연',venue:'무대륙',region:'서울',addr:'서울 마포구 독막로',date:'2026-10-10',time:'19:00',type:'단독',price:40000,queue:180},
+  {id:'c10',artists:['a8'],title:'검은 우산 목요 펑크 나이트',venue:'클럽 FF',region:'서울',addr:'서울 마포구 와우산로',date:'2026-10-08',time:'20:00',type:'단독',price:30000,queue:150},
+  {id:'c11',artists:['a5'],title:'새벽세탁소 어쿠스틱 라이브',venue:'언플러그드',region:'서울',addr:'서울 마포구 서교동',date:'2026-10-08',time:'19:30',type:'단독',price:38000,queue:260},
+  {id:'c12',artists:['a10'],title:'열대야 심야 잼 세션',venue:'프리버드',region:'서울',addr:'서울 마포구 서교동',date:'2026-10-08',time:'21:00',type:'단독',price:33000,queue:210}
 ];
 </script>
 
 <script>
 /* ===== 상태 ===== */
 const S = {
-  route:'signup', p:{},
+  route:'landing', p:{},
   user:{nick:'새벽청취자', email:'', provider:null, genres:[], follows:{}, onboarded:false},
-  draft:{genres:[], artists:[]},
+  draft:{tops:[], genres:[], artists:[], revealed:[]},
   wish:new Set(), owned:new Set(['al8']), interest:new Set(),
   bookings:[], activity:[], lastSeen:0, feedFilter:'전체', simStep:0,
   q:'', gfilter:'전체', cview:'캘린더', month:9, region:'전체', ctype:'전체',
-  atab:'신보', mtab:'관심 아티스트', seats:{}, flow:null, chat:[]
+  atab:'신보', mtab:'관심 아티스트', seats:{}, flow:null, chat:[], chatOpen:false,
+  stages:{}, admin:{venue:CONCERTS[0].venue, img:null, pts:[]}
 };
 let timers = [];
 
@@ -469,6 +529,26 @@ const steps = n => `<div class="steps"><span class="on"></span><span class="${n 
 /* ===== 화면 ===== */
 const V = {}, AFTER = {};
 
+V.landing = () => {
+  const today = CONCERTS.filter(c => c.date === '2026-10-08').sort((x, y) => x.time.localeCompare(y.time));
+  return `
+<section class="signup">
+  <div class="signup-copy">
+    <p class="eyebrow">한국 인디 공연 · 신보 · LP</p>
+    <h1 class="display xl">오늘 밤,<br>어떤 밴드가<br>무대에 오를까요?</h1>
+    <p class="lead">공연 일정부터 대기열·좌석 예매, 신보와 LP 재고까지. 좋아하는 밴드를 기준으로 한 곳에 모아 드려요.</p>
+  </div>
+  <div class="panel sec">
+    <div class="sec-head"><h2>오늘의 인디 공연</h2><span class="tag">${md('2026-10-08')} · ${today.length}건</span></div>
+    ${today.length ? `<div class="list">${today.map(c => `<div class="li"><span class="tm">${c.time}</span>
+      <span class="main"><b>${esc(c.title)}</b><small>${esc(names(c.artists))} · ${esc(c.venue)}</small></span><span class="tag num">${won(c.price)}</span></div>`).join('')}</div>`
+    : '<div class="empty">오늘은 예정된 공연이 없어요.</div>'}
+    <p class="tag">로그인하면 바로 예매하고, 좋아하는 밴드의 다음 공연 소식도 받아볼 수 있어요.</p>
+    ${dev('GET /api/concerts?from=2026-10-08&to=2026-10-08 → concert:cache:* (비로그인 공개)')}
+  </div>
+</section>`;
+};
+
 V.signup = () => `
 <section class="signup">
   <div class="signup-copy">
@@ -478,9 +558,10 @@ V.signup = () => `
     <ul class="points">
       <li><b>공연</b><span>대기열부터 좌석 예매까지 여기서 끝내요</span></li>
       <li><b>LP</b><span>판매처별 재고를 비교하고 재입고 알림을 받아요</span></li>
-      <li><b>AI</b><span>내 취향을 아는 자연어 검색으로 새 밴드를 찾아요</span></li>
+      <li><b>AI</b><span>취향과 앞선 대화를 기억하는 챗봇에게 물어봐요</span></li>
     </ul>
   </div>
+  <div style="display:grid;gap:14px">
   <div class="panel form">
     <h2>시작하기</h2>
     <p class="tag">처음이면 바로 가입되고, 이미 가입했다면 로그인돼요.</p>
@@ -493,33 +574,51 @@ V.signup = () => `
     ${dev('GET /oauth2/authorization/{kakao|google} → 콜백 → Member: provider + provider_id 로 users 조회·생성 → JWT 발급')}
     <p class="tag" style="text-align:center;margin-top:6px">프로토타입이라 실제 로그인은 일어나지 않아요. 누르면 가입된 것처럼 넘어가요.</p>
   </div>
-</section>`;
-
-V.genre = () => `
-<section class="onb">
-  ${steps(1)}
-  <h1 class="display-s">어떤 음악을 즐겨 들으세요?</h1>
-  <p class="lead">하나 이상 골라 주세요. 고른 장르로 다음 단계의 밴드를 추려 드려요.</p>
-  <div class="chips big">${GENRES.map(g => `<button class="chip ${S.draft.genres.includes(g) ? 'on' : ''}" data-act="pickGenre" data-v="${g}" aria-pressed="${S.draft.genres.includes(g)}">${g}</button>`).join('')}</div>
-  <div class="onb-foot">
-    <span class="muted"><b class="num">${S.draft.genres.length}</b>개 선택</span>
-    <button class="btn btn-primary" data-act="toArtists" ${S.draft.genres.length ? '' : 'disabled'}>다음</button>
+  <p class="tag" style="text-align:center">공연장 관리자라면 <button class="link" data-go="admin">관리자로 들어가기</button></p>
   </div>
 </section>`;
 
+// 1단계: 큰 장르만 고르고 세부 장르를 안 고르면 그 아래 세부 장르 전체로 봄
+const pickedGenres = () => GENRE_TREE.filter(t => S.draft.tops.includes(t.name))
+  .flatMap(t => { const s = t.subs.filter(g => S.draft.genres.includes(g)); return s.length ? s : t.subs; });
+// 2단계 비슷한 밴드: 운영은 artist 임베딩 유사도(pgvector) · 데모는 장르 겹침 + 같은 레이블로 흉내
+function similar(a, skip) {
+  return ARTISTS.filter(b => b.id !== a.id && !skip.has(b.id))
+    .map(b => ({ b, s: b.genres.filter(x => a.genres.includes(x)).length * 2 + (a.label !== '독립' && b.label === a.label ? 1 : 0) }))
+    .filter(x => x.s > 0).sort((x, y) => y.s - x.s || y.b.followers - x.b.followers).slice(0, 3).map(x => x.b);
+}
+const gchip = (act, v, on) => `<button class="chip ${on ? 'on' : ''}" data-act="${act}" data-v="${v}" aria-pressed="${on}">${v}</button>`;
+
+V.genre = () => { const d = S.draft; return `
+<section class="onb">
+  ${steps(1)}
+  <h1 class="display-s">어떤 음악을 즐겨 들으세요?</h1>
+  <p class="lead">하나 이상 골라 주세요. 고르면 아래에 세부 장르가 열려요.</p>
+  <div class="chips big">${GENRE_TREE.map(t => gchip('pickTop', t.name, d.tops.includes(t.name))).join('')}</div>
+  ${GENRE_TREE.filter(t => d.tops.includes(t.name)).map(t => `<div class="sec"><div class="sec-head"><h2>${t.name}에서 더 고르기</h2><span class="tag">안 고르면 ${t.name} 전체로 볼게요</span></div>
+    <div class="chips">${t.subs.map(g => gchip('pickGenre', g, d.genres.includes(g))).join('')}</div></div>`).join('')}
+  <div class="onb-foot">
+    <span class="muted">${d.tops.length ? esc(pickedGenres().join(' · ')) : '아직 고른 장르가 없어요'}</span>
+    <button class="btn btn-primary" data-act="toArtists" ${d.tops.length ? '' : 'disabled'}>다음</button>
+  </div>
+</section>`; };
+
 V.pickArtists = () => {
-  const g = S.draft.genres, n = S.draft.artists.length;
-  const match = ARTISTS.filter(a => a.genres.some(x => g.includes(x)));
-  const rest = ARTISTS.filter(a => !match.includes(a));
+  const g = pickedGenres(), n = S.draft.artists.length;
+  const base = ARTISTS.filter(a => a.genres.some(x => g.includes(x)));
+  // 고른 밴드마다 비슷한 밴드 섹션을 아래에 추가. 이미 화면에 있는 밴드는 다시 넣지 않음
+  const shown = new Set(base.map(a => a.id));
+  const more = S.draft.revealed.map(id => { const list = similar(A(id), shown); list.forEach(b => shown.add(b.id)); return { a: A(id), list }; }).filter(m => m.list.length);
   const pick = a => { const on = S.draft.artists.includes(a.id); return `<button class="pick ${on ? 'on' : ''}" data-act="pickArtist" data-id="${a.id}" aria-pressed="${on}">
     ${avatar(a, 40)}<span class="nm"><b>${esc(a.name)}</b><br><small class="muted">${esc(a.genres.join(' · '))}</small></span><span class="ck">${on ? '✓' : ''}</span></button>`; };
   return `
 <section class="onb">
   ${steps(2)}
   <h1 class="display-s">좋아하는 밴드를 골라 주세요</h1>
-  <p class="lead">고른 밴드는 바로 팔로우돼요. 3팀 이상 고르면 추천이 더 정확해져요.</p>
-  <div class="sec"><div class="sec-head"><h2>${esc(g.join(' · '))}</h2><span class="tag">${match.length}팀</span></div><div class="grid">${match.map(pick).join('')}</div></div>
-  <div class="sec"><div class="sec-head"><h2>다른 장르</h2><span class="tag">${rest.length}팀</span></div><div class="grid">${rest.map(pick).join('')}</div></div>
+  <p class="lead">고른 밴드는 바로 팔로우돼요. 하나를 고르면 비슷한 밴드가 아래에 더 열려요.</p>
+  <div class="sec"><div class="sec-head"><h2>고른 장르의 밴드</h2><span class="tag">${base.length}팀</span></div><div class="grid">${base.map(pick).join('')}</div></div>
+  ${more.map(m => `<div class="sec"><div class="sec-head"><h2>${esc(wa(m.a.name))} 비슷한 밴드</h2><span class="tag">${m.list.length}팀</span></div><div class="grid">${m.list.map(pick).join('')}</div></div>`).join('')}
+  ${dev('밴드를 고를 때마다 GET /api/artists/{id}/similar → AI 내부 벡터 검색 (artist 임베딩 top-3)')}
   <div class="onb-foot">
     <div class="saved"><span><b class="num">${n}</b>팀 · 장르 ${g.length}개를 AI 추천에 써요</span>
       ${dev('POST /api/members/me/onboarding → user_genre · follow 저장 + outbox → member.preference.updated → ai_db.user_taste')}</div>
@@ -543,7 +642,7 @@ V.home = () => {
 <div class="split">
   <div>
     <section class="sec">
-      <div class="sec-head"><h2>취향 기반 추천</h2><button class="link" data-go="ai">AI에게 더 물어보기</button></div>
+      <div class="sec-head"><h2>취향 기반 추천</h2><button class="link" data-act="openChat">AI에게 더 물어보기</button></div>
       ${hasTaste() ? '' : '<p class="muted">아직 고른 취향이 없어서 요즘 많이 팔로우하는 밴드를 보여드려요. <button class="link" data-act="openTaste">취향 고르기</button></p>'}
       ${dev('GET /api/ai/recommendations → ai_db.user_taste 벡터 · pgvector HNSW')}
       <div class="grid">${recs.map(r => acard(r.a, { pct: r.pct, reason: hasTaste() ? why(r.a) : null })).join('')}</div>
@@ -731,7 +830,7 @@ V.seats = ({ id }) => {
 <div class="page-head"><div><p class="eyebrow">${md(c.date)} ${c.time} · ${esc(c.venue)}</p><h1>좌석 선택</h1></div><span class="timer" id="entryT">입장 시간 10:00</span></div>
 <div class="split">
   <div class="panel sec">
-    <div class="stage">STAGE</div>
+    ${S.stages[c.venue] ? stageDrawn(S.stages[c.venue]) : '<div class="stage">STAGE</div>'}
     <div class="seatmap-wrap"><div class="seatmap">${rows}</div></div>
     <div class="legend"><span><i style="background:var(--seat)"></i>선택 가능</span><span><i style="background:var(--accent)"></i>내 선택</span>
       <span><i style="background:repeating-linear-gradient(45deg,var(--warn-weak) 0 4px,var(--seat) 4px 8px)"></i>다른 사람이 결제 중</span><span><i style="background:var(--seat-taken)"></i>예매 완료</span></div>
@@ -877,7 +976,7 @@ V.my = () => {
       ${b.status === 'PAID' ? `<span class="pill ok">예매 완료</span><button class="btn btn-s" data-act="cancel" data-id="${b.id}">취소</button>` : '<span class="pill">취소됨</span>'}</div>`; }).join('')}</div>`
     : emptyBox('예매한 공연이 없어요.', 'concerts', '공연 보기');
   if (S.mtab === '취향 설정') body = `<div class="panel sec" style="max-width:720px">
-      <h2 style="font-size:17px">즐겨 듣는 장르</h2><p class="tag">여기서 바꾼 취향은 홈 추천과 AI 검색에 바로 반영돼요.</p>
+      <h2 style="font-size:17px">즐겨 듣는 장르</h2><p class="tag">여기서 바꾼 취향은 홈 추천과 AI 챗봇에 바로 반영돼요.</p>
       <div class="chips">${GENRES.map(g => `<button class="chip ${S.user.genres.includes(g) ? 'on' : ''}" data-act="tasteGenre" data-v="${g}" aria-pressed="${S.user.genres.includes(g)}">${g}</button>`).join('')}</div>
       <h2 style="font-size:17px;margin-top:8px">팔로우 중인 밴드</h2><p>${fol.length ? esc(names(fol)) : '<span class="muted">아직 없어요</span>'}</p>
       <button class="btn btn-primary" data-act="saveTaste" style="justify-self:start">취향 저장</button>
@@ -890,10 +989,15 @@ V.my = () => {
 ${body}`;
 };
 
-/* ===== AI 검색 ===== */
-const SUGGEST = ['분위기 있는 인디 밴드 추천해줘', '재즈 느낌 나는 밴드 있어?', '내 취향에 맞는 공연 알려줘', '지금 살 수 있는 LP 추천해줘'];
+/* ===== AI 챗봇 ===== */
+const SUGGEST = ['분위기 있는 인디 밴드 추천해줘', '재즈 느낌 나는 밴드 있어?', '내 취향에 맞는 공연 알려줘', '지금 살 수 있는 LP 추천해줘', '회원탈퇴하는 방법 알려줘'];
 const MOOD = ['드림팝', '슈게이징', '포크', '재즈 인디', '포스트록'];
 function aiAnswer(q) {
+  // 탈퇴는 안내와 버튼만. 실제 탈퇴는 사용자가 버튼 → 확정을 눌러야 실행 (챗봇 도구로는 실행하지 않음)
+  if (/탈퇴|계정\s*삭제/.test(q)) return {
+    withdraw: true, ctx: ['회원 탈퇴 안내 · 실행은 버튼으로만'],
+    text: `탈퇴하면 팔로우 ${followedIds().length}팀, 위시리스트 ${S.wish.size}장, 고른 취향, 예매 내역, 대화 기록이 모두 지워지고 되돌릴 수 없어요. 아래 버튼으로 바로 진행할 수 있어요.`
+  };
   const ctx = [];
   if (S.user.genres.length) ctx.push('고른 장르 ' + S.user.genres.join('·'));
   if (followedIds().length) ctx.push('팔로우 ' + followedIds().length + '팀');
@@ -923,29 +1027,94 @@ function aiAnswer(q) {
     artists: recs.map(r => ({ id: r.a.id, pct: r.pct, reason: hasTaste() ? why(r.a) : null })), ctx
   };
 }
-function msgHtml(m) {
+// 허밍 검색: MVP 제외 기능이라 녹음 없이 로딩 → 하드코딩 답변만 보여줌
+const EQ = '<span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>';
+const HUM_ANSWER = {
+  text: '소음정원의 〈느린 섬광〉인 것 같아요. 정규 〈젖은 신호〉의 4번 트랙이고, 후렴 멜로디가 87% 일치해요.',
+  albums: ['al1'], ctx: ['허밍 인식 · MVP 이후 기능 데모', '멜로디 특징 → 곡 후보 매칭'],
+  dev: 'POST /api/assistant/hum (오디오 → 멜로디 특징 추출 → 곡 매칭) · MVP 제외'
+};
+function msgHtml(m, i) {
+  if (m.rec) return `<div class="msg me"><span>${EQ}듣고 있어요… 흥얼거려 보세요</span><small style="opacity:.8">데모라 실제로 녹음하지는 않아요</small></div>`;
   if (m.me) return `<div class="msg me">${esc(m.text)}</div>`;
-  if (m.typing) return '<div class="msg bot typing">취향과 공연 정보를 찾고 있어요…</div>';
+  if (m.typing) return m.hum ? `<div class="msg bot typing"><span>${EQ}멜로디를 분석하고 있어요…</span></div>` : '<div class="msg bot typing">취향과 공연 정보를 찾고 있어요…</div>';
   return `<div class="msg bot"><p>${esc(m.text)}</p>
     ${m.artists ? `<div class="grid">${m.artists.map(r => acard(A(r.id), { pct: r.pct, reason: r.reason })).join('')}</div>` : ''}
     ${m.concerts ? `<div class="list">${m.concerts.map(id => concertLi(CO(id))).join('')}</div>` : ''}
     ${m.albums ? `<div class="grid albums">${m.albums.map(id => alCard(AL(id))).join('')}</div>` : ''}
+    ${m.withdraw ? (m.confirm
+      ? `<div class="panel sec" style="padding:14px"><p><b>정말 탈퇴할까요?</b> 되돌릴 수 없어요.</p>
+          <div style="display:flex;gap:8px"><button class="btn btn-s btn-danger" data-act="withdraw">탈퇴 확정</button><button class="btn btn-s" data-act="withdrawCancel" data-i="${i}">취소</button></div></div>`
+      : `<button class="btn btn-danger" data-act="withdrawAsk" data-i="${i}" style="justify-self:start">회원 탈퇴하기</button>`)
+      + dev('DELETE /api/members/me → outbox member.withdrawn → 서비스별 개인 데이터 삭제') : ''}
+    ${m.dev ? dev(m.dev) : ''}
     <div class="ctx"><span>참고한 정보</span>${m.ctx.map(c => `<span class="pill">${esc(c)}</span>`).join('')}</div></div>`;
 }
-V.ai = () => `
-<div class="page-head"><div><h1>AI 검색</h1><p class="muted">평소 말하듯 물어보세요. 고른 취향과 팔로우를 참고해서 답해요.</p></div></div>
-<div class="ai">
-  <div class="chat">
-    ${S.chat.length ? S.chat.map(msgHtml).join('') : `<div class="empty"><p>이렇게 물어볼 수 있어요.</p><div class="chips" style="justify-content:center">${SUGGEST.map(q => `<button class="chip" data-act="suggest" data-v="${esc(q)}">${esc(q)}</button>`).join('')}</div></div>`}
-    <form class="ask" data-submit="ask"><input id="askq" name="q" type="text" placeholder="예: 비 오는 날 듣기 좋은 밴드" aria-label="AI에게 질문" autocomplete="off"><button class="btn btn-primary" type="submit">보내기</button></form>
+const NARROW = matchMedia('(max-width:760px)');
+const ICON = { close: '<path d="M6 6l12 12M18 6 6 18"/>', chat: '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.4A8 8 0 1 1 21 12z"/>' };
+// 채팅 창은 #app 밖에 있어서 화면을 옮겨도 대화가 이어짐. 가입·온보딩·관리자 화면에서는 숨김
+function drawChat(toEnd) {
+  const off = document.body.classList.contains('bare'), open = S.chatOpen && !off, fab = $('#fab'), log = $('#chatLog');
+  fab.hidden = off;
+  fab.setAttribute('aria-expanded', open);
+  fab.setAttribute('aria-label', open ? 'AI 챗봇 닫기' : 'AI 챗봇 열기');
+  fab.querySelector('svg').innerHTML = open ? ICON.close : ICON.chat;
+  $('#cpanel').hidden = !open;
+  if (!open) return;
+  const y = log.scrollTop;
+  log.innerHTML = dev('POST /api/assistant { q, conversation_id } → 최근 6턴 조회 → Claude(도구: 벡터 검색·공연·LP) → 질문·답변 저장 · 장애 시 인기순 fallback')
+    + (S.chat.length ? S.chat.map(msgHtml).join('') : `<div class="empty"><p>평소 말하듯 물어보세요.<br>${hasTaste() ? `고른 취향과 팔로우 ${followedIds().length}팀을 참고해서 답해요.` : '아직 고른 취향이 없어서 인기순으로 답해요.'}</p>
+      <div class="chips" style="justify-content:center">${SUGGEST.map(q => `<button class="chip" data-act="suggest" data-v="${esc(q)}">${esc(q)}</button>`).join('')}</div></div>`);
+  log.scrollTop = toEnd ? log.scrollHeight : y;
+}
+
+/* ===== 관리자 · 무대 편집 ===== */
+const VENUES = [...new Set(CONCERTS.map(c => c.venue))];
+// 캔버스는 400×300 좌표계. 저장은 0~1 로 정규화한 꼭짓점 좌표만 (밑그림 이미지는 올리지 않음)
+const CW = 400, CH = 300;
+const SAMPLE_PLAN = 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="#f3f0e6"/><rect x="14" y="12" width="372" height="276" fill="none" stroke="#4a4a4a" stroke-width="4"/><path d="M70 26H330V78H286Q200 136 114 78H70Z" fill="#d8ccb0" stroke="#4a4a4a" stroke-width="2"/><text x="200" y="58" font-family="sans-serif" font-size="13" text-anchor="middle" fill="#4a4a4a">STAGE</text>${
+  Array.from({ length: 72 }, (_, i) => `<rect x="${86 + i % 12 * 19 + (i % 12 > 5 ? 10 : 0)}" y="${150 + Math.floor(i / 12) * 21}" width="14" height="14" fill="#bdb6a6"/>`).join('')}</svg>`);
+// 좌석 화면용: 그린 모양의 바깥 상자만 잘라서 좌석 위 폭에 맞춰 그림
+function stageDrawn(pts) {
+  const P = pts.map(([x, y]) => [x * CW, y * CH]), xs = P.map(p => p[0]), ys = P.map(p => p[1]);
+  const x0 = Math.min(...xs), y0 = Math.min(...ys);
+  return `<div class="stage-drawn"><svg viewBox="${x0 - 2} ${y0 - 2} ${Math.max(...xs) - x0 + 4} ${Math.max(...ys) - y0 + 4}" aria-hidden="true"><polygon class="stage-shape" points="${P.join(' ')}"/></svg><span>STAGE</span></div>`;
+}
+
+V.admin = () => {
+  const a = S.admin, n = a.pts.length, xy = a.pts.map(([x, y]) => `${x * CW},${y * CH}`).join(' ');
+  return `
+<div class="page-head"><div><p class="eyebrow">관리자 대시보드</p><h1>공연장 무대 모양</h1></div><button class="link" data-go="signup">← 처음 화면</button></div>
+<div class="sec">
+  <div class="chips">${VENUES.map(v => `<button class="chip ${a.venue === v ? 'on' : ''}" data-act="venue" data-v="${esc(v)}">${esc(v)}${S.stages[v] ? ' ✓' : ''}</button>`).join('')}</div>
+  <p class="muted">실제 무대 사진이나 도면을 밑그림으로 깔고, 무대 모서리를 차례로 눌러 따라 그려요. 좌석은 지금처럼 네모 격자 그대로예요.</p>
+</div>
+<div class="split" style="margin-top:20px">
+  <div class="panel sec">
+    <div class="toolbar">
+      <label class="btn btn-s" for="stageImg">무대 이미지 올리기</label><input type="file" id="stageImg" accept="image/*" hidden>
+      <button class="btn btn-s" data-act="sampleImg">샘플 도면</button>
+      <span style="flex:1"></span>
+      <button class="btn btn-s" data-act="undoPt" ${n ? '' : 'disabled'}>마지막 점 지우기</button>
+      <button class="btn btn-s" data-act="clearPts" ${n ? '' : 'disabled'}>모두 지우기</button>
+    </div>
+    <svg class="canvas" viewBox="0 0 ${CW} ${CH}" data-act="addPt" role="img" aria-label="무대 그리기 영역 · 누를 때마다 꼭짓점이 하나씩 찍혀요">
+      ${a.img ? `<image href="${esc(a.img)}" width="${CW}" height="${CH}" preserveAspectRatio="xMidYMid meet" opacity=".6"/>`
+        : n ? '' : '<text class="hint" x="200" y="144" text-anchor="middle">무대 이미지를 올리거나 샘플 도면을 불러오세요</text><text class="hint" x="200" y="166" text-anchor="middle">밑그림 없이 바로 찍어도 돼요</text>'}
+      ${n >= 3 ? `<polygon class="stage-shape" points="${xy}"/>` : n === 2 ? `<polyline points="${xy}"/>` : ''}
+      ${a.pts.map(([x, y]) => `<circle cx="${x * CW}" cy="${y * CH}" r="5"/>`).join('')}
+    </svg>
+    <p class="tag">꼭짓점 <b class="num">${n}</b>개 · 3개부터 무대 모양이 닫혀요. 곡선은 점을 촘촘히 찍으면 돼요.</p>
   </div>
   <aside class="panel sec">
-    <h2 style="font-size:17px">AI가 참고하는 내 취향</h2>
-    ${hasTaste() ? `<div class="chips">${S.user.genres.map(g => `<span class="pill ac">${g}</span>`).join('')}</div><p class="tag">팔로우 ${followedIds().length}팀 · 위시리스트 ${S.wish.size}장</p>` : '<p class="muted">아직 고른 취향이 없어요. 지금은 인기순으로 답해요.</p>'}
-    <button class="link" data-act="openTaste" style="justify-self:start">취향 바꾸기</button>
-    ${dev('질의 임베딩 + ai_db.user_taste → pgvector 검색 → Tool Use(공연·LP 조회) → Claude 응답 · 장애 시 인기순 fallback')}
+    <h2 style="font-size:17px">좌석 화면 미리보기</h2>
+    <div>${n >= 3 ? stageDrawn(a.pts) : '<div class="stage">STAGE</div>'}<div class="mini-seats" aria-hidden="true">${'<i></i>'.repeat(84)}</div></div>
+    <p class="tag">${esc(a.venue)} 좌석 선택 화면에 이렇게 보여요. 저장되는 건 꼭짓점 좌표뿐이고 밑그림 이미지는 올리지 않아요.</p>
+    <button class="btn btn-primary" data-act="saveStage" ${n >= 3 ? '' : 'disabled'}>저장</button>
+    ${dev('PUT /api/admin/venues/{venueId}/stage { points: [[x,y]…] (0~1) } → concert.venue.stage_shape (jsonb) · ROLE_ADMIN')}
   </aside>
 </div>`;
+};
 </script>
 
 <script>
@@ -962,16 +1131,19 @@ function nextEvent() {
 }
 
 /* ===== 라우터 ===== */
-const NAV = [['home', '홈'], ['artists', '아티스트'], ['concerts', '공연'], ['albums', '음반·LP'], ['ai', 'AI 검색'], ['my', 'MY']];
-const SECTION = { home: 'home', artists: 'artists', artist: 'artists', concerts: 'concerts', concert: 'concerts', queue: 'concerts', seats: 'concerts', pay: 'concerts', done: 'concerts', albums: 'albums', album: 'albums', ai: 'ai', my: 'my' };
+const NAV = [['home', '홈'], ['artists', '아티스트'], ['concerts', '공연'], ['albums', '음반·LP'], ['my', 'MY']];
+const SECTION = { home: 'home', artists: 'artists', artist: 'artists', concerts: 'concerts', concert: 'concerts', queue: 'concerts', seats: 'concerts', pay: 'concerts', done: 'concerts', albums: 'albums', album: 'albums', my: 'my' };
 function go(route, p = {}) {
   timers.forEach(t => { clearInterval(t); clearTimeout(t); }); timers = [];
+  if (NARROW.matches) S.chatOpen = false;
   S.route = route; S.p = p; render(); window.scrollTo(0, 0);
 }
 function render() {
-  document.body.classList.toggle('bare', ['signup', 'genre', 'pickArtists'].includes(S.route));
+  document.body.classList.toggle('bare', ['landing', 'signup', 'genre', 'pickArtists', 'admin'].includes(S.route));
+  $('#loginBtn').hidden = S.route !== 'landing';
   $('#app').innerHTML = V[S.route](S.p);
   drawNav();
+  drawChat();
   if (AFTER[S.route]) AFTER[S.route]();
 }
 function rerender() { const y = window.scrollY; render(); window.scrollTo(0, y); }
@@ -996,12 +1168,21 @@ const ACT = {
       go('genre');
     }, 900));
   },
+  pickTop(d) {
+    flip(S.draft.tops, d.v);
+    if (!S.draft.tops.includes(d.v)) { const subs = GENRE_TREE.find(t => t.name === d.v).subs; S.draft.genres = S.draft.genres.filter(g => !subs.includes(g)); }
+    rerender();
+  },
   pickGenre(d) { flip(S.draft.genres, d.v); rerender(); },
   toArtists() { go('pickArtists'); },
-  pickArtist(d) { flip(S.draft.artists, d.id); rerender(); },
+  pickArtist(d) {
+    flip(S.draft.artists, d.id);
+    if (S.draft.artists.includes(d.id) && !S.draft.revealed.includes(d.id)) S.draft.revealed.push(d.id);
+    rerender();
+  },
   finishOnb() {
     const now = Date.now();
-    S.user.genres = [...S.draft.genres];
+    S.user.genres = pickedGenres();
     S.draft.artists.forEach(id => { S.user.follows[id] = now; });
     S.user.onboarded = true; S.lastSeen = now;
     toast(`취향을 저장했어요. 장르 ${S.user.genres.length}개, 밴드 ${S.draft.artists.length}팀을 추천에 써요`);
@@ -1075,15 +1256,51 @@ const ACT = {
   tasteGenre(d) { flip(S.user.genres, d.v); rerender(); },
   saveTaste() { toast('취향을 저장했어요. AI 추천에 바로 반영돼요'); },
   openTaste() { S.mtab = '취향 설정'; go('my'); },
+  openChat() { S.chatOpen = true; drawChat(true); if (!NARROW.matches) $('#askq').focus(); },
+  toggleChat() { if (S.chatOpen) { S.chatOpen = false; drawChat(); } else ACT.openChat(); },
   suggest(d) { ACT.ask({ q: { value: d.v } }); },
   ask(f) {
     const q = f.q.value.trim(); if (!q) return;
+    f.q.value = '';
     S.chat.push({ me: true, text: q }, { typing: true });
-    render(); window.scrollTo(0, document.body.scrollHeight);
+    drawChat(true);
+    setTimeout(() => { S.chat.pop(); S.chat.push(aiAnswer(q)); drawChat(true); }, 900);
+  },
+  hum(d, el) {
+    const rec = { me: true, rec: true }, wait = { typing: true, hum: true };
+    el.disabled = true; S.chat.push(rec); drawChat(true);
     setTimeout(() => {
-      S.chat.pop(); S.chat.push(aiAnswer(q));
-      if (S.route === 'ai') { render(); window.scrollTo(0, document.body.scrollHeight); }
-    }, 900);
+      const i = S.chat.indexOf(rec); if (i < 0) { el.disabled = false; return; }
+      S.chat.splice(i, 1, { me: true, text: '허밍으로 찾기 · 6초' }); S.chat.push(wait); drawChat(true);
+      setTimeout(() => {
+        const j = S.chat.indexOf(wait); el.disabled = false; if (j < 0) return;
+        S.chat.splice(j, 1, { ...HUM_ANSWER }); drawChat(true);
+      }, 1600);
+    }, 2600);
+  },
+  withdrawAsk(d) { S.chat[d.i].confirm = true; drawChat(); },
+  withdrawCancel(d) { S.chat[d.i].confirm = false; drawChat(); },
+  withdraw() {
+    Object.assign(S, {
+      user: { nick: '새벽청취자', email: '', provider: null, genres: [], follows: {}, onboarded: false },
+      draft: { tops: [], genres: [], artists: [], revealed: [] },
+      wish: new Set(), owned: new Set(), interest: new Set(), bookings: [], activity: [], flow: null, chat: [], chatOpen: false
+    });
+    toast('탈퇴했어요. 그동안 이용해 주셔서 고마워요');
+    go('landing');
+  },
+  venue(d) { S.admin ={ venue: d.v, img: null, pts: (S.stages[d.v] || []).map(p => [...p]) }; rerender(); },
+  sampleImg() { S.admin.img = SAMPLE_PLAN; rerender(); },
+  addPt(d, el, e) {
+    const p = new DOMPoint(e.clientX, e.clientY).matrixTransform(el.getScreenCTM().inverse());
+    const n = v => Math.min(1, Math.max(0, +v.toFixed(3)));
+    S.admin.pts.push([n(p.x / CW), n(p.y / CH)]); rerender();
+  },
+  undoPt() { S.admin.pts.pop(); rerender(); },
+  clearPts() { S.admin.pts = []; rerender(); },
+  saveStage() {
+    const a = S.admin; S.stages[a.venue] = a.pts.map(p => [...p]);
+    toast(`${a.venue} 무대 모양을 저장했어요. 이 공연장 좌석 화면에 바로 반영돼요`); rerender();
   }
 };
 
@@ -1091,10 +1308,11 @@ document.addEventListener('click', e => {
   const t = e.target.closest('[data-go],[data-act]');
   if (!t || t.disabled) return;
   if (t.dataset.go) { go(t.dataset.go, { id: t.dataset.id }); return; }
-  if (ACT[t.dataset.act]) ACT[t.dataset.act](t.dataset, t);
+  if (ACT[t.dataset.act]) ACT[t.dataset.act](t.dataset, t, e);
 });
 document.addEventListener('submit', e => { e.preventDefault(); const f = e.target; if (ACT[f.dataset.submit]) ACT[f.dataset.submit](f); });
 document.addEventListener('input', e => { if (e.target.id === 'q') { S.q = e.target.value; $('#artistGrid').innerHTML = artistGrid(); } });
+document.addEventListener('change', e => { if (e.target.id === 'stageImg' && e.target.files[0]) { S.admin.img = URL.createObjectURL(e.target.files[0]); rerender(); } });
 $('#devmode').addEventListener('change', e => document.body.classList.toggle('devmode', e.target.checked));
 
 render();
