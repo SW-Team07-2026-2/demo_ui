@@ -152,7 +152,7 @@ button.li:hover{background:var(--surface-2)}
 .form{display:grid;gap:8px}
 .form h2{font-size:20px;margin-bottom:8px}
 .form label{font-size:13px;color:var(--muted);font-weight:500;margin-top:6px}
-.form input[type=text],.form input[type=email],.form input[type=password],.search{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:11px 14px}
+.form input[type=text],.form input[type=email],.form input[type=password],.form select,.search{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:11px 14px}
 .form .btn{margin-top:14px}
 .search{max-width:420px}
 .check{display:flex;align-items:center;gap:8px;font-size:14px}
@@ -257,7 +257,12 @@ button.li:hover{background:var(--surface-2)}
 .btn-danger{background:var(--bad);border-color:var(--bad);color:#fff}
 .btn-danger:hover{filter:brightness(1.08);border-color:var(--bad)}
 
-/* ---------- 관리자 · 무대 편집 (꼭짓점 좌표만 저장 · 좌석은 네모 격자 유지) ---------- */
+/* ---------- 관리자 · 좌석 구역 편집 (구역 꼭짓점 → 무대를 바라보게 좌석 자동 배치) ---------- */
+.admin-grid{display:grid;grid-template-columns:300px minmax(0,1fr);gap:24px;align-items:start}
+.admin-grid > *{min-width:0}
+.inline{display:flex;gap:8px}
+.inline input[type=text]{flex:1;min-width:0}
+.inline .btn{margin-top:0}
 .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
 .toolbar label{cursor:pointer}
 .canvas{display:block;width:100%;aspect-ratio:4/3;background:var(--bg);border:1px dashed var(--line);border-radius:8px;cursor:crosshair;touch-action:manipulation}
@@ -268,8 +273,18 @@ button.li:hover{background:var(--surface-2)}
 .stage-drawn{position:relative;margin-bottom:18px}
 .stage-drawn svg{display:block;width:100%;height:auto;max-height:140px}
 .stage-drawn span{position:absolute;inset:0;display:grid;place-items:center;font-size:12px;letter-spacing:.3em;color:var(--muted);pointer-events:none}
-.mini-seats{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:3px}
-.mini-seats i{aspect-ratio:1;border-radius:2px;background:var(--seat)}
+.stage-ref{fill:var(--surface-2);stroke:var(--muted);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.sec-ghost{fill:none;stroke:var(--muted);stroke-width:1;stroke-dasharray:4 3;vector-effect:non-scaling-stroke}
+.lbl{fill:var(--muted);font-size:9px;font-family:var(--font-body);letter-spacing:.15em;text-anchor:middle;dominant-baseline:central}
+.seat-pv rect{fill:var(--accent);opacity:.75}
+.plan{display:block;width:100%;height:auto;background:var(--bg);border:1px solid var(--line);border-radius:8px}
+.plan .sec-ol{fill:none;stroke:var(--line);stroke-width:1;vector-effect:non-scaling-stroke}
+.plan rect{fill:var(--seat-taken)}
+.plan .new rect{fill:var(--accent)}
+.plan .new .sec-ol{stroke:var(--accent)}
+.plan .rowl{fill:var(--muted);font-size:5.5px;font-family:var(--font-mono);text-anchor:middle;dominant-baseline:central}
+.plan .secl{fill:var(--fg);font-size:8px;font-weight:700;font-family:var(--font-body);text-anchor:middle;dominant-baseline:central;paint-order:stroke;stroke:var(--bg);stroke-width:2.5px}
+.json{margin:0;max-height:360px;overflow:auto;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-family:var(--font-mono);font-size:12px;line-height:1.55;white-space:pre}
 
 /* ---------- 보조 ---------- */
 .acard button.row{background:none;border:0;padding:0;text-align:left;color:inherit}
@@ -299,7 +314,7 @@ button.li:hover{background:var(--surface-2)}
 
 /* ---------- 반응형 ---------- */
 @media (max-width:960px){
-  .split{grid-template-columns:minmax(0,1fr)}
+  .split,.admin-grid{grid-template-columns:minmax(0,1fr)}
   .signup{grid-template-columns:minmax(0,1fr);gap:32px}
 }
 @media (max-width:760px){
@@ -447,7 +462,7 @@ const S = {
   bookings:[], activity:[], lastSeen:0, feedFilter:'전체', simStep:0,
   q:'', gfilter:'전체', cview:'캘린더', month:9, region:'전체', ctype:'전체',
   atab:'신보', mtab:'관심 아티스트', seats:{}, flow:null, chat:[], chatOpen:false,
-  stages:{}, admin:{venue:CONCERTS[0].venue, img:null, pts:[]}
+  stages:{}, sections:{}, admin:{venue:CONCERTS[0].venue, newVenue:false, floor:'1층', name:'', mode:'sec', img:null, pts:[], spts:[]}
 };
 let timers = [];
 
@@ -1068,12 +1083,16 @@ function drawChat(toEnd) {
   log.scrollTop = toEnd ? log.scrollHeight : y;
 }
 
-/* ===== 관리자 · 무대 편집 ===== */
+/* ===== 관리자 · 좌석 구역 편집 ===== */
 const VENUES = [...new Set(CONCERTS.map(c => c.venue))];
-// 캔버스는 400×300 좌표계. 저장은 0~1 로 정규화한 꼭짓점 좌표만 (밑그림 이미지는 올리지 않음)
+const FLOORS = { '1층': '1F', '2층': '2F', '3층': '3F', '지하 1층': 'B1' };
+// 캔버스는 400×300 좌표계. 저장은 0~1 로 정규화한 좌표만 (밑그림 이미지는 올리지 않음)
 const CW = 400, CH = 300;
-const SAMPLE_PLAN = 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="#f3f0e6"/><rect x="14" y="12" width="372" height="276" fill="none" stroke="#4a4a4a" stroke-width="4"/><path d="M70 26H330V78H286Q200 136 114 78H70Z" fill="#d8ccb0" stroke="#4a4a4a" stroke-width="2"/><text x="200" y="58" font-family="sans-serif" font-size="13" text-anchor="middle" fill="#4a4a4a">STAGE</text>${
-  Array.from({ length: 72 }, (_, i) => `<rect x="${86 + i % 12 * 19 + (i % 12 > 5 ? 10 : 0)}" y="${150 + Math.floor(i / 12) * 21}" width="14" height="14" fill="#bdb6a6"/>`).join('')}</svg>`);
+// 무대를 따로 그리지 않은 공연장은 위쪽 가운데(샘플 도면의 무대 자리)를 무대로 봄
+const DEFAULT_STAGE = [[.3, .08], [.7, .08], [.7, .2], [.3, .2]];
+const stageOf = v => S.stages[v] || DEFAULT_STAGE;
+const drawing = () => S.admin.mode === 'stage' ? S.admin.spts : S.admin.pts;
+const SAMPLE_PLAN = 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="#f3f0e6"/><rect x="14" y="12" width="372" height="276" fill="none" stroke="#4a4a4a" stroke-width="4"/><rect x="120" y="24" width="160" height="36" fill="#d8ccb0" stroke="#4a4a4a" stroke-width="2"/><text x="200" y="47" font-family="sans-serif" font-size="13" text-anchor="middle" fill="#4a4a4a">STAGE</text><g fill="#e4dccb" stroke="#4a4a4a" stroke-width="1.5"><path d="M68 90L121 151L76 190L23 129Z"/><path d="M140 92H260V196H140Z"/><path d="M332 90L279 151L324 190L377 129Z"/><path d="M60 214H340L360 266H40Z"/></g><g font-family="sans-serif" font-size="14" text-anchor="middle" fill="#4a4a4a"><text x="72" y="145">A</text><text x="200" y="149">B</text><text x="328" y="145">C</text><text x="200" y="245">D</text></g><text x="28" y="280" font-family="sans-serif" font-size="10" fill="#4a4a4a">1F</text></svg>`);
 // 좌석 화면용: 그린 모양의 바깥 상자만 잘라서 좌석 위 폭에 맞춰 그림
 function stageDrawn(pts) {
   const P = pts.map(([x, y]) => [x * CW, y * CH]), xs = P.map(p => p[0]), ys = P.map(p => p[1]);
@@ -1081,38 +1100,166 @@ function stageDrawn(pts) {
   return `<div class="stage-drawn"><svg viewBox="${x0 - 2} ${y0 - 2} ${Math.max(...xs) - x0 + 4} ${Math.max(...ys) - y0 + 4}" aria-hidden="true"><polygon class="stage-shape" points="${P.join(' ')}"/></svg><span>STAGE</span></div>`;
 }
 
+// 좌석 한 칸 크기·간격 (캔버스 단위)
+const SEAT = { w: 7, h: 6, px: 9, py: 10 };
+const toC = pts => pts.map(([x, y]) => [x * CW, y * CH]);
+const mid = P => [0, 1].map(k => P.reduce((s, p) => s + p[k], 0) / P.length);
+const cpts = pts => toC(pts).map(p => p.map(v => +v.toFixed(1)).join(',')).join(' ');
+function inside([x, y], P) {
+  let c = false;
+  for (let i = 0, j = P.length - 1; i < P.length; j = i++) {
+    const [xi, yi] = P[i], [xj, yj] = P[j];
+    if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c;
+  }
+  return c;
+}
+// 무대를 가장 정면으로 보는 변(길이 × 무대 쪽을 향한 정도)을 앞줄로 잡고,
+// 그 변과 나란한 격자를 깔아 네 모서리가 모두 도형 안에 드는 칸만 좌석으로 남김
+function layoutSeats(pts, stage) {
+  const P = toC(pts), C = mid(P), T = mid(toC(stage));
+  let best = -1, f = null;
+  P.forEach((a, i) => {
+    const b = P[(i + 1) % P.length], L = Math.hypot(b[0] - a[0], b[1] - a[1]);
+    if (!L) return;
+    const m = mid([a, b]), d = Math.hypot(T[0] - m[0], T[1] - m[1]) || 1;
+    let n = [(b[1] - a[1]) / L, (a[0] - b[0]) / L];
+    if (n[0] * (m[0] - C[0]) + n[1] * (m[1] - C[1]) < 0) n = [-n[0], -n[1]];
+    const s = L * Math.max(.01, (n[0] * (T[0] - m[0]) + n[1] * (T[1] - m[1])) / d);
+    if (s > best) { best = s; f = { a, n }; }
+  });
+  if (!f) return { seats: [], rows: 0, rot: 0 };
+  // v: 앞줄 → 뒷줄 방향, u: 객석에서 무대를 볼 때 왼쪽 → 오른쪽 (좌석 번호 방향)
+  const v = [-f.n[0], -f.n[1]], u = [v[1], -v[0]];
+  const at = (t, s) => [f.a[0] + u[0] * t + v[0] * s, f.a[1] + u[1] * t + v[1] * s];
+  const Q = P.map(p => [(p[0] - f.a[0]) * u[0] + (p[1] - f.a[1]) * u[1], (p[0] - f.a[0]) * v[0] + (p[1] - f.a[1]) * v[1]]);
+  const t0 = Math.min(...Q.map(q => q[0])), tw = Math.max(...Q.map(q => q[0])) - t0;
+  const s0 = Math.min(...Q.map(q => q[1])), s1 = Math.max(...Q.map(q => q[1]));
+  const nc = Math.floor(tw / SEAT.px), off = t0 + (tw - nc * SEAT.px) / 2;
+  const seats = []; let row = 0;
+  for (let s = s0 + 1 + SEAT.py / 2; s <= s1; s += SEAT.py) {
+    let num = 0;
+    for (let i = 0; i < nc; i++) {
+      const t = off + SEAT.px * (i + .5);
+      if (![[-1, -1], [1, -1], [1, 1], [-1, 1]].every(([du, dv]) => inside(at(t + du * SEAT.w / 2, s + dv * SEAT.h / 2), P))) continue;
+      if (!num) row++;
+      const [x, y] = at(t, s);
+      seats.push({ row, num: ++num, x: +(x / CW).toFixed(4), y: +(y / CH).toFixed(4) });
+    }
+  }
+  return { seats, rows: row, rot: +(Math.atan2(u[1], u[0]) * 180 / Math.PI).toFixed(1) };
+}
+const seatRects = (seats, rot) => seats.map(t => `<rect x="${-SEAT.w / 2}" y="${-SEAT.h / 2}" width="${SEAT.w}" height="${SEAT.h}" rx="1.5" transform="translate(${(t.x * CW).toFixed(1)} ${(t.y * CH).toFixed(1)}) rotate(${rot})"/>`).join('');
+const label = (pts, t, cls = 'lbl') => { const [x, y] = mid(toC(pts)); return `<text class="${cls}" x="${x.toFixed(1)}" y="${y.toFixed(1)}">${esc(t)}</text>`; };
+
 V.admin = () => {
-  const a = S.admin, n = a.pts.length, xy = a.pts.map(([x, y]) => `${x * CW},${y * CH}`).join(' ');
+  const a = S.admin, st = a.mode === 'stage', P = drawing(), n = P.length;
+  const L = !st && n >= 3 ? layoutSeats(P, stageOf(a.venue)) : null;
+  const here = Object.values(S.sections).filter(s => s.venue === a.venue && s.floor === a.floor);
+  const saved = Object.entries(S.sections).filter(([, s]) => s.venue === a.venue);
   return `
-<div class="page-head"><div><p class="eyebrow">관리자 대시보드</p><h1>공연장 무대 모양</h1></div><button class="link" data-go="signup">← 처음 화면</button></div>
-<div class="sec">
-  <div class="chips">${VENUES.map(v => `<button class="chip ${a.venue === v ? 'on' : ''}" data-act="venue" data-v="${esc(v)}">${esc(v)}${S.stages[v] ? ' ✓' : ''}</button>`).join('')}</div>
-  <p class="muted">실제 무대 사진이나 도면을 밑그림으로 깔고, 무대 모서리를 차례로 눌러 따라 그려요. 좌석은 지금처럼 네모 격자 그대로예요.</p>
-</div>
-<div class="split" style="margin-top:20px">
+<div class="page-head"><div><p class="eyebrow">관리자 대시보드</p><h1>좌석 구역 그리기</h1></div><button class="link" data-go="signup">← 처음 화면</button></div>
+<div class="admin-grid">
+  <aside class="panel form">
+    <label for="admVenue">콘서트장</label>
+    <select id="admVenue">${VENUES.map(v => `<option ${!a.newVenue && v === a.venue ? 'selected' : ''}>${esc(v)}</option>`).join('')}<option value="__new" ${a.newVenue ? 'selected' : ''}>＋ 새 콘서트장 만들기</option></select>
+    ${a.newVenue ? `<form class="inline" data-submit="addVenue"><input type="text" id="newVenue" name="v" placeholder="콘서트장 이름" aria-label="새 콘서트장 이름" autocomplete="off"><button class="btn btn-s" type="submit">만들기</button></form>
+      ${dev('POST /api/admin/venues { name } → 201 { venueId } · 같은 이름이 있으면 그 공연장을 고름')}` : ''}
+    <label for="admFloor">층</label>
+    <select id="admFloor">${Object.keys(FLOORS).map(f => `<option ${f === a.floor ? 'selected' : ''}>${f}</option>`).join('')}</select>
+    <label for="admSec">구역</label>
+    <input type="text" id="admSec" value="${esc(a.name)}" placeholder="예: A구역, VIP, 101" maxlength="12" autocomplete="off">
+    <p class="tag">같은 층에 같은 구역 이름으로 저장하면 새 모양으로 바뀌어요.</p>
+    <h2 style="font-size:15px;margin:14px 0 0">이 콘서트장에 저장된 구역</h2>
+    ${saved.length ? `<div class="list">${saved.map(([k, s]) => `<button class="li" data-act="editSec" data-v="${esc(k)}"><span class="main"><b>${s.floor} · ${esc(s.name)}</b><small>${s.rows}열 · ${s.seats.length}석</small></span><span class="tag">고치기</span></button>`).join('')}</div>`
+      : '<p class="tag">아직 없어요. 오른쪽에 첫 구역을 그려 보세요.</p>'}
+  </aside>
   <div class="panel sec">
     <div class="toolbar">
-      <label class="btn btn-s" for="stageImg">무대 이미지 올리기</label><input type="file" id="stageImg" accept="image/*" hidden>
-      <button class="btn btn-s" data-act="sampleImg">샘플 도면</button>
+      <button class="btn btn-s ${st ? '' : 'on'}" data-act="mode" data-v="sec" aria-pressed="${!st}">좌석 구역</button>
+      <button class="btn btn-s ${st ? 'on' : ''}" data-act="mode" data-v="stage" aria-pressed="${st}">무대 위치</button>
       <span style="flex:1"></span>
+      <label class="btn btn-s" for="stageImg">도면 올리기</label><input type="file" id="stageImg" accept="image/*" hidden>
+      <button class="btn btn-s" data-act="sampleImg">샘플 도면</button>
       <button class="btn btn-s" data-act="undoPt" ${n ? '' : 'disabled'}>마지막 점 지우기</button>
       <button class="btn btn-s" data-act="clearPts" ${n ? '' : 'disabled'}>모두 지우기</button>
     </div>
-    <svg class="canvas" viewBox="0 0 ${CW} ${CH}" data-act="addPt" role="img" aria-label="무대 그리기 영역 · 누를 때마다 꼭짓점이 하나씩 찍혀요">
-      ${a.img ? `<image href="${esc(a.img)}" width="${CW}" height="${CH}" preserveAspectRatio="xMidYMid meet" opacity=".6"/>`
-        : n ? '' : '<text class="hint" x="200" y="144" text-anchor="middle">무대 이미지를 올리거나 샘플 도면을 불러오세요</text><text class="hint" x="200" y="166" text-anchor="middle">밑그림 없이 바로 찍어도 돼요</text>'}
-      ${n >= 3 ? `<polygon class="stage-shape" points="${xy}"/>` : n === 2 ? `<polyline points="${xy}"/>` : ''}
-      ${a.pts.map(([x, y]) => `<circle cx="${x * CW}" cy="${y * CH}" r="5"/>`).join('')}
+    <p class="tag">${st ? '무대 모서리를 눌러 위치를 잡아요. 이 공연장 구역 좌석은 모두 이 무대를 바라보게 기울어요.'
+      : '도면을 밑그림으로 깔고 구역 모서리를 차례로 눌러요. 무대 쪽 변을 앞줄로 삼아 좌석이 도형 안에 채워져요.'}</p>
+    <svg class="canvas" viewBox="0 0 ${CW} ${CH}" data-act="addPt" role="img" aria-label="${st ? '무대' : '구역'} 그리기 영역 · 누를 때마다 꼭짓점이 하나씩 찍혀요">
+      ${a.img ? `<image href="${esc(a.img)}" width="${CW}" height="${CH}" preserveAspectRatio="xMidYMid meet" opacity=".6"/>` : ''}
+      ${here.map(s => `<polygon class="sec-ghost" points="${cpts(s.pts)}"/>${label(s.pts, s.name)}`).join('')}
+      ${st ? '' : `<polygon class="stage-ref" points="${cpts(stageOf(a.venue))}"/>${label(stageOf(a.venue), 'STAGE')}`}
+      ${n >= 3 ? `<polygon class="stage-shape" points="${cpts(P)}"/>` : n === 2 ? `<polyline points="${cpts(P)}"/>` : ''}
+      ${L ? `<g class="seat-pv">${seatRects(L.seats, L.rot)}</g>` : ''}
+      ${P.map(([x, y]) => `<circle cx="${x * CW}" cy="${y * CH}" r="5"/>`).join('')}
+      ${a.img || n ? '' : '<text class="hint" x="200" y="150" text-anchor="middle">구역 모서리를 차례로 눌러 그려요</text><text class="hint" x="200" y="172" text-anchor="middle">도면을 올리거나 샘플 도면을 깔고 따라 그려도 돼요</text>'}
     </svg>
-    <p class="tag">꼭짓점 <b class="num">${n}</b>개 · 3개부터 무대 모양이 닫혀요. 곡선은 점을 촘촘히 찍으면 돼요.</p>
+    <div class="sumbar" id="admFoot">${admFoot()}</div>
+    ${dev(st ? 'PUT /api/admin/venues/{venueId}/stage { points: [[x,y]…] (0~1) } → concert.venue.stage_shape (jsonb) · ROLE_ADMIN'
+      : 'PUT /api/admin/venues/{venueId}/floors/{floor}/sections/{name} { section, seats[] } → venue_section + venue_seat · ROLE_ADMIN')}
+  </div>
+</div>`;
+};
+// 구역 이름을 칠 때마다 화면 전체를 다시 그리지 않도록 아래 줄만 따로 갱신
+function admFoot() {
+  const a = S.admin, name = a.name.trim();
+  if (a.mode === 'stage') return `<p class="tag">꼭짓점 <b class="num">${a.spts.length}</b>개 · 3개부터 무대 모양이 닫혀요</p>
+    <button class="btn btn-primary" data-act="saveStage" ${a.spts.length >= 3 ? '' : 'disabled'}>무대 저장</button>`;
+  const L = a.pts.length >= 3 ? layoutSeats(a.pts, stageOf(a.venue)) : null, k = L ? L.seats.length : 0;
+  const msg = !L ? `꼭짓점 <b class="num">${a.pts.length}</b>개 · 3개부터 구역 모양이 닫혀요`
+    : !k ? '구역이 너무 작아서 좌석이 들어가지 않아요'
+    : `${L.rows}열 · 좌석 <b class="num">${k}</b>석 · 기울기 ${L.rot}°${name ? '' : ' · 왼쪽에 구역 이름을 넣어 주세요'}`;
+  return `<p class="tag">${msg}</p><button class="btn btn-primary" data-act="saveSec" ${k && name ? '' : 'disabled'}>구역 저장</button>`;
+}
+
+// 저장 결과 이미지: 그 층 전체(무대 + 구역들)를 잘라 보여주고, 방금 저장한 구역은 강조 + 열 번호
+function planSvg(key) {
+  const s0 = S.sections[key], stage = stageOf(s0.venue);
+  const secs = Object.entries(S.sections).filter(([, s]) => s.venue === s0.venue && s.floor === s0.floor);
+  const all = toC([...stage, ...secs.flatMap(([, s]) => s.pts)]), xs = all.map(p => p[0]), ys = all.map(p => p[1]);
+  const x0 = Math.min(...xs) - 12, y0 = Math.min(...ys) - 12, w = Math.max(...xs) + 12 - x0, h = Math.max(...ys) + 12 - y0;
+  const r = s0.rot * Math.PI / 180, tr = Math.abs(s0.rot) > 90 ? s0.rot + 180 : s0.rot;
+  const rowl = s0.seats.filter(t => t.num === 1).map(t => `<text class="rowl" transform="translate(${(t.x * CW - Math.cos(r) * 8).toFixed(1)} ${(t.y * CH - Math.sin(r) * 8).toFixed(1)}) rotate(${tr})">${t.row}</text>`).join('');
+  return `<svg class="plan" viewBox="${x0.toFixed(1)} ${y0.toFixed(1)} ${w.toFixed(1)} ${h.toFixed(1)}" role="img" aria-label="${esc(s0.venue)} ${s0.floor} 좌석 배치도 · ${esc(s0.name)} ${s0.seats.length}석">
+    <polygon class="stage-ref" points="${cpts(stage)}"/>${label(stage, 'STAGE')}
+    ${secs.map(([k, s]) => `<g class="${k === key ? 'new' : ''}"><polygon class="sec-ol" points="${cpts(s.pts)}"/>${seatRects(s.seats, s.rot)}${k === key ? rowl : ''}${label(s.pts, s.name, 'secl')}</g>`).join('')}
+  </svg>`;
+}
+
+V.adminSaved = ({ id }) => {
+  const s = S.sections[id], vid = VENUES.indexOf(s.venue) + 1, fc = FLOORS[s.floor];
+  const body = {
+    venueId: vid, venueName: s.venue, floor: fc,
+    section: { name: s.name, shape: s.pts, angle: s.rot, rows: s.rows, seatCount: s.seats.length },
+    seats: s.seats.map(t => ({ seatId: `${fc}-${s.name}-${t.row}-${t.num}`, row: t.row, number: t.num, x: t.x, y: t.y, angle: s.rot }))
+  };
+  // 보기 좋게: 좌표 쌍은 한 줄로, 좌석은 한 석에 한 줄
+  const json = JSON.stringify({ ...body, seats: 0 }, null, 2)
+    .replace(/\[\s+([-\d.,\s]+?)\s+\]/g, (_, g) => `[${g.replace(/\s+/g, '')}]`)
+    .replace('"seats": 0', `"seats": [\n${body.seats.map(x => '    ' + JSON.stringify(x)).join(',\n')}\n  ]`);
+  const res = { sectionId: 101 + Object.keys(S.sections).indexOf(id), venueId: vid, floor: fc, section: s.name, savedSeats: s.seats.length };
+  return `
+<div class="page-head"><div><p class="eyebrow">관리자 대시보드 · 저장 완료</p><h1>${esc(s.venue)} ${s.floor} ${esc(s.name)} 저장 완료</h1></div><button class="link" data-go="admin">← 구역 그리기로</button></div>
+<div class="split">
+  <div class="panel sec">
+    <div class="sec-head"><h2>만들어진 좌석 배치도</h2><span class="tag">${s.floor} 전체 · 방금 저장한 구역 강조</span></div>
+    ${planSvg(id)}
+    <p class="tag">무대를 바라보는 변을 앞줄로 잡고 ${s.rows}열 ${s.seats.length}석을 ${s.rot}° 기울여 도형 안에 채웠어요. 구역 옆 숫자는 열 번호예요.</p>
   </div>
   <aside class="panel sec">
-    <h2 style="font-size:17px">좌석 화면 미리보기</h2>
-    <div>${n >= 3 ? stageDrawn(a.pts) : '<div class="stage">STAGE</div>'}<div class="mini-seats" aria-hidden="true">${'<i></i>'.repeat(84)}</div></div>
-    <p class="tag">${esc(a.venue)} 좌석 선택 화면에 이렇게 보여요. 저장되는 건 꼭짓점 좌표뿐이고 밑그림 이미지는 올리지 않아요.</p>
-    <button class="btn btn-primary" data-act="saveStage" ${n >= 3 ? '' : 'disabled'}>저장</button>
-    ${dev('PUT /api/admin/venues/{venueId}/stage { points: [[x,y]…] (0~1) } → concert.venue.stage_shape (jsonb) · ROLE_ADMIN')}
+    <div class="sec-head"><h2>저장 결과</h2><span class="pill ok">${s.status === 201 ? '201 Created' : '200 OK'}</span></div>
+    <dl class="kv"><dt>콘서트장</dt><dd>${esc(s.venue)}</dd><dt>층</dt><dd>${s.floor}</dd><dt>구역</dt><dd>${esc(s.name)}</dd>
+      <dt>좌석</dt><dd class="num">${s.rows}열 · ${s.seats.length}석</dd><dt>기울기</dt><dd class="num">${s.rot}°</dd></dl>
+    <p class="tag">서버 응답</p>
+    <pre class="json">${esc(JSON.stringify(res, null, 2))}</pre>
+    <button class="btn btn-primary" data-go="admin">다른 구역 그리기</button>
   </aside>
+</div>
+<div class="panel sec" style="margin-top:20px">
+  <div class="sec-head"><h2>백엔드로 보낸 좌석 JSON</h2><span class="tag num">좌석 ${s.seats.length}개 · ${(new Blob([json]).size / 1024).toFixed(1)}KB</span></div>
+  <p class="mono" style="font-size:13px;overflow-wrap:anywhere">PUT /api/admin/venues/${vid}/floors/${fc}/sections/${esc(s.name)}</p>
+  <pre class="json">${esc(json)}</pre>
+  ${dev('→ concert.venue_section (shape·angle jsonb) + concert.venue_seat 일괄 저장 · 같은 구역이면 좌석을 통째로 교체 · ROLE_ADMIN')}
 </div>`;
 };
 </script>
@@ -1139,7 +1286,7 @@ function go(route, p = {}) {
   S.route = route; S.p = p; render(); window.scrollTo(0, 0);
 }
 function render() {
-  document.body.classList.toggle('bare', ['landing', 'signup', 'genre', 'pickArtists', 'admin'].includes(S.route));
+  document.body.classList.toggle('bare', ['landing', 'signup', 'genre', 'pickArtists', 'admin', 'adminSaved'].includes(S.route));
   $('#loginBtn').hidden = S.route !== 'landing';
   $('#app').innerHTML = V[S.route](S.p);
   drawNav();
@@ -1289,19 +1436,34 @@ const ACT = {
     toast('탈퇴했어요. 그동안 이용해 주셔서 고마워요');
     go('landing');
   },
-  venue(d) { S.admin ={ venue: d.v, img: null, pts: (S.stages[d.v] || []).map(p => [...p]) }; rerender(); },
+  venue(d) { Object.assign(S.admin, { venue: d.v, newVenue: false, mode: 'sec', img: null, pts: [], spts: [] }); rerender(); },
+  addVenue(f) {
+    const v = f.v.value.trim(); if (!v) return;
+    const had = VENUES.includes(v); if (!had) VENUES.push(v);
+    toast(had ? `이미 있는 콘서트장이라 ${eul(v)} 골랐어요` : `새 콘서트장 ${eul(v)} 만들었어요. 층과 구역을 넣고 그려 주세요`);
+    ACT.venue({ v });
+  },
+  mode(d) { const a = S.admin; a.mode = d.v; a.spts = stageOf(a.venue).map(p => [...p]); rerender(); },
   sampleImg() { S.admin.img = SAMPLE_PLAN; rerender(); },
   addPt(d, el, e) {
     const p = new DOMPoint(e.clientX, e.clientY).matrixTransform(el.getScreenCTM().inverse());
     const n = v => Math.min(1, Math.max(0, +v.toFixed(3)));
-    S.admin.pts.push([n(p.x / CW), n(p.y / CH)]); rerender();
+    drawing().push([n(p.x / CW), n(p.y / CH)]); rerender();
   },
-  undoPt() { S.admin.pts.pop(); rerender(); },
-  clearPts() { S.admin.pts = []; rerender(); },
+  undoPt() { drawing().pop(); rerender(); },
+  clearPts() { drawing().length = 0; rerender(); },
   saveStage() {
-    const a = S.admin; S.stages[a.venue] = a.pts.map(p => [...p]);
-    toast(`${a.venue} 무대 모양을 저장했어요. 이 공연장 좌석 화면에 바로 반영돼요`); rerender();
-  }
+    const a = S.admin; S.stages[a.venue] = a.spts.map(p => [...p]); a.mode = 'sec';
+    toast(`${a.venue} 무대 위치를 저장했어요. 구역 좌석이 이 무대를 바라보게 놓여요`); rerender();
+  },
+  saveSec(d, el) {
+    const a = S.admin, name = a.name.trim(), key = [a.venue, a.floor, name].join('|');
+    const sec = { venue: a.venue, floor: a.floor, name, pts: a.pts.map(p => [...p]), ...layoutSeats(a.pts, stageOf(a.venue)), status: S.sections[key] ? 200 : 201 };
+    el.disabled = true; el.textContent = `좌석 ${sec.seats.length}석 배치하는 중…`;
+    timers.push(setTimeout(() => { el.textContent = '백엔드로 보내는 중…'; }, 500));
+    timers.push(setTimeout(() => { S.sections[key] = sec; a.pts = []; a.name = ''; go('adminSaved', { id: key }); }, 1200));
+  },
+  editSec(d) { const s = S.sections[d.v]; Object.assign(S.admin, { floor: s.floor, name: s.name, mode: 'sec', pts: s.pts.map(p => [...p]) }); rerender(); }
 };
 
 document.addEventListener('click', e => {
@@ -1313,6 +1475,12 @@ document.addEventListener('click', e => {
 document.addEventListener('submit', e => { e.preventDefault(); const f = e.target; if (ACT[f.dataset.submit]) ACT[f.dataset.submit](f); });
 document.addEventListener('input', e => { if (e.target.id === 'q') { S.q = e.target.value; $('#artistGrid').innerHTML = artistGrid(); } });
 document.addEventListener('change', e => { if (e.target.id === 'stageImg' && e.target.files[0]) { S.admin.img = URL.createObjectURL(e.target.files[0]); rerender(); } });
+document.addEventListener('input', e => { if (e.target.id === 'admSec') { S.admin.name = e.target.value; $('#admFoot').innerHTML = admFoot(); } });
+document.addEventListener('change', e => {
+  const t = e.target;
+  if (t.id === 'admFloor') { S.admin.floor = t.value; rerender(); }
+  if (t.id === 'admVenue') { if (t.value !== '__new') ACT.venue({ v: t.value }); else { S.admin.newVenue = true; rerender(); $('#newVenue').focus(); } }
+});
 $('#devmode').addEventListener('change', e => document.body.classList.toggle('devmode', e.target.checked));
 
 render();
