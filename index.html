@@ -66,7 +66,7 @@ p{margin:0}
 body.bare .nav,body.bare .tabbar{display:none!important}
 
 /* ---------- 본문 ---------- */
-.wrap{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:32px 96px}
+.wrap{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:32px 56px}
 .eyebrow{font-size:12px;letter-spacing:.14em;color:var(--accent);font-weight:600}
 .display{font-family:var(--font-display);font-weight:400;font-size:clamp(34px,5vw,52px);line-height:1.15;letter-spacing:-.5px}
 .display-s{font-family:var(--font-display);font-weight:400;font-size:clamp(26px,3.6vw,34px);line-height:1.2}
@@ -94,7 +94,6 @@ body.bare .nav,body.bare .tabbar{display:none!important}
 .chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:6px 14px;font-size:14px;color:var(--fg)}
 .chip:hover{border-color:var(--muted)}
 .chip.on{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
-.chips.big .chip{padding:12px 20px;font-size:16px}
 .pill{display:inline-flex;align-items:center;font-size:12px;font-weight:600;padding:2px 8px;border-radius:4px;background:var(--surface-2);color:var(--muted);white-space:nowrap}
 .pill.ok{background:var(--ok-weak);color:var(--ok)}
 .pill.warn{background:var(--warn-weak);color:var(--warn)}
@@ -152,7 +151,7 @@ button.li:hover{background:var(--surface-2)}
 .form{display:grid;gap:8px}
 .form h2{font-size:20px;margin-bottom:8px}
 .form label{font-size:13px;color:var(--muted);font-weight:500;margin-top:6px}
-.form input[type=text],.form input[type=email],.form input[type=password],.search{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:11px 14px}
+.form input[type=text],.form input[type=email],.form input[type=password],.form select,.search{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:11px 14px}
 .form .btn{margin-top:14px}
 .search{max-width:420px}
 .check{display:flex;align-items:center;gap:8px;font-size:14px}
@@ -164,15 +163,27 @@ button.li:hover{background:var(--surface-2)}
 .points li{display:flex;gap:12px;align-items:baseline;color:var(--muted)}
 .points b{color:var(--fg);font-family:var(--font-mono);font-size:12px;font-weight:500;width:34px;flex:none}
 .onb{max-width:820px;margin:0 auto;display:grid;gap:22px}
-.steps{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--muted)}
-.steps span{height:4px;width:44px;border-radius:2px;background:var(--line)}
-.steps span.on{background:var(--accent)}
 .onb-foot{position:sticky;bottom:0;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:12px;padding-block:14px;padding-inline:16px;margin-inline:-16px;background:color-mix(in srgb,var(--bg) 92%,transparent);border-top:1px solid var(--line)}
 .pick{position:relative;display:flex;align-items:center;gap:12px;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:12px;text-align:left;min-width:0}
 .pick.on{border-color:var(--accent);background:var(--accent-weak)}
 .pick .ck{margin-left:auto;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-size:13px;color:var(--on-accent);flex:none}
 .pick.on .ck{background:var(--accent);border-color:var(--accent)}
 .saved{display:grid;gap:6px;font-size:13px;color:var(--muted)}
+/* 약관 화면 · 푸터 (docs/25) */
+.terms-doc{max-width:760px;display:grid;gap:10px}
+.terms-doc h2{font-size:16px;margin-top:14px}
+.terms-doc p,.terms-doc li{color:var(--muted)}
+.terms-doc ul{margin:0;padding-left:1.2em;display:grid;gap:4px}
+.terms-doc mark{background:var(--warn-weak);color:var(--warn);padding:0 4px;border-radius:3px}
+.site-foot{border-top:1px solid var(--line);background:var(--surface)}
+.foot-in{max-width:1120px;margin:0 auto;padding:28px 16px 88px;display:grid;gap:12px}
+.foot-links{display:flex;flex-wrap:wrap;gap:6px 20px}
+.foot-links button{background:none;border:0;padding:0;font-size:13px;color:var(--muted)}
+.foot-links button:hover{color:var(--fg)}
+.foot-links .pp{color:var(--fg);font-weight:700}
+.tabs button.pp{color:var(--fg)}
+.biz{display:flex;flex-wrap:wrap;gap:2px 16px;font-size:12px;color:var(--muted);line-height:1.7}
+.biz i{font-style:normal;color:var(--warn)}
 
 /* ---------- 첫 진입 (비로그인): 좌측 후킹 문구 · 우측 오늘 공연 ---------- */
 .display.xl{font-size:clamp(40px,6.4vw,72px);line-height:1.08}
@@ -215,16 +226,46 @@ button.li:hover{background:var(--surface-2)}
 .timer{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:13px;padding:4px 10px;border-radius:4px;background:var(--accent-weak);color:var(--accent);white-space:nowrap}
 .timer.warn{background:var(--warn-weak);color:var(--warn)}
 .stage{text-align:center;font-size:12px;letter-spacing:.3em;color:var(--muted);border:1px solid var(--line);border-radius:4px 4px 40px 40px;padding:8px;margin-bottom:18px}
-.seatmap-wrap{overflow-x:auto;padding-bottom:6px}
-.seatmap{display:grid;gap:6px;width:max-content;margin:0 auto}
-.srow{display:flex;gap:6px;align-items:center}
-.srow .rl{width:18px;font-family:var(--font-mono);font-size:12px;color:var(--muted)}
-.srow .gap{width:14px}
-.seat{width:28px;height:26px;border-radius:5px 5px 3px 3px;border:0;background:var(--seat);font-size:10px;color:var(--muted);font-family:var(--font-mono)}
-.seat:hover{outline:1.5px solid var(--accent)}
-.seat.sel{background:var(--accent);color:var(--on-accent)}
-.seat.paid{background:var(--seat-taken);color:transparent;cursor:not-allowed}
-.seat.held{background:repeating-linear-gradient(45deg,var(--warn-weak) 0 4px,var(--seat) 4px 8px);color:transparent}
+/* 좌석 상태 색 — 배치도(.plan.pm) · 구역 확대 창(.secview.pm) 공용 */
+.pm rect.free,.pm .free rect{fill:var(--ok)}
+.pm rect.contested,.pm .contested rect{fill:color-mix(in srgb,var(--warn) 45%,var(--bg))}
+.pm rect.paid,.pm .paid rect{fill:var(--seat-taken)}
+.pm rect.mine,.pm .mine rect,.pm .on rect{fill:var(--accent)}
+.plan.pm .sec-ol{fill:transparent}
+.sec-pick{cursor:pointer}
+.sec-pick:focus-visible{outline:none}
+.pm .sec-pick:hover .sec-ol,.pm .sec-pick:focus-visible .sec-ol{fill:color-mix(in srgb,var(--accent) 12%,transparent);stroke:var(--accent);stroke-width:2}
+.legend .lg-free{background:var(--ok)}
+.legend .lg-on{background:var(--accent)}
+.legend .lg-contested{background:color-mix(in srgb,var(--warn) 45%,var(--bg))}
+.legend .lg-paid{background:var(--seat-taken)}
+.notice{background:var(--warn-weak);color:var(--warn);border-radius:8px;padding:12px 16px;font-size:14px;font-weight:600}
+.err{background:var(--bad-weak);color:var(--bad);border-radius:8px;padding:12px 14px;font-size:14px}
+.confirm{display:grid;gap:8px;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);font-size:14px}
+.check.sim{color:var(--muted);font-size:13px}
+/* 구역 확대 창 — 넓은 화면은 가운데 창, 폰은 아래에서 올라오는 시트 */
+.sheet{width:min(1040px,calc(100vw - 32px));max-width:none;max-height:calc(100dvh - 32px);padding:0;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg);overflow:auto}
+.sheet::backdrop{background:rgba(0,0,0,.6)}
+.sheet-in{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;padding:20px;align-items:start}
+.sheet-in.one{grid-template-columns:minmax(0,1fr)}
+.sheet-in > *{min-width:0}
+.sheet-head{display:flex;align-items:center;gap:10px}
+.sheet-head > div{flex:1;min-width:0}
+.sheet-head h2{font-size:20px}
+.secview-wrap{overflow:auto;max-height:52vh}
+.secview{display:block;height:auto;margin:0 auto}
+.secview text{font-size:3.4px;font-family:var(--font-mono);text-anchor:middle;dominant-baseline:central;fill:var(--bg);pointer-events:none}
+.secview .on text,.secview .mine text{fill:var(--on-accent)}
+.secview .paid text{fill:transparent}
+.secview .rowl{fill:var(--muted);font-size:4px}
+.secview [role=button]{cursor:pointer}
+.secview [role=button]:focus-visible{outline:none}
+.secview [role=button]:hover rect,.secview [role=button]:focus-visible rect,.secview .on rect{stroke:var(--fg);stroke-width:2px;vector-effect:non-scaling-stroke}
+@media (max-width:760px){
+  .sheet{width:100%;max-width:100%;max-height:92dvh;margin:auto 0 0;border-radius:14px 14px 0 0;border-bottom:0}
+  .sheet-in{grid-template-columns:minmax(0,1fr);padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px))}
+  .secview-wrap{max-height:42vh}
+}
 .legend{display:flex;flex-wrap:wrap;gap:14px;font-size:12.5px;color:var(--muted)}
 .legend i{display:inline-block;width:14px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:6px}
 .sumbar{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between}
@@ -257,24 +298,61 @@ button.li:hover{background:var(--surface-2)}
 .btn-danger{background:var(--bad);border-color:var(--bad);color:#fff}
 .btn-danger:hover{filter:brightness(1.08);border-color:var(--bad)}
 
-/* ---------- 관리자 · 무대 편집 (꼭짓점 좌표만 저장 · 좌석은 네모 격자 유지) ---------- */
+/* ---------- 관리자 · 좌석 구역 편집 (구역 꼭짓점 → 무대를 바라보게 좌석 자동 배치) ---------- */
+.admin-grid{display:grid;grid-template-columns:300px minmax(0,1fr);gap:24px;align-items:start}
+.admin-grid > *{min-width:0}
+.inline{display:flex;gap:8px}
+.inline input[type=text]{flex:1;min-width:0}
+.inline .btn{margin-top:0}
 .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center}
+/* 관리자 대시보드 (docs/24) */
+.acts{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+.fgrid{display:grid;gap:4px 14px;grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
+.fgrid > div{display:grid;gap:6px;min-width:0;align-content:start}
+.form input[type=number],.form input[type=date],.form input[type=time],.form input[type=url]{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:11px 14px}
+.adm-form{margin-bottom:16px}
+.adm-login{max-width:440px}
+.adm-todo{margin-bottom:16px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:center}
+.table tr.del td{opacity:.55}
+.table.adm{min-width:760px}
+.table.adm th,.table.adm td{word-break:keep-all}
+.qr{width:168px;height:168px;background:#fff;padding:8px;border-radius:8px;border:1px solid var(--line)}
+/* 배송지 · 모바일 티켓 */
+.form input[type=tel]{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:11px 14px}
+.form input[readonly]{color:var(--muted)}
+.postcode{height:420px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.addr{display:grid;gap:4px;padding:14px 16px;border:1px solid var(--line);border-radius:10px;background:var(--surface);font-size:14px}
+.addr .top{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
+.addr .acts{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.form .ship-opt{display:flex;gap:10px;align-items:flex-start;padding:12px;margin-top:0;border:1px solid var(--line);border-radius:8px;color:var(--fg);font-size:14px;font-weight:400}
+.ship-opt:has(input:checked){border-color:var(--accent)}
+.ticket{display:grid;grid-template-columns:auto 1fr;gap:20px;align-items:center}
+@media (max-width:560px){.ticket{grid-template-columns:1fr;justify-items:center}}
 .toolbar label{cursor:pointer}
 .canvas{display:block;width:100%;aspect-ratio:4/3;background:var(--bg);border:1px dashed var(--line);border-radius:8px;cursor:crosshair;touch-action:manipulation}
 .canvas .hint{fill:var(--muted);font-size:13px;font-family:var(--font-body)}
 .canvas polyline{fill:none;stroke:var(--accent);stroke-width:2;stroke-dasharray:5 4}
 .canvas circle{fill:var(--accent);stroke:var(--bg);stroke-width:2}
 .stage-shape{fill:color-mix(in srgb,var(--accent) 22%,transparent);stroke:var(--accent);stroke-width:2;vector-effect:non-scaling-stroke}
-.stage-drawn{position:relative;margin-bottom:18px}
-.stage-drawn svg{display:block;width:100%;height:auto;max-height:140px}
-.stage-drawn span{position:absolute;inset:0;display:grid;place-items:center;font-size:12px;letter-spacing:.3em;color:var(--muted);pointer-events:none}
-.mini-seats{display:grid;grid-template-columns:repeat(12,minmax(0,1fr));gap:3px}
-.mini-seats i{aspect-ratio:1;border-radius:2px;background:var(--seat)}
+.stage-ref{fill:var(--surface-2);stroke:var(--muted);stroke-width:1.5;vector-effect:non-scaling-stroke}
+.sec-ghost{fill:none;stroke:var(--muted);stroke-width:1;stroke-dasharray:4 3;vector-effect:non-scaling-stroke}
+.lbl{fill:var(--muted);font-size:9px;font-family:var(--font-body);letter-spacing:.15em;text-anchor:middle;dominant-baseline:central}
+.seat-pv rect{fill:var(--accent);opacity:.75}
+.plan{display:block;width:100%;height:auto;background:var(--bg);border:1px solid var(--line);border-radius:8px}
+.plan .sec-ol{fill:none;stroke:var(--line);stroke-width:1;vector-effect:non-scaling-stroke}
+.plan rect{fill:var(--seat-taken)}
+.plan .new rect{fill:var(--accent)}
+.plan .new .sec-ol{stroke:var(--accent)}
+.plan .rowl{fill:var(--muted);font-size:5.5px;font-family:var(--font-mono);text-anchor:middle;dominant-baseline:central}
+.plan .secl{fill:var(--fg);font-size:8px;font-weight:700;font-family:var(--font-body);text-anchor:middle;dominant-baseline:central;paint-order:stroke;stroke:var(--bg);stroke-width:2.5px}
+.json{margin:0;max-height:360px;overflow:auto;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-family:var(--font-mono);font-size:12px;line-height:1.55;white-space:pre}
 
 /* ---------- 보조 ---------- */
 .acard button.row{background:none;border:0;padding:0;text-align:left;color:inherit}
 .nm{min-width:0;overflow-wrap:anywhere}
 .mini-cover{width:52px;flex:none}
+.qty{display:flex;align-items:center;gap:10px}
+.qty .num{min-width:3em;text-align:center;font-weight:600}
 .mini-cover .cover{padding:0}
 .mini-cover .cover span{display:none}
 .li .end{display:grid;gap:4px;justify-items:end;flex:none}
@@ -285,21 +363,22 @@ button.li:hover{background:var(--surface-2)}
 .tracks li::marker{color:var(--muted);font-family:var(--font-mono);font-size:12px}
 .form .check{color:var(--fg);font-size:14px;font-weight:400}
 .form .check.fail{margin-top:14px;color:var(--muted)}
+.toss-box{background:#fff;border:1px solid var(--line);border-radius:12px;overflow:hidden;min-height:96px}
+.toss-msg{margin:0;padding:20px 16px;color:#4e5968;font-size:14px}
 @media (max-width:560px){.album-head{grid-template-columns:minmax(0,1fr)}.big-cover{max-width:240px}}
 
 /* 소셜 로그인 버튼: 각 브랜드 가이드 색상을 테마와 무관하게 고정 */
 .form .sso{width:100%;margin-top:6px;padding:12px 18px;gap:10px}
 .sso svg{width:18px;height:18px;flex:none}
 .sso.kakao{background:#FEE500;border-color:#FEE500;color:rgba(0,0,0,.85)}
-.sso.google{background:#ffffff;border-color:#747775;color:#1f1f1f}
-.sso.kakao:hover,.sso.google:hover{filter:brightness(.96)}
+.sso.kakao:hover{filter:brightness(.96)}
 
 /* ---------- 토스트 ---------- */
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:50;background:var(--fg);color:var(--bg);padding:12px 18px;border-radius:8px;font-size:14px;font-weight:500;max-width:calc(100% - 32px);box-shadow:0 8px 24px rgba(0,0,0,.25)}
 
 /* ---------- 반응형 ---------- */
 @media (max-width:960px){
-  .split{grid-template-columns:minmax(0,1fr)}
+  .split,.admin-grid{grid-template-columns:minmax(0,1fr)}
   .signup{grid-template-columns:minmax(0,1fr);gap:32px}
 }
 @media (max-width:760px){
@@ -310,7 +389,8 @@ button.li:hover{background:var(--surface-2)}
   .tabbar .badge{min-width:16px;height:16px;font-size:10px;padding:0 4px}
   .cal .d{min-height:54px}
   .cal .ev{font-size:0;height:6px;padding:0}
-  .wrap{padding-block:20px 140px}
+  .wrap{padding-block:20px 40px}
+  body:not(.bare) .foot-in{padding-bottom:calc(140px + env(safe-area-inset-bottom,0px))}
   .onb-foot{bottom:0}
   .fab{bottom:calc(68px + env(safe-area-inset-bottom,0px))}
   .cpanel{inset:0;width:auto;height:auto;border:0;border-radius:0;z-index:40}
@@ -339,6 +419,7 @@ img{max-width:100%}
   </div>
 </header>
 <main id="app" class="wrap"></main>
+<footer class="site-foot" id="foot"></footer>
 <nav class="tabbar" id="tabbar" aria-label="주요 메뉴"></nav>
 <div class="toast" id="toast" role="status" hidden></div>
 <button class="fab" id="fab" data-act="toggleChat" aria-controls="cpanel" aria-expanded="false" aria-label="AI 챗봇 열기" hidden><svg viewBox="0 0 24 24" aria-hidden="true"></svg></button>
@@ -357,12 +438,6 @@ img{max-width:100%}
 /* ===== 샘플 데이터 (가상의 밴드 · 실제 공연장 이름) ===== */
 const TODAY = new Date('2026-10-08T12:00:00');
 const GENRES = ['인디록','슈게이징','드림팝','포스트록','포크','신스팝','시티팝','펑크','사이키델릭','재즈 인디'];
-// 온보딩 1단계: 큰 장르를 고르면 아래에 세부 장르가 열림. 아티스트 태그는 세부 장르(GENRES) 기준
-const GENRE_TREE = [
-  {name:'록', subs:['인디록','슈게이징','포스트록','펑크','사이키델릭']},
-  {name:'팝', subs:['드림팝','신스팝','시티팝']},
-  {name:'포크·재즈', subs:['포크','재즈 인디']}
-];
 
 const ARTISTS = [
   {id:'a1',name:'소음정원',en:'Noise Garden',genres:['슈게이징','드림팝'],city:'서울',label:'밤새레코드',debut:2019,colors:['#4b3bc4','#c46bd8'],followers:18420,
@@ -388,7 +463,43 @@ const ARTISTS = [
   {id:'a11',name:'종이비행기단',en:'Paper Plane Squad',genres:['인디록','포크'],city:'광주',label:'바다녹음',debut:2023,colors:['#3f6cb8','#d8d2c2'],followers:4210,
    bio:'광주에서 온 신인 5인조. 합창처럼 함께 부르는 후렴이 많아요.',members:'예준 보컬|시우 기타|한별 기타|도아 베이스|이든 드럼'},
   {id:'a12',name:'반지하 오케스트라',en:'Semi-Basement Orchestra',genres:['포스트록','재즈 인디'],city:'서울',label:'독립',debut:2014,colors:['#33376a','#8f99d6'],followers:10050,
-   bio:'현악과 관악이 함께하는 7인조 실내악 록. 지하 연습실에서 시작했어요.',members:'지안 첼로|보람 트럼펫|현 기타|라온 피아노|새봄 베이스|단 드럼|미루 바이올린'}
+   bio:'현악과 관악이 함께하는 7인조 실내악 록. 지하 연습실에서 시작했어요.',members:'지안 첼로|보람 트럼펫|현 기타|라온 피아노|새봄 베이스|단 드럼|미루 바이올린'},
+  {id:'a13',name:'흐린 주파수',en:'Cloudy Frequency',genres:['슈게이징','포스트록'],city:'서울',label:'밤새레코드',debut:2020,colors:['#3b4a8f','#9aa8e0'],followers:9870,
+   bio:'라디오 잡음을 샘플링해 기타 벽 사이에 끼워 넣는 3인조. 공연 내내 조명을 거의 켜지 않아요.',members:'유하 보컬·기타|겸 기타|한솔 드럼'},
+  {id:'a14',name:'안개 정류장',en:'Fog Stop',genres:['슈게이징','드림팝'],city:'강릉',label:'바다녹음',debut:2021,colors:['#6f8fa6','#d5e3ea'],followers:6420,
+   bio:'바닷가 안개처럼 번지는 기타와 속삭이는 보컬. 새벽 첫차 시간대의 소리를 좋아해요.',members:'봄 보컬·기타|재윤 베이스|도담 드럼'},
+  {id:'a15',name:'물결 테이프',en:'Wave Tape',genres:['시티팝','신스팝'],city:'서울',label:'사과농장',debut:2019,colors:['#2a8fd6','#f3a7c0'],followers:6650,
+   bio:'카세트테이프 질감의 신스와 펑키한 베이스. 드라이브 플레이리스트 단골이에요.',members:'세아 보컬|민호 신스|태린 베이스|유준 드럼'},
+  {id:'a16',name:'형광 편의점',en:'Fluorescent Mart',genres:['시티팝','인디록'],city:'서울',label:'독립',debut:2022,colors:['#1fa37a','#f4d35e'],followers:5230,
+   bio:'퇴근 후 편의점 앞에서 만난 네 명이 만든 밴드. 일상 이야기를 밝은 기타 록으로 불러요.',members:'다현 보컬·기타|성우 기타|미소 베이스|강민 드럼'},
+  {id:'a17',name:'야간 비행',en:'Night Flight',genres:['신스팝','시티팝'],city:'부산',label:'밤새레코드',debut:2018,colors:['#28306e','#ff8a5b'],followers:8150,
+   bio:'해운대 야경에서 영감을 받은 신스팝 듀오. 공연마다 직접 만든 영상을 틀어요.',members:'하윤 보컬·신스|정우 프로그래밍·기타'},
+  {id:'a18',name:'고무줄 폭탄',en:'Rubber Band Bomb',genres:['펑크','인디록'],city:'인천',label:'독립',debut:2017,colors:['#e0352b','#f7e04b'],followers:7790,
+   bio:'1분 30초짜리 곡을 스무 곡 연달아 치는 펑크 4인조. 관객이 무대에 올라오는 걸 반겨요.',members:'똘 보컬|건 기타|빈 베이스|용 드럼'},
+  {id:'a19',name:'깨진 형광등',en:'Broken Neon Tube',genres:['펑크','사이키델릭'],city:'대전',label:'독립',debut:2019,colors:['#7d2bd1','#c9f24a'],followers:4880,
+   bio:'퍼즈 페달을 세 개씩 밟는 사이키 펑크. 대전 지하 클럽의 터줏대감이에요.',members:'루 보컬·기타|찬 베이스|휘 드럼'},
+  {id:'a20',name:'골목 사이렌',en:'Alley Siren',genres:['펑크','포크'],city:'수원',label:'들꽃음반',debut:2020,colors:['#b5462f','#e8c9a0'],followers:3960,
+   bio:'어쿠스틱 기타를 펑크처럼 긁는 포크 펑크. 골목 공연을 자주 열어요.',members:'나무 보컬·기타|이랑 아코디언|훈 카혼'},
+  {id:'a21',name:'보름달 서커스',en:'Full Moon Circus',genres:['사이키델릭','재즈 인디'],city:'서울',label:'들꽃음반',debut:2016,colors:['#3a1f5d','#f2c14e'],followers:11870,
+   bio:'관악기와 오르간이 뒤엉키는 사이키델릭 재즈 밴드. 공연 의상도 직접 만들어요.',members:'모아 보컬|진 색소폰|하람 오르간|석 베이스|율 드럼'},
+  {id:'a22',name:'모닥불 합창단',en:'Campfire Choir',genres:['포크','인디록'],city:'춘천',label:'들꽃음반',debut:2021,colors:['#c4622d','#f0d9a8'],followers:6950,
+   bio:'춘천 호숫가 캠핑장에서 결성한 6인조. 관객과 함께 부르는 떼창 곡이 많아요.',members:'소이 보컬|태양 기타|별 기타|은결 베이스|산들 드럼|가람 바이올린'},
+  {id:'a23',name:'겨울 우체국',en:'Winter Post Office',genres:['포크','드림팝'],city:'원주',label:'들꽃음반',debut:2022,colors:['#5b7fa3','#eef2f6'],followers:5610,
+   bio:'편지처럼 쓴 가사와 흐린 신스 패드. 겨울에만 단독 공연을 열어요.',members:'해솔 보컬·기타|지우 신스'},
+  {id:'a24',name:'느린 엘리베이터',en:'Slow Elevator',genres:['재즈 인디','시티팝'],city:'서울',label:'사과농장',debut:2018,colors:['#a06b3f','#f5e1c8'],followers:12340,
+   bio:'로비 음악처럼 편안한 재즈 화성 위의 시티팝. 라운지 공연이 특기예요.',members:'채원 보컬|유빈 피아노|도현 베이스|선우 드럼'},
+  {id:'a25',name:'빛의 지하실',en:'Basement of Light',genres:['포스트록','사이키델릭'],city:'부산',label:'독립',debut:2015,colors:['#1d1d3b','#e5b84f'],followers:8320,
+   bio:'빛과 소리를 함께 연출하는 기악 사이키 밴드. 공연장 벽 전체에 영상을 비춰요.',members:'현무 기타|서진 기타·신스|라희 베이스|도운 드럼'},
+  {id:'a26',name:'수요일 밤 산책',en:'Wednesday Night Walk',genres:['포크','재즈 인디'],city:'제주',label:'바다녹음',debut:2023,colors:['#2f6f73','#cfe7e2'],followers:3420,
+   bio:'제주 올레길을 걸으며 쓴 노래들. 콘트라베이스와 나일론 기타 듀오예요.',members:'윤 보컬·기타|하경 콘트라베이스'},
+  {id:'a27',name:'은하 세탁기',en:'Galaxy Washer',genres:['신스팝','사이키델릭'],city:'서울',label:'밤새레코드',debut:2020,colors:['#5c2bd8','#3fe0c5'],followers:10780,
+   bio:'빙글빙글 도는 아르페지에이터와 사이키 기타. 우주 콘셉트 무대를 해요.',members:'코코 보컬|레오 신스|미르 기타|준 드럼'},
+  {id:'a28',name:'고양이 비행선',en:'Cat Airship',genres:['슈게이징','사이키델릭'],city:'부산',label:'바다녹음',debut:2019,colors:['#8a3f8f','#f4b6d2'],followers:7140,
+   bio:'귀여운 이름과 달리 귀가 먹먹할 만큼 큰 소리를 내는 슈게이즈 밴드예요.',members:'나비 보컬·기타|철민 기타|소담 베이스|규리 드럼'},
+  {id:'a29',name:'해저 터널',en:'Undersea Tunnel',genres:['포스트록','슈게이징'],city:'울산',label:'독립',debut:2017,colors:['#0e4d64','#7fd1d8'],followers:5980,
+   bio:'천천히 가라앉았다가 폭발하는 15분짜리 곡들. 조선소에서 일하던 네 명이 만든 밴드예요.',members:'강철 기타|바다 기타|민 베이스|우 드럼'},
+  {id:'a30',name:'분홍 소화기',en:'Pink Extinguisher',genres:['펑크','신스팝'],city:'서울',label:'독립',debut:2021,colors:['#ff4f8b','#2b2b2b'],followers:9310,
+   bio:'드럼머신과 펑크 기타를 섞은 신스 펑크 듀오. 2분 안에 끝나는 춤곡을 만들어요.',members:'보라 보컬·신스|태 기타·드럼머신'}
 ];
 
 const ALBUMS = [
@@ -421,6 +532,21 @@ const ALBUMS = [
    tracks:'1악장: 습기|2악장: 형광등|3악장: 창문 높이|4악장: 계단 위로',lp:null,stock:[]}
 ];
 
+const GOODS = [
+  {id:'g1',artist:'a1',name:'〈젖은 신호〉 투어 티셔츠',kind:'의류',price:35000,stock:14,v:1},
+  {id:'g2',artist:'a1',name:'소음정원 로고 에코백',kind:'가방',price:22000,stock:0,v:3},
+  {id:'g3',artist:'a1',name:'기타 피크 세트',kind:'액세서리',price:9000,stock:30,v:4},
+  {id:'g4',artist:'a2',name:'파란사과 로고 볼캡',kind:'모자',price:32000,stock:6,v:2},
+  {id:'g5',artist:'a2',name:'〈주머니 속 여름〉 포스터',kind:'포스터',price:15000,stock:0,v:1},
+  {id:'g6',artist:'a3',name:'고래 자수 반팔 티셔츠',kind:'의류',price:38000,stock:0,v:3},
+  {id:'g7',artist:'a3',name:'〈수면 위 오후〉 엽서 세트',kind:'문구',price:8000,stock:20,v:2},
+  {id:'g8',artist:'a5',name:'새벽세탁소 손수건',kind:'생활',price:10000,stock:15,v:4},
+  {id:'g9',artist:'a6',name:'〈심야 상영〉 네온 키링',kind:'액세서리',price:12000,stock:25,v:1},
+  {id:'g10',artist:'a7',name:'퇴근길 FM 슬로건 타월',kind:'응원 도구',price:18000,stock:9,v:2},
+  {id:'g11',artist:'a7',name:'오렌지 버스 스티커 팩',kind:'문구',price:6000,stock:40,v:4},
+  {id:'g12',artist:'a8',name:'검은 우산 장우산',kind:'생활',price:28000,stock:3,v:3}
+];
+
 const CONCERTS = [
   {id:'c1',artists:['a1'],title:'소음정원 단독 공연 〈젖은 신호〉',venue:'KT&G 상상마당 라이브홀',region:'서울',addr:'서울 마포구 어울마당로 65',date:'2026-10-17',time:'18:00',type:'단독',price:66000,queue:1284},
   {id:'c2',artists:['a2','a7','a11'],title:'가을 소풍 페스티벌 2026',venue:'난지 한강공원',region:'서울',addr:'서울 마포구 한강난지로 162',date:'2026-10-24',time:'13:00',type:'페스티벌',price:99000,queue:3420},
@@ -441,13 +567,14 @@ const CONCERTS = [
 /* ===== 상태 ===== */
 const S = {
   route:'landing', p:{},
-  user:{nick:'새벽청취자', email:'', provider:null, genres:[], follows:{}, onboarded:false},
-  draft:{tops:[], genres:[], artists:[], revealed:[]},
-  wish:new Set(), owned:new Set(['al8']), interest:new Set(),
+  user:{nick:'새벽청취자', email:'', provider:null, genres:[], follows:{}, onboarded:false,
+    addresses:[{id:1, label:'집', recipientName:'김새벽', phone:'010-2345-6789', zonecode:'04043', address:'서울 마포구 양화로 45', addressDetail:'3층', isDefault:true}]},
+  draft:{artists:[], shown:[], chain:[]},
+  wish:new Set(), gwish:new Set(), gq:{}, order:null, owned:new Set(['al8']), interest:new Set(),
   bookings:[], activity:[], lastSeen:0, feedFilter:'전체', simStep:0,
   q:'', gfilter:'전체', cview:'캘린더', month:9, region:'전체', ctype:'전체',
-  atab:'신보', mtab:'관심 아티스트', seats:{}, flow:null, chat:[], chatOpen:false,
-  stages:{}, admin:{venue:CONCERTS[0].venue, img:null, pts:[]}
+  atab:'신보', mtab:'관심 아티스트', seats:{}, flow:null, chat:[], chatOpen:false, addrEdit:null, ship:null, ticket:null,
+  stages:{}, sections:{}, admin:{venue:CONCERTS[0].venue, newVenue:false, floor:'1층', name:'', mode:'sec', img:null, pts:[], spts:[]}
 };
 let timers = [];
 
@@ -456,8 +583,9 @@ const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const won = n => n.toLocaleString('ko-KR') + '원';
 const A = id => ARTISTS.find(x => x.id === id);
-const AL = id => ALBUMS.find(x => x.id === id);
-const CO = id => CONCERTS.find(x => x.id === id);
+const AL = id => ALBUMS.find(x => x.id === id) || TRASH.al.find(x => x.id === id);
+const GD = id => GOODS.find(x => x.id === id) || TRASH.g.find(x => x.id === id);
+const CO = id => CONCERTS.find(x => x.id === id) || TRASH.c.find(x => x.id === id);
 const WD = ['일','월','화','수','목','금','토'];
 const day = s => new Date(s + 'T00:00:00');
 const MIDNIGHT = day('2026-10-08');
@@ -524,7 +652,81 @@ const alCard = al => { const st = stockState(al); return `<button class="alcard"
 const stockTable = al => `<div class="tbl-wrap"><table class="table"><thead><tr><th>판매처</th><th class="r">가격</th><th class="r">재고</th></tr></thead><tbody>
   ${al.stock.map(([s, p, q]) => `<tr><td>${esc(s)}</td><td class="r num">${won(p)}</td><td class="r">${q > 0 ? `<span class="pill ok num">${q}장</span>` : '<span class="pill bad">품절</span>'}</td></tr>`).join('')}
   </tbody></table></div>`;
-const steps = n => `<div class="steps"><span class="on"></span><span class="${n >= 2 ? 'on' : ''}"></span><small>취향 고르기 ${n}/2</small></div>`;
+
+/* ===== 배송지 — 굿즈 · LP 만 (티켓은 배송 없음) · 주소 검색은 카카오 우편번호 서비스 (프론트 · 키 없음) ===== */
+const MAX_ADDR = 10;
+let addrNo = 1;
+const addrLine = a => `(${a.zonecode}) ${a.address}${a.addressDetail ? ' ' + a.addressDetail : ''}`;
+const addrList = () => S.user.addresses.slice().sort((x, y) => y.isDefault - x.isDefault || y.id - x.id);   // M19 순서: 기본 → 최근
+const setDefault = a => S.user.addresses.forEach(x => { x.isDefault = x === a; });
+// 받는 분 · 연락처 · 주소 칸. 우편번호 · 주소는 읽기 전용 — 「주소 검색」으로만 채움 (손으로 친 주소는 우편번호가 안 맞음)
+const addrFields = (a = {}, o = {}) => `
+  ${o.label ? `<label for="ad-label">배송지 이름 <small>(선택 · 집, 회사)</small></label><input type="text" id="ad-label" name="label" maxlength="20" value="${esc(a.label || '')}" autocomplete="off">` : ''}
+  <label for="ad-name">받는 분</label><input type="text" id="ad-name" name="recipientName" maxlength="20" required value="${esc(a.recipientName || '')}" autocomplete="name">
+  <label for="ad-phone">연락처</label><input type="tel" id="ad-phone" name="phone" required pattern="0\\d{1,2}-?\\d{3,4}-?\\d{4}" placeholder="010-1234-5678" value="${esc(a.phone || '')}" autocomplete="tel">
+  <label for="ad-zone">주소</label>
+  <div class="inline"><input type="text" id="ad-zone" name="zonecode" readonly placeholder="우편번호" value="${esc(a.zonecode || '')}" style="max-width:130px"><button class="btn btn-s" type="button" data-act="postcode">주소 검색</button></div>
+  <input type="text" name="address" readonly placeholder="「주소 검색」을 눌러 주세요" value="${esc(a.address || '')}" aria-label="주소">
+  <div class="postcode" hidden></div>
+  <input type="text" name="addressDetail" maxlength="100" placeholder="상세 주소 (동 · 호수)" value="${esc(a.addressDetail || '')}" aria-label="상세 주소" autocomplete="address-line2">`;
+// 폼 → M20 · C9 shipping 본문. 읽기 전용 칸은 required 로 못 막아서 여기서 확인
+function readAddr(f) {
+  const v = k => (f.elements[k]?.value || '').trim();
+  if (!v('zonecode') || !v('address')) { toast('「주소 검색」으로 주소를 넣어 주세요'); return null; }
+  return { label: v('label') || null, recipientName: v('recipientName'), phone: v('phone'), zonecode: v('zonecode'), address: v('address'), addressDetail: v('addressDetail') || null };
+}
+// M20 — 첫 배송지는 자동으로 기본
+function addAddr(a, makeDefault) {
+  const n = { ...a, id: ++addrNo, isDefault: false };
+  S.user.addresses.push(n);
+  if (makeDefault || S.user.addresses.length === 1) setDefault(n);
+  return n;
+}
+// 외부 스크립트는 처음 쓸 때 한 번만 받음 (카카오 우편번호 · QR). 실패하면 다음에 다시 시도
+const JS = {};
+const loadJs = src => JS[src] ||= new Promise((ok, no) => {
+  const el = document.createElement('script');
+  el.src = src; el.onload = ok; el.onerror = () => { delete JS[src]; el.remove(); no(); };
+  document.head.appendChild(el);
+});
+const POSTCODE_JS = 'https://t1.kakaocdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
+// 결제는 토스페이먼츠 주문서형 — 결제수단 · 약관 UI 를 토스가 그리고 결제창도 토스가 띄움. 테스트 키라 실제 카드를 넣어도 돈이 나가지 않음
+// 클라이언트 키는 브라우저용 공개 값(토스 문서의 테스트 키). 시크릿 키(test_gsk_)는 절대 여기 두지 않음 — 승인은 서버(P1 · N16)
+const TOSS_JS = 'https://js.tosspayments.com/v2/standard';
+const TOSS_CK = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm';
+const toss = { widgets: null, ui: [], job: Promise.resolve() };
+// 결제 화면을 그릴 때마다 #tossPay · #tossTerms 에 다시 렌더 — 화면을 다시 그리면 iframe 도 사라지므로 이전 UI 를 지우고 (한 페이지에 하나씩만 렌더 가능)
+function mountToss(amount) {
+  const box = $('#tossPay'), btn = $('#payBtn');
+  if (!box) return;
+  toss.job = toss.job.then(async () => {
+    if (!box.isConnected) return;   // 그사이 다른 화면으로 감
+    try {
+      await loadJs(TOSS_JS);
+      toss.widgets ||= TossPayments(TOSS_CK).widgets({ customerKey: TossPayments.ANONYMOUS });
+      await Promise.all(toss.ui.splice(0).map(w => Promise.resolve().then(() => w.destroy()).catch(() => {})));
+      await toss.widgets.setAmount({ currency: 'KRW', value: amount });
+      toss.ui = await Promise.all([
+        toss.widgets.renderPaymentMethods({ selector: '#tossPay', variantKey: 'DEFAULT' }),
+        toss.widgets.renderAgreement({ selector: '#tossTerms', variantKey: 'AGREEMENT' })]);
+      if (btn.isConnected) btn.disabled = false;
+    } catch (e) {
+      if (box.isConnected) box.innerHTML = `<p class="toss-msg">토스 결제창을 불러오지 못했어요. 인터넷 연결을 확인하고 새로고침해 주세요${e?.code ? ` (${esc(e.code)})` : ''}</p>`;
+    }
+  });
+}
+// 결제창 띄우기 — 데모는 Promise 방식(PC · 화면 상태 유지). 휴대폰은 토스가 페이지 이동(successUrl · failUrl)만 지원 — 운영 프론트는 23 §5 대로
+async function tossRequest(orderId, orderName, customer = {}) {
+  try {
+    return await toss.widgets.requestPayment({ orderId, orderName: orderName.slice(0, 100), ...customer });
+  } catch (e) {
+    toast(['USER_CANCEL', 'PAY_PROCESS_CANCELED'].includes(e?.code) ? '결제를 취소했어요. 돈은 나가지 않았어요'
+      : /Android|iPhone|iPad|Mobi/.test(navigator.userAgent) ? '휴대폰에서는 토스 결제창이 페이지 이동 방식이라, 이 데모는 PC 브라우저에서 확인해 주세요'
+      : `토스 결제창 오류 — ${e?.message || e}`);
+    return null;
+  }
+}
+const newPgOrderId = kind => `IND-${kind}-${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;   // 서버(C9 · N10)가 만들어 주는 pgOrderId 흉내
 
 /* ===== 화면 ===== */
 const V = {}, AFTER = {};
@@ -564,64 +766,152 @@ V.signup = () => `
   <div style="display:grid;gap:14px">
   <div class="panel form">
     <h2>시작하기</h2>
-    <p class="tag">처음이면 바로 가입되고, 이미 가입했다면 로그인돼요.</p>
+    <p class="tag">처음이면 카카오 동의 화면에서 약관에 동의하고, 좋아하는 밴드를 고르면 가입이 끝나요. 이미 가입했다면 바로 로그인돼요.</p>
     <button class="btn sso kakao" data-act="sso" data-v="kakao">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#000" d="M12 3C6.48 3 2 6.58 2 11c0 2.85 1.86 5.35 4.66 6.77l-.95 3.48c-.08.3.26.54.52.37l4.15-2.75c.53.07 1.07.11 1.62.11 5.52 0 10-3.58 10-8S17.52 3 12 3z"/></svg>
       카카오로 시작하기</button>
-    <button class="btn sso google" data-act="sso" data-v="google">
-      <svg viewBox="0 0 48 48" aria-hidden="true"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>
-      Google로 시작하기</button>
-    ${dev('GET /oauth2/authorization/{kakao|google} → 콜백 → Member: provider + provider_id 로 users 조회·생성 → JWT 발급')}
+    ${dev('GET /oauth2/authorization/kakao → 카카오 싱크 동의 화면(이용약관 · 개인정보 · 마케팅 선택) → 콜백 · 동의 내역 GET kapi.kakao.com/v2/user/service_terms → 기존 회원: AT · RT → 302 홈 · 처음: 회원을 만들지 않고 사인업 토큰(JWT · SIGNUP 쿠키 HttpOnly · 30분) → 302 /signup (밴드 고르기) · 로그인은 카카오만')}
     <p class="tag" style="text-align:center;margin-top:6px">프로토타입이라 실제 로그인은 일어나지 않아요. 누르면 가입된 것처럼 넘어가요.</p>
   </div>
-  <p class="tag" style="text-align:center">공연장 관리자라면 <button class="link" data-go="admin">관리자로 들어가기</button></p>
+  <p class="tag" style="text-align:center">운영팀 관리자라면 <button class="link" data-go="adminLogin">관리자로 들어가기</button></p>
   </div>
 </section>`;
 
-// 1단계: 큰 장르만 고르고 세부 장르를 안 고르면 그 아래 세부 장르 전체로 봄
-const pickedGenres = () => GENRE_TREE.filter(t => S.draft.tops.includes(t.name))
-  .flatMap(t => { const s = t.subs.filter(g => S.draft.genres.includes(g)); return s.length ? s : t.subs; });
-// 2단계 비슷한 밴드: 운영은 artist 임베딩 유사도(pgvector) · 데모는 장르 겹침 + 같은 레이블로 흉내
+/* ===== 약관 · 정책 (docs/25) — 초안 · 법무 검토 전. 【확인 필요】는 결정이 남은 자리 ===== */
+const dot = d => `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
+const todo = t => `<mark>【확인 필요】 ${t}</mark>`;
+// 전자상거래법 제10조 표시 항목. 사업자 등록 · 통신판매업 신고 전이라 비어 있음
+const BIZ = [
+  ['상호', '인디 아카이브 (가칭)'], ['대표자', '<i>등록 후 기재</i>'], ['사업자등록번호', '<i>사업자 등록 전</i>'],
+  ['통신판매업 신고번호', '<i>신고 전</i>'], ['주소', '<i>등록 후 기재</i>'], ['전화', '<i>등록 후 기재</i>'],
+  ['이메일', '<i>도메인 확정 후 기재</i>'], ['개인정보 보호책임자', '<i>등록 후 기재</i>'], ['호스팅 제공자', 'Amazon Web Services, Inc.']
+];
+const TERMS = {
+  tos: { t: '이용약관', ver: 'v0.1', body: `
+<h2>제1조 (목적)</h2>
+<p>이 약관은 인디 아카이브(이하 "회사")가 제공하는 공연 정보 · 예매, 음반 · LP 정보, 굿즈 판매, AI 추천 서비스(이하 "서비스")를 이용하는 조건과 절차, 회사와 회원의 권리 · 의무를 정합니다.</p>
+<h2>제2조 (회원가입)</h2>
+<p>① 카카오 계정으로 로그인할 때 카카오 동의 화면에서 이 약관과 개인정보 수집 · 이용에 동의하고, 이어지는 가입 화면을 마치면 회원이 됩니다. ② 만 14세 미만은 가입할 수 없습니다.</p>
+<h2>제3조 (예매)</h2>
+<p>① 예매는 대기열 → 좌석 선택 → 결제 순서로 진행합니다. 대기열을 벗어나면 순번이 사라집니다. ② 좌석은 결제를 마쳐야 확정됩니다. 같은 좌석을 여러 회원이 골랐다면 먼저 결제를 마친 회원에게 배정하고, 나머지 회원의 결제는 승인 전에 중단합니다.</p>
+<h2>제4조 (굿즈 판매)</h2>
+<p>굿즈는 각 아티스트 공식 판매처에서 받은 재고로 판매하고, 결제는 서비스 안에서 합니다. 상품 화면에 공식 판매처를 함께 표시합니다. ${todo('판매 당사자(회사 직접 판매 · 위탁 판매 · 중개)에 따라 이 조항과 책임 범위가 바뀝니다')}</p>
+<h2>제5조 (취소 · 환불)</h2>
+<p>취소 · 환불은 별도의 「취소 · 환불 정책」을 따릅니다.</p>
+<h2>제6조 (금지 행위)</h2>
+<p>매크로 같은 자동화 프로그램으로 예매하는 행위, 예매한 티켓을 산 값보다 비싸게 되파는 행위, 다른 사람의 계정을 쓰는 행위를 금지합니다. 위반하면 예매를 취소하고 이용을 제한할 수 있습니다.</p>
+<h2>제7조 (AI 챗봇)</h2>
+<p>AI 챗봇의 답변은 참고용이며 틀릴 수 있습니다. 예매 · 결제 · 탈퇴처럼 결과가 남는 일은 회원이 직접 버튼을 눌러야만 실행됩니다.</p>
+<h2>제8조 (탈퇴)</h2>
+<p>회원은 언제든 탈퇴할 수 있습니다. 법령에 따라 보관해야 하는 기록을 뺀 정보는 바로 지웁니다.</p>
+<h2>제9조 (약관 변경)</h2>
+<p>약관을 바꿀 때는 시행 7일 전부터, 회원에게 불리한 변경은 30일 전부터 공지하고 알립니다. 바뀐 약관에 동의하지 않으면 탈퇴할 수 있습니다.</p>
+<h2>부칙</h2>
+<p>이 약관은 서비스 정식 오픈일부터 시행합니다.</p>` },
+  privacy: { t: '개인정보처리방침', ver: 'v0.1',
+    body: `
+<p>인디 아카이브(이하 "회사")는 개인정보 보호법에 따라 회원의 개인정보를 아래와 같이 처리합니다.</p>
+<h2>1. 처리하는 개인정보와 목적</h2>
+<div class="tbl-wrap"><table class="table"><thead><tr><th>언제</th><th>항목</th><th>목적</th></tr></thead><tbody>
+<tr><td>가입</td><td>카카오 계정 식별자, 이메일(제공 시), 닉네임, 프로필 이미지, 카카오 동의 화면에서 동의한 약관 · 일시</td><td>회원 식별 · 로그인 · 동의 기록</td></tr>
+<tr><td>예매 · 주문</td><td>예매 · 주문 · 결제 내역 (카드 번호는 결제대행사만 보관)</td><td>예매 · 판매 · 환불</td></tr>
+<tr><td>굿즈 · 음반 결제 (배송지 저장)</td><td>받는 분 이름, 연락처, 배송지 주소 (최대 10개)</td><td>굿즈 · 음반 배송</td></tr>
+<tr><td>취향 고르기 · AI 챗봇</td><td>고른 장르, 팔로우한 밴드, 위시리스트, 챗봇 대화</td><td>추천</td></tr>
+<tr><td>마케팅 수신 동의 때</td><td>수신 동의 여부 · 일시</td><td>공연 · 이벤트 소식 발송</td></tr>
+<tr><td>이용 중 자동</td><td>접속 기록, IP 주소, 쿠키</td><td>로그인 유지 · 보안 · 부정 이용 방지</td></tr>
+</tbody></table></div>
+<p>만 14세 미만은 가입할 수 없어 아동의 개인정보는 처리하지 않습니다.</p>
+<h2>2. 보유 기간</h2>
+<p>탈퇴하면 바로 지웁니다. 다만 법령이 정한 기록은 그 기간 동안 따로 보관합니다.</p>
+<ul><li>계약 · 청약철회, 대금 결제 · 재화 공급 기록 — 5년 (전자상거래법)</li><li>소비자 불만 · 분쟁 처리 기록 — 3년 (전자상거래법)</li><li>접속 기록 — 3개월 (통신비밀보호법)</li></ul>
+<h2>3. 제3자 제공</h2>
+<p>제공하지 않습니다. ${todo('공연 입장 확인을 위해 기획사 · 공연장에 예매자 명단을 넘기면 제3자 제공이라 따로 동의를 받아야 합니다')}</p>
+<h2>4. 처리 위탁</h2>
+<ul><li>Amazon Web Services, Inc. — 서버 운영 · 데이터 보관 (서울 리전)</li><li>결제대행사(PG) — 결제 처리 ${todo('업체 선정 후 기재')}</li><li>택배사 — 굿즈 · 음반 배송 ${todo('업체 선정 후 기재')}</li></ul>
+<h2>5. 국외 이전</h2>
+<p>Google LLC (미국) — AI 챗봇 답변을 만들기 위해 질문과 취향 요약(고른 장르 · 팔로우한 밴드)을 Gemini API로 보냅니다. 질문할 때마다 암호화된 통신으로 보내며, 이름 · 연락처 · 결제 정보는 보내지 않습니다. AI 챗봇을 쓰지 않으면 이전되지 않습니다. ${todo('Google 쪽 보관 기간 · 학습 이용 여부를 유료 API 약관 기준으로 기재')}</p>
+<h2>6. 파기</h2>
+<p>보유 기간이 끝나거나 목적을 이루면 다시 살릴 수 없게 지웁니다.</p>
+<h2>7. 회원의 권리</h2>
+<p>MY에서 직접 보거나 고칠 수 있고, 고객센터로 열람 · 정정 · 삭제 · 처리 정지를 요청할 수 있습니다. 탈퇴는 언제든 할 수 있습니다.</p>
+<h2>8. 쿠키</h2>
+<p>로그인을 유지하고 위조 요청을 막는 쿠키만 씁니다. 광고 · 추적 쿠키는 쓰지 않습니다.</p>
+<h2>9. 안전성 확보 조치</h2>
+<p>모든 구간을 암호화해 전송합니다. 관리자는 역할별 권한과 2단계 인증(OTP)을 거치고, 회원 정보 조회 · 변경은 감사 로그로 남깁니다.</p>
+<h2>10. 개인정보 보호책임자</h2>
+<p>${todo('사업자 등록 후 이름 · 직책 · 연락처 기재')}</p>
+<h2>11. 시행일</h2>
+<p>서비스 정식 오픈일부터 시행합니다.</p>` },
+  refund: { t: '취소 · 환불 정책', ver: 'v0.1', body: `
+<h2>공연 티켓</h2>
+<ul><li>공연 시작 <b>24시간 전까지</b> MY › 예매 내역에서 취소하면 전액 환불해요. 그 뒤에는 취소할 수 없어요.</li>
+<li>환불은 결제한 수단으로 돌아가요. 카드 취소는 카드사에 따라 3~7영업일 걸려요.</li>
+<li>공연이 취소되거나 연기되면 ${todo('환불 주체(회사 · 기획사)와 절차 결정 후 기재')}</li></ul>
+<h2>굿즈</h2>
+<ul><li>발송 전에는 바로 취소할 수 있어요.</li>
+<li>받은 날부터 7일 안에 청약철회(반품)할 수 있어요. 단순 변심이면 반품 배송비는 회원이 내요.</li>
+<li>상품이 표시 · 광고와 다르면 받은 날부터 3개월, 그 사실을 안 날부터 30일 안에 반품할 수 있고 배송비는 회사가 내요.</li>
+<li>사용하거나 훼손해 가치가 크게 떨어진 상품은 반품할 수 없어요.</li>
+<li>${todo('배송 방식(택배 · 공연장 현장 수령)과 반품 주소 결정 후 기재')}</li></ul>` },
+  marketing: { t: '마케팅 정보 수신', ver: 'v0.1',
+    body: `
+<p>동의하지 않아도 서비스는 그대로 쓸 수 있어요.</p>
+<h2>받는 내용</h2><p>새 공연 · 할인 · 이벤트 소식, 추천 굿즈 · LP 소식</p>
+<h2>받는 방법</h2><p>이메일, 앱 알림. 밤 9시부터 아침 8시 사이에는 보내지 않아요.</p>
+<h2>이용하는 정보</h2><p>이메일, 앱 알림 토큰, 고른 취향 — 동의를 철회하거나 탈퇴할 때까지 써요.</p>
+<h2>팔로우 알림과 다른 점</h2><p>팔로우한 밴드의 새 소식, 위시리스트 재입고 알림은 회원이 요청한 알림이라 이 동의와 상관없이 와요.</p>
+<h2>철회 · 정기 안내</h2><p>MY › 약관 · 동의에서 언제든 끌 수 있어요. 동의 · 철회하면 처리한 날짜를 알려 드리고, 동의한 날부터 2년마다 동의 상태를 다시 알려 드려요.</p>` },
+  biz: { t: '사업자 정보', ver: '', body: `
+<dl class="kv">${BIZ.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
+<p class="notice">사업자 등록 전이라 비어 있어요. 실제로 팔기 전에 사업자 등록 → 통신판매업 신고를 마치고 여기를 채워야 해요.</p>
+<p class="tag">사업자등록번호가 생기면 공정거래위원회 사업자정보 공개 페이지로 가는 「사업자정보 확인」 링크를 달아요.</p>` }
+};
+const FOOT_LINKS = ['tos', 'privacy', 'refund', 'biz'];
+const footHtml = () => `<div class="foot-in">
+  <nav class="foot-links" aria-label="약관 · 정책">${FOOT_LINKS.map(k => `<button class="${k === 'privacy' ? 'pp' : ''}" data-go="terms" data-id="${k}">${TERMS[k].t}</button>`).join('')}</nav>
+  <p class="biz">${BIZ.map(([k, v]) => `<span>${k} ${v}</span>`).join('')}</p>
+  <p class="biz">© 2026 인디 아카이브</p>
+  ${dev('전자상거래법 제10조 표시 항목 · 빈칸은 사업자 등록 · 통신판매업 신고 후 채움 (docs/25)')}
+</div>`;
+
+V.terms = ({ id }) => {
+  const k = TERMS[id] ? id : 'tos', d = TERMS[k];
+  return `
+<div class="page-head"><h1>약관 · 정책</h1></div>
+<div class="tabs" role="tablist">${Object.entries(TERMS).map(([x, t]) => `<button role="tab" aria-selected="${x === k}" data-go="terms" data-id="${x}" class="${x === 'privacy' ? 'pp' : ''}">${t.t}</button>`).join('')}</div>
+<article class="terms-doc">
+  ${d.ver ? `<p class="notice">${d.ver} 초안 · 법무 검토 전이에요. 정식 오픈 전에 확정해요.</p>` : ''}
+  ${d.body}
+  ${d.ver ? dev(`정적 파일 /terms/${k}/${d.ver} — 프론트 배포물 · 버전별로 남김 · API 없음`) : ''}
+</article>`;
+};
+
+// 비슷한 밴드: 운영은 artist 임베딩 유사도(pgvector) · 데모는 장르 겹침 + 같은 레이블로 흉내. skip(이미 보여 준 밴드)은 top-3 를 고르기 전에 뺌
 function similar(a, skip) {
   return ARTISTS.filter(b => b.id !== a.id && !skip.has(b.id))
     .map(b => ({ b, s: b.genres.filter(x => a.genres.includes(x)).length * 2 + (a.label !== '독립' && b.label === a.label ? 1 : 0) }))
     .filter(x => x.s > 0).sort((x, y) => y.s - x.s || y.b.followers - x.b.followers).slice(0, 3).map(x => x.b);
 }
-const gchip = (act, v, on) => `<button class="chip ${on ? 'on' : ''}" data-act="${act}" data-v="${v}" aria-pressed="${on}">${v}</button>`;
-
-V.genre = () => { const d = S.draft; return `
-<section class="onb">
-  ${steps(1)}
-  <h1 class="display-s">어떤 음악을 즐겨 들으세요?</h1>
-  <p class="lead">하나 이상 골라 주세요. 고르면 아래에 세부 장르가 열려요.</p>
-  <div class="chips big">${GENRE_TREE.map(t => gchip('pickTop', t.name, d.tops.includes(t.name))).join('')}</div>
-  ${GENRE_TREE.filter(t => d.tops.includes(t.name)).map(t => `<div class="sec"><div class="sec-head"><h2>${t.name}에서 더 고르기</h2><span class="tag">안 고르면 ${t.name} 전체로 볼게요</span></div>
-    <div class="chips">${t.subs.map(g => gchip('pickGenre', g, d.genres.includes(g))).join('')}</div></div>`).join('')}
-  <div class="onb-foot">
-    <span class="muted">${d.tops.length ? esc(pickedGenres().join(' · ')) : '아직 고른 장르가 없어요'}</span>
-    <button class="btn btn-primary" data-act="toArtists" ${d.tops.length ? '' : 'disabled'}>다음</button>
-  </div>
-</section>`; };
-
+// 가입 = 소셜 로그인(카카오 싱크 동의) 다음 한 화면. 첫 세트를 보여 주고, 고른 밴드마다 비슷한 밴드를 이어서 엶 (체인)
+// 이미 보여 준 밴드(shown)는 요청에 실어 보내고 서버가 빼서 줌 — 같은 밴드가 두 번 나오지 않음
+const SEED = 12;   // 데모 밴드 30팀 중 인기순 12팀 — 나머지 18팀은 체인으로 열림 (운영은 24팀쯤)
+const seedArtists = () => ARTISTS.slice().sort((x, y) => y.followers - x.followers).slice(0, SEED);
 V.pickArtists = () => {
-  const g = pickedGenres(), n = S.draft.artists.length;
-  const base = ARTISTS.filter(a => a.genres.some(x => g.includes(x)));
-  // 고른 밴드마다 비슷한 밴드 섹션을 아래에 추가. 이미 화면에 있는 밴드는 다시 넣지 않음
-  const shown = new Set(base.map(a => a.id));
-  const more = S.draft.revealed.map(id => { const list = similar(A(id), shown); list.forEach(b => shown.add(b.id)); return { a: A(id), list }; }).filter(m => m.list.length);
-  const pick = a => { const on = S.draft.artists.includes(a.id); return `<button class="pick ${on ? 'on' : ''}" data-act="pickArtist" data-id="${a.id}" aria-pressed="${on}">
+  const d = S.draft, n = d.artists.length;
+  if (!d.shown.length) d.shown = seedArtists().map(a => a.id);   // 첫 세트 = 첫 응답
+  const pick = a => { const on = d.artists.includes(a.id); return `<button class="pick ${on ? 'on' : ''}" data-act="pickArtist" data-id="${a.id}" aria-pressed="${on}">
     ${avatar(a, 40)}<span class="nm"><b>${esc(a.name)}</b><br><small class="muted">${esc(a.genres.join(' · '))}</small></span><span class="ck">${on ? '✓' : ''}</span></button>`; };
   return `
 <section class="onb">
-  ${steps(2)}
   <h1 class="display-s">좋아하는 밴드를 골라 주세요</h1>
-  <p class="lead">고른 밴드는 바로 팔로우돼요. 하나를 고르면 비슷한 밴드가 아래에 더 열려요.</p>
-  <div class="sec"><div class="sec-head"><h2>고른 장르의 밴드</h2><span class="tag">${base.length}팀</span></div><div class="grid">${base.map(pick).join('')}</div></div>
-  ${more.map(m => `<div class="sec"><div class="sec-head"><h2>${esc(wa(m.a.name))} 비슷한 밴드</h2><span class="tag">${m.list.length}팀</span></div><div class="grid">${m.list.map(pick).join('')}</div></div>`).join('')}
-  ${dev('밴드를 고를 때마다 GET /api/artists/{id}/similar → AI 내부 벡터 검색 (artist 임베딩 top-3)')}
+  <p class="lead">마음에 드는 밴드를 누르면 비슷한 밴드가 아래에 이어서 열려요. 거기서 또 고르면 또 이어져요. 고른 밴드는 팔로우돼요.</p>
+  <div class="sec"><div class="sec-head"><h2>요즘 많이 듣는 밴드</h2><span class="tag">${SEED}팀</span></div><div class="grid">${seedArtists().map(pick).join('')}</div></div>
+  ${d.chain.map(m => `<div class="sec"><div class="sec-head"><h2>${esc(wa(A(m.from).name))} 비슷한 밴드</h2><span class="tag">${m.list.length}팀</span></div>
+    ${m.list.length ? `<div class="grid">${m.list.map(id => pick(A(id))).join('')}</div>` : '<p class="muted">새로 보여 드릴 비슷한 밴드가 없어요. 다른 밴드를 골라 보세요.</p>'}</div>`).join('')}
+  ${dev(`첫 세트 GET /api/assistant/artists/similar?size=${SEED} → 고를 때마다 GET /api/assistant/artists/similar?artistId={고른 밴드}&exclude={지금까지 보여 준 밴드 ${d.shown.length}팀}&size=3 — 서버는 exclude 를 빼고 top-3 · 아직 회원이 아니라 공개 API (설계 · 어시스턴트 담당)`)}
   <div class="onb-foot">
-    <div class="saved"><span><b class="num">${n}</b>팀 · 장르 ${g.length}개를 AI 추천에 써요</span>
-      ${dev('POST /api/members/me/onboarding → user_genre · follow 저장 + outbox → member.preference.updated → ai_db.user_taste')}</div>
+    <div class="saved"><span><b class="num">${n}</b>팀을 팔로우하고 AI 추천에 써요</span>
+      ${dev('아직 회원이 아니라 고른 밴드는 화면에만 모음 → 완료 · 건너뛰기 = POST /api/auth/signup { artistIds } (SIGNUP 쿠키 + CSRF) → 회원 · 팔로우 · 카카오 동의 이력을 한 번에 → AT · RT · 장르는 묻지 않음 — MY › 취향 설정')}</div>
     <div style="display:flex;gap:8px"><button class="btn" data-act="skipOnb">건너뛰기</button>
       <button class="btn btn-primary" data-act="finishOnb" ${n ? '' : 'disabled'}>완료하고 시작하기</button></div>
   </div>
@@ -649,7 +939,7 @@ V.home = () => {
     </section>
     <section class="sec">
       <div class="sec-head"><h2>내 아티스트 새 소식</h2>
-        <div class="chips">${['전체', '공연', '신보', 'LP'].map(k => `<button class="chip ${S.feedFilter === k ? 'on' : ''}" data-act="feedFilter" data-v="${k}">${k}</button>`).join('')}</div></div>
+        <div class="chips">${['전체', '공연', '신보', 'LP', '굿즈'].map(k => `<button class="chip ${S.feedFilter === k ? 'on' : ''}" data-act="feedFilter" data-v="${k}">${k}</button>`).join('')}</div></div>
       ${feed.length ? `<div class="list">${feed.map(x => `<button class="li" data-go="${x.go[0]}" data-id="${x.go[1]}">
           ${avatar(A(x.artist), 36)}<span class="main"><b>${esc(x.text)}</b><small>${x.kind} · 방금</small></span>${x.at > seen ? '<span class="new" title="새 소식"></span>' : ''}</button>`).join('')}</div>
           <button class="btn btn-s" data-act="simulate" style="justify-self:start">새 소식 하나 더 받기</button>`
@@ -687,10 +977,121 @@ function artistGrid() {
   return list.length ? list.map(a => acard(a)).join('') : `<div class="empty">‘${esc(S.q)}’에 맞는 아티스트가 없어요. 다른 이름이나 장르로 찾아보세요.</div>`;
 }
 
+const gCover = g => { const a = A(g.artist); return `<div class="cover v${g.v}" style="--c1:${a.colors[0]};--c2:${a.colors[1]}"><span>${esc(g.name)}</span></div>`; };
+const goodsLi = g => `<button class="li" data-go="goods" data-id="${g.id}"><div class="mini-cover">${gCover(g)}</div>
+  <span class="main"><b>${esc(g.name)}</b><small>${esc(A(g.artist).name)} · ${g.kind}</small></span>
+  <span class="end"><span class="num">${won(g.price)}</span>${g.stock > 0 ? '<span class="pill ok">재고 있음</span>' : '<span class="pill bad">품절</span>'}</span></button>`;
+
+V.goods = ({ id }) => {
+  const g = GD(id), a = A(g.artist), w = S.gwish.has(id), soldOut = !g.stock, q = Math.min(S.gq[id] || 1, g.stock);
+  const wishLabel = w ? (soldOut ? '재입고 알림 받는 중' : '위시리스트에 담았어요') : (soldOut ? '재입고 알림 받기' : '위시리스트 담기');
+  return `
+<button class="link" data-go="artist" data-id="${a.id}">← ${esc(a.name)}</button>
+<div class="split" style="margin-top:16px">
+  <div>
+    <section class="album-head">
+      <div class="big-cover">${gCover(g)}</div>
+      <div class="sec">
+        <p class="eyebrow">굿즈 · ${g.kind}</p>
+        <h1 class="display-s">${esc(g.name)}</h1>
+        <p class="muted"><span class="num">${won(g.price)}</span> · ${soldOut ? '품절' : '재고 있음'}</p>
+        ${soldOut ? '' : `<div class="qty" role="group" aria-label="수량">
+          <button class="btn btn-s" data-act="gqty" data-id="${id}" data-v="-1" ${q <= 1 ? 'disabled' : ''} aria-label="수량 줄이기">−</button>
+          <span class="num">${q}개</span>
+          <button class="btn btn-s" data-act="gqty" data-id="${id}" data-v="1" ${q >= g.stock ? 'disabled' : ''} aria-label="수량 늘리기">+</button></div>`}
+        <div style="display:flex;gap:8px;flex-wrap:wrap">
+          ${soldOut ? '' : `<button class="btn btn-primary" data-go="gpay" data-id="${id}"><span class="num">${won(g.price * q)}</span> 구매하기</button>`}
+          <button class="btn ${w ? 'on' : ''}" data-act="gwish" data-id="${id}" aria-pressed="${w}">${wishLabel}</button>
+        </div>
+        ${dev('위시리스트 → member_db.wishlist (item_type=GOODS) · 재입고 시 Catalog stock.restocked → Member activity')}
+      </div>
+    </section>
+  </div>
+  <aside>
+    <section class="sec"><div class="panel sec"><h2 style="font-size:17px">상품 정보</h2>
+      <dl class="kv"><dt>아티스트</dt><dd>${esc(a.name)}</dd><dt>종류</dt><dd>${g.kind}</dd><dt>가격</dt><dd class="num">${won(g.price)}</dd>
+        <dt>재고</dt><dd>${soldOut ? '<span class="pill bad">품절</span>' : `<span class="pill ok num">${g.stock}개</span>`}</dd>
+        ${g.url ? `<dt>공식판매처</dt><dd><a href="${esc(g.url)}" target="_blank" rel="noopener noreferrer">${esc(g.seller)}</a></dd>` : ''}</dl>
+      <p class="tag">결제는 여기서 해요. 공식판매처 링크는 상품 정보 확인용이에요.</p>
+      ${dev('product.purchase_url = 공식판매처 상품 페이지 (굿즈 엑셀 F열 · docs/24 §6)')}</div></section>
+  </aside>
+</div>`;
+};
+
+let orderNo = 0;
+// 결제 화면이 파는 것 — 굿즈(gpay) · LP(lpay). LP 는 운영에선 상품 1개(가격 · 재고 1벌), 데모는 판매처 표의 최저가 재고로 흉내
+const lpOffer = al => al.lp && al.stock.filter(x => x[2] > 0).sort((x, y) => x[1] - y[1])[0];
+function buyItem(route, id) {
+  if (route === 'lpay') {
+    const al = AL(id), o = lpOffer(al);
+    return { kind: 'LP', name: `${al.title} LP`, artist: al.artist, price: o ? o[1] : 0, stock: o ? o[2] : 0, qty: 1,
+      back: ['album', id, '음반으로 돌아가기'], more: ['albums', '', '다른 음반 보기'], take: q => { o[2] -= q; } };
+  }
+  const g = GD(id);
+  return { kind: '굿즈', name: g.name, artist: g.artist, price: g.price, stock: g.stock, qty: Math.min(S.gq[id] || 1, g.stock),
+    back: ['goods', id, '상품으로 돌아가기'], more: ['artist', g.artist, '다른 굿즈 보기'], take: q => { g.stock -= q; delete S.gq[id]; } };
+}
+V.gpay = ({ id }) => checkout(buyItem('gpay', id));
+V.lpay = ({ id }) => checkout(buyItem('lpay', id));
+AFTER.gpay = AFTER.lpay = () => { const it = buyItem(S.route, S.p.id); mountToss(it.price * it.qty); };
+function checkout(it) {
+  const a = A(it.artist), q = it.qty, [bk, bid, bl] = it.back;
+  if (!it.stock) return `<div class="empty"><p>품절된 상품이에요.</p><button class="btn" data-go="${bk}" data-id="${bid}">${bl}</button></div>`;
+  return `
+<button class="link" data-go="${bk}" data-id="${bid}">← ${bl}</button>
+<div class="page-head" style="margin-top:16px"><div><p class="eyebrow">${esc(a.name)} ${it.kind}</p><h1>결제</h1></div></div>
+<div class="split">
+  <form class="panel form" data-submit="gpay">
+    <h2>배송지</h2>
+    <div class="form" id="shipBox">${shipBox()}</div>
+    <h2 style="margin-top:16px">결제 수단</h2>
+    ${tossBox()}
+    <label class="check fail" for="failsim"><input type="checkbox" id="failsim" name="fail"> (시연) 토스 인증 뒤 승인 단계에서 거절되는 상황</label>
+    <button class="btn btn-primary" type="submit" id="payBtn" disabled>${won(it.price * q)} 결제하기</button>
+    <p class="tag">토스페이먼츠 테스트 환경이에요. 실제 카드 정보를 넣어도 돈은 나가지 않아요.</p>
+    ${dev(`토스 주문서형 widgets({ customerKey: ANONYMOUS }) → setAmount(${it.price * q}) → renderPaymentMethods · renderAgreement (결제수단 · 약관 UI 는 토스가 그림) · 결제하기 = C9 POST /api/catalog/orders { items: [{ productId, qty: ${q} }], shipping: { recipientName, phone, zonecode, address, addressDetail } } (금액은 안 보냄 · 재고 차감 · shipping 은 고른 배송지의 값 — 주문에 복사) → { orderId, amount, pgOrderId, expiresAt } → 토스 requestPayment({ orderId: pgOrderId, orderName }) → { paymentKey, orderId, amount } → P1 POST /api/payments/confirm { paymentKey, orderId: pgOrderId, amount } · 409 OUT_OF_STOCK · 실패: payment.failed → 주문 CANCELLED · 재고 복구`)}
+  </form>
+  <aside class="panel sec"><h2 style="font-size:17px">주문 정보</h2>
+    <dl class="kv"><dt>상품</dt><dd>${esc(it.name)}</dd><dt>아티스트</dt><dd>${esc(a.name)}</dd><dt>가격</dt><dd class="num">${won(it.price)}</dd>
+      <dt>수량</dt><dd class="num">${q}개</dd><dt>금액</dt><dd class="num"><b>${won(it.price * q)}</b></dd></dl>
+    <p class="tag">결제하기를 누를 때 재고를 다시 확인하고 주문을 만들어요. 결제하지 않고 15분이 지나면 주문은 취소돼요.</p>
+    ${dev('C8 GET /api/catalog/products/{id} — 결제 화면 들어올 때 현재 가격 · 재고 확인 (캐시 안 함)')}
+  </aside>
+</div>`;
+}
+const tossBox = () => '<div class="toss-box"><div id="tossPay"><p class="toss-msg">토스 결제창을 불러오는 중…</p></div><div id="tossTerms"></div></div>';
+// 결제 화면의 배송지 — 기본 배송지를 미리 고르고, 「새 주소 입력」을 고르면 입력 칸이 열림
+function shipBox() {
+  const list = addrList(), pick = list.some(a => a.id === S.ship) ? S.ship : (list.length && S.ship !== 'new' ? list[0].id : 'new');
+  return `${list.map(a => `<label class="ship-opt"><input type="radio" name="shipPick" value="${a.id}" ${pick === a.id ? 'checked' : ''}>
+      <span><b>${esc(a.label || a.recipientName)}</b> ${a.isDefault ? '<span class="pill ac">기본</span>' : ''}<br><small class="muted">${esc(a.recipientName)} · ${esc(a.phone)}<br>${esc(addrLine(a))}</small></span></label>`).join('')}
+    ${list.length ? `<label class="ship-opt"><input type="radio" name="shipPick" value="new" ${pick === 'new' ? 'checked' : ''}><span>새 주소 입력</span></label>` : ''}
+    ${!list.length ? '<p class="tag">처음 결제라 받을 곳을 알려 주세요. 입력한 주소는 기본 배송지로 저장돼요 (MY › 배송지에서 바꿀 수 있어요).</p>' : ''}
+    ${pick === 'new' ? addrFields() + (!list.length ? '' : list.length < MAX_ADDR ? '<label class="check"><input type="checkbox" name="saveAddr" checked> 배송지 목록에 저장</label>' : `<p class="tag">배송지가 ${MAX_ADDR}개라 저장하지 않고 이번 주문에만 써요.</p>`) : ''}
+    ${dev('M19 GET /api/members/me/addresses — 기본 배송지를 미리 선택 · 처음이면 입력한 주소를 M20 { …, isDefault: true } 로 저장 (member.shipping_address · user_id → users.id) · 주문에는 id 가 아니라 값을 보냄')}`;
+}
+
+V.gdone = () => {
+  const o = S.order, [mk, mid, ml] = o.more;
+  return `
+<div class="queue">
+  <p class="eyebrow">주문 완료</p>
+  <h1 class="display-s">결제가 끝났어요</h1>
+  <div class="panel" style="width:100%;text-align:left"><dl class="kv">
+    <dt>주문 번호</dt><dd class="mono">${o.id}</dd><dt>상품</dt><dd>${esc(o.name)}</dd><dt>수량</dt><dd class="num">${o.qty}개</dd>
+    <dt>결제 금액</dt><dd class="num">${won(o.total)}</dd>
+    <dt>배송지</dt><dd>${esc(o.ship.recipientName)} · ${esc(o.ship.phone)}<br>${esc(addrLine(o.ship))}</dd></dl></div>
+  ${dev(`토스 paymentKey ${esc(o.paymentKey || '')} → P1 APPROVED → payment.completed → 주문 CONFIRMED · C11 GET /api/catalog/orders/{id} 의 shipping = 주문 당시 배송지 (MY › 배송지를 고쳐도 그대로) · 데모는 승인(P1)을 흉내만 내서 토스 쪽 테스트 결제는 10분 뒤 만료`)}
+  <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+    <button class="btn btn-primary" data-go="${mk}" data-id="${mid}">${ml}</button><button class="btn" data-go="home">홈으로</button></div>
+</div>`;
+};
+
 V.artist = ({ id }) => {
   const a = A(id);
   const cs = CONCERTS.filter(c => c.artists.includes(id)).sort(byDate);
   const als = ALBUMS.filter(x => x.artist === id).sort((x, y) => y.date.localeCompare(x.date));
+  const gs = GOODS.filter(x => x.artist === id);
   const lpAl = als.find(x => x.lp && x.stock.length);
   return `
 <button class="link" data-go="artists">← 아티스트 목록</button>
@@ -708,6 +1109,8 @@ ${dev(`GET /api/artists/${id} + Concert API 동기 호출 (FR-CAT-05) · 팔로�
       ${cs.length ? `<div class="list">${cs.map(concertLi).join('')}</div>` : '<div class="empty">예정된 공연이 없어요. 팔로우하면 공연이 잡혔을 때 알려드려요.</div>'}</section>
     <section class="sec"><div class="sec-head"><h2>앨범 · LP</h2><span class="tag">${als.length}장</span></div>
       ${als.length ? `<div class="grid albums">${als.map(alCard).join('')}</div>` : '<div class="empty">등록된 음반이 없어요.</div>'}</section>
+    <section class="sec"><div class="sec-head"><h2>굿즈</h2><span class="tag">${gs.length}종</span></div>
+      ${gs.length ? `<div class="list">${gs.map(goodsLi).join('')}</div>` : '<div class="empty">판매 중인 굿즈가 없어요.</div>'}</section>
   </div>
   <aside>
     <section class="sec"><div class="sec-head"><h2>LP 판매처</h2></div>
@@ -766,7 +1169,7 @@ V.concert = ({ id }) => {
   <aside class="panel sec">
     <dl class="kv"><dt>일시</dt><dd>${md(c.date)} ${c.time}</dd><dt>장소</dt><dd>${esc(c.venue)}</dd><dt>주소</dt><dd>${esc(c.addr)}</dd>
       <dt>유형</dt><dd>${c.type}</dd><dt>가격</dt><dd class="num">${won(c.price)}</dd></dl>
-    <button class="btn btn-primary" data-act="book" data-id="${id}">예매하기</button>
+    ${c.noSeats ? '<p class="notice">좌석을 준비하고 있어요. 예매가 열리면 알려 드릴게요</p>' : `<button class="btn btn-primary" data-act="book" data-id="${id}">예매하기</button>`}
     <button class="btn ${it ? 'on' : ''}" data-act="interest" data-id="${id}" aria-pressed="${it}">${it ? '관심 공연에 담았어요' : '관심 공연 담기'}</button>
     <p class="tag">예매하기를 누르면 대기열에 들어가요. 순서가 되면 10분 동안 좌석을 고를 수 있어요.</p>
     ${dev(`POST /api/concerts/${id}/queue → ZADD queue:concert:${id}`)}
@@ -782,108 +1185,246 @@ V.queue = ({ id }) => {
   <h1 class="display-s" id="qTitle">예매 대기 중이에요</h1>
   <div><div class="big" id="qPos">${c.queue.toLocaleString()}</div><p class="muted" id="qSub">내 앞에 기다리는 사람</p></div>
   <div class="bar"><i id="qBar" style="width:0%"></i></div>
-  <p class="muted">순서가 되면 좌석 선택 화면으로 자동으로 넘어가요. 이 화면을 떠나면 순서가 사라져요.</p>
-  ${dev(`ZADD queue:concert:${id} → ZRANK 폴링`)}<code class="dev" id="qDev">대기 중</code>
-  <button class="btn" data-go="concert" data-id="${id}">대기 취소</button>
+  <p class="notice" role="note">화면을 나가거나 앱을 내리면 순번이 사라져요. 순서가 될 때까지 이 화면을 켜 두세요.</p>
+  <p class="muted">순서가 되면 좌석 선택 화면으로 자동으로 넘어가요.</p>
+  ${dev(`N4 POST /api/concerts/${id}/queue → N5 GET /queue/status 를 pollAfterMs 마다 (하트비트 겸용 · 15초 끊기면 이탈) · 화면 나갈 때 N6 DELETE /queue`)}<code class="dev" id="qDev">대기 중</code>
+  <div id="qAct" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
+    <button class="btn" data-go="concert" data-id="${id}">대기 취소</button>
+    <button class="btn btn-s" data-act="dropQueue">(시연) 앱을 15초 넘게 내렸다 돌아오기</button>
+  </div>
 </div>`;
 };
 AFTER.queue = () => {
   const c = CO(S.p.id), total = c.queue; let pos = total;
   const t = setInterval(() => {
-    pos = Math.max(0, pos - Math.ceil(total * (0.08 + Math.random() * 0.1)));
+    if (document.hidden) return;   // 앱을 내리면 폴링이 멈춤 — 돌아왔을 때 15초가 지났으면 이탈 (visibilitychange)
+    pos = Math.max(0, pos - Math.ceil(total * (0.05 + Math.random() * 0.08)));
     $('#qPos').textContent = pos.toLocaleString();
     $('#qBar').style.width = (100 - pos / total * 100) + '%';
     if (pos > 0) return;
     clearInterval(t);
     $('#qTitle').textContent = '내 차례예요';
     $('#qSub').textContent = '입장 토큰을 받았어요. 10분 안에 좌석을 골라 주세요';
-    $('#qDev').textContent = `ZPOPMIN → SET entry:${c.id}:{uid} EX 600`;
-    S.flow = { cid: c.id, entryUntil: Date.now() + 600000, sel: [], holdUntil: 0 };
+    $('#qDev').textContent = `N5 → ADMITTED { entryToken, expiresIn: 600 } · 이후 N10 에 X-Entry-Token`;
+    S.flow = { cid: c.id, entryUntil: Date.now() + 600000, floor: null, sec: null, pick: null, pickLabel: null, sel: null, busy: null, err: null, loading: 0, bookingId: null };
     timers.push(setTimeout(() => go('seats', { id: c.id }), 1100));
-  }, 450);
+  }, 700);
   timers.push(t);
 };
-
-const SEAT_LABEL = { free: '선택 가능', sel: '내 선택', mine: '내 선택', held: '다른 사람이 결제 중', paid: '예매 완료' };
-function seatMap(cid) {
-  if (S.seats[cid]) return S.seats[cid];
-  let seed = cid.charCodeAt(1) * 9973 + 7;
-  const rnd = () => (seed = seed * 16807 % 2147483647) / 2147483647;
-  const map = {};
-  'ABCDEFG'.split('').forEach(r => { for (let n = 1; n <= 12; n++) { const x = rnd(); map[`${r}-${n}`] = x < 0.34 ? 'paid' : x < 0.40 ? 'held' : 'free'; } });
-  return (S.seats[cid] = map);
+function dropQueue() {
+  timers.forEach(t => { clearInterval(t); clearTimeout(t); }); timers = [];
+  $('#qTitle').textContent = '순번이 사라졌어요';
+  $('#qPos').textContent = '–';
+  $('#qSub').textContent = '15초 넘게 화면을 떠나 있어서 대기열에서 빠졌어요. 다시 줄을 서면 맨 뒤로 가요';
+  $('#qBar').style.width = '0%';
+  $('#qDev').textContent = 'queue:alive 15초 만료 → 입장 처리에서 건너뜀 → N5 404 NOT_IN_QUEUE';
+  $('#qAct').innerHTML = `<button class="btn btn-primary" data-act="book" data-id="${S.p.id}">다시 줄 서기</button><button class="btn" data-go="concert" data-id="${S.p.id}">공연으로 돌아가기</button>`;
 }
-const selInfo = c => S.flow.sel.length
-  ? `${S.flow.sel.join(', ')} · ${S.flow.sel.length}석 · <b class="num">${won(c.price * S.flow.sel.length)}</b>`
-  : '<span class="muted">좌석을 눌러 골라 주세요</span>';
+let qHiddenAt = 0;
+document.addEventListener('visibilitychange', () => {
+  if (S.route !== 'queue' || !$('#qPos')) return;
+  if (document.hidden) qHiddenAt = Date.now();
+  else if (Date.now() - qHiddenAt > 15000) dropQueue();
+});
+
+/* 좌석 — 무대 모양 배치도 → 구역을 누르면 무대 정면으로 돌린 확대 창 → 좌석 고르기(화면만) → 선택완료(N10 · 좌석은 잡지 않음)
+   → 결제(N16 · 같은 좌석을 고른 사람 중 먼저 결제한 한 명만). 좌석 상태 = 미선택 · 경합 · 선택완료 */
+// 공연장 구역: 관리자가 그린 구역이 있으면 그걸, 없으면 관리자 화면 샘플 도면의 A~D 구역 (400×300 좌표)
+const SAMPLE_SECS = { A: [[68, 90], [121, 151], [76, 190], [23, 129]], B: [[140, 92], [260, 92], [260, 196], [140, 196]],
+  C: [[332, 90], [279, 151], [324, 190], [377, 129]], D: [[60, 214], [340, 214], [360, 266], [40, 266]] };
+function venueSecs(venue) {
+  const drawn = Object.values(S.sections).filter(s => s.venue === venue);
+  return drawn.length ? drawn : Object.entries(SAMPLE_SECS).map(([name, P]) => {
+    const pts = P.map(([x, y]) => [x / CW, y / CH]);
+    return { venue, floor: '1층', name, pts, ...layoutSeats(pts, stageOf(venue)) };
+  });
+}
+const secKey = s => `${s.floor}|${s.name}`;
+const secOf = (c, k) => venueSecs(c.venue).find(s => secKey(s) === k);
+const secName = n => /구역$/.test(n) ? n : n + '구역';
+const seatKey = (s, t) => `${FLOORS[s.floor] || s.floor}-${s.name}-${t.row}-${t.num}`;
+const seatLabel = (s, t) => `${secName(s.name)} ${t.row}열 ${t.num}번`;
+// 좌석 상태(미선택 free · 경합 contested · 선택완료 paid)는 공연별로 처음 볼 때 정해 두고, 결제 · 취소가 바꿈
+const seatMap = cid => S.seats[cid] || (S.seats[cid] = {});
+function seatSt(cid, key) {
+  const m = seatMap(cid);
+  if (!m[key]) {
+    let h = 2166136261; for (const ch of cid + key) h = Math.imul(h ^ ch.charCodeAt(0), 16777619);
+    h = Math.imul(h ^ h >>> 13, 0x5bd1e995); h ^= h >>> 15;
+    const x = (h >>> 0) / 4294967296;
+    m[key] = x < .3 ? 'paid' : x < .36 ? 'contested' : 'free';
+  }
+  return m[key];
+}
+const seatCls = (f, key) => f.sel?.key === key ? 'mine' : seatSt(f.cid, key);
+const freeIn = (cid, s) => s.seats.filter(t => seatSt(cid, seatKey(s, t)) !== 'paid').length;   // 경합도 고를 수 있음
+const SEAT_LABEL = { free: '미선택', contested: '경합 · 다른 분도 고른 좌석', paid: '선택완료 · 예매 끝남', mine: '내가 고른 좌석' };
+const seatLegend = `<div class="legend"><span><i class="lg-free"></i>미선택</span><span><i class="lg-contested"></i>경합 (고를 수 있음)</span>
+  <span><i class="lg-paid"></i>선택완료</span><span><i class="lg-on"></i>내가 고른 좌석</span></div>`;
+const takenErr = `<p class="err" role="alert"><b>이미 선택된 좌석입니다.</b><br>같은 좌석을 고른 다른 분이 먼저 결제를 끝냈어요. 결제는 되지 않았어요. 다른 좌석을 골라 주세요.</p>`;
 
 V.seats = ({ id }) => {
   const c = CO(id), f = S.flow;
   if (!f || f.cid !== id || Date.now() > f.entryUntil)
     return `<div class="empty"><p>입장 토큰이 없어요. 대기열을 거쳐야 좌석을 고를 수 있어요.</p><button class="btn btn-primary" data-act="book" data-id="${id}">대기열 들어가기</button></div>`;
-  const map = seatMap(id);
-  const rows = 'ABCDEFG'.split('').map(r => `<div class="srow"><span class="rl">${r}</span>${Array.from({ length: 12 }, (_, i) => {
-    const k = `${r}-${i + 1}`, st = f.sel.includes(k) ? 'sel' : map[k];
-    return (i === 6 ? '<span class="gap"></span>' : '') + `<button class="seat ${st}" data-act="seat" data-v="${k}" aria-label="${r}열 ${i + 1}번 ${SEAT_LABEL[st]}" ${st === 'paid' ? 'disabled' : ''}>${i + 1}</button>`;
-  }).join('')}</div>`).join('');
+  const all = venueSecs(c.venue), floors = Object.keys(FLOORS).filter(fl => all.some(s => s.floor === fl));
+  if (!floors.includes(f.floor)) f.floor = floors[0];
+  const secs = all.filter(s => s.floor === f.floor), stage = stageOf(c.venue);
+  const box = toC([...stage, ...secs.flatMap(s => s.pts)]), xs = box.map(p => p[0]), ys = box.map(p => p[1]);
+  const x0 = Math.min(...xs) - 10, y0 = Math.min(...ys) - 10, w = Math.max(...xs) + 10 - x0, h = Math.max(...ys) + 10 - y0;
+  const plan = `<svg class="plan pm" viewBox="${x0.toFixed(1)} ${y0.toFixed(1)} ${w.toFixed(1)} ${h.toFixed(1)}" role="group" aria-label="${esc(c.venue)} ${f.floor} 좌석 배치도">
+    <polygon class="stage-ref" points="${cpts(stage)}"/>${label(stage, 'STAGE')}
+    ${secs.map(s => `<g class="sec-pick" data-act="openSec" data-v="${esc(secKey(s))}" role="button" tabindex="0" aria-label="${esc(secName(s.name))} · 남은 좌석 ${freeIn(id, s)}석 · 눌러서 크게 보기">
+      <polygon class="sec-ol" points="${cpts(s.pts)}"/>
+      ${s.seats.map(t => `<rect class="${seatCls(f, seatKey(s, t))}" x="${-SEAT.w / 2}" y="${-SEAT.h / 2}" width="${SEAT.w}" height="${SEAT.h}" rx="1.5" transform="translate(${(t.x * CW).toFixed(1)} ${(t.y * CH).toFixed(1)}) rotate(${s.rot})"/>`).join('')}
+      ${label(s.pts, s.name, 'secl')}</g>`).join('')}
+  </svg>`;
+  const side = f.sel ? `
+    <h2 style="font-size:17px">고른 좌석이 있어요</h2>
+    <dl class="kv"><dt>좌석</dt><dd>${esc(f.sel.label)}</dd><dt>남은 시간</dt><dd><span class="timer" id="selT">-:--</span></dd></dl>
+    <button class="btn btn-primary" data-act="toPay">이어서 결제하기</button>
+    <button class="btn" data-act="unsel">선택 취소하고 다시 고르기</button>
+    <p class="tag">고르기만 해서는 좌석이 잡히지 않아요. 같은 좌석을 고른 다른 분이 먼저 결제하면 이 좌석은 예매할 수 없어요. 같은 좌석을 다시 선택완료해도 남은 시간은 늘지 않아요.</p>
+    ${dev('화면 복원 = sessionStorage 의 { bookingId, seatId, expiresAt } 또는 N12 · 선택 취소 = N13 POST /api/concerts/bookings/{id}/cancel (결제 무효화) · 다른 좌석을 선택완료하면 N10 이 이전 선택을 취소')}` : `
+    ${f.err?.code === 'SEAT_UNAVAILABLE' ? takenErr : ''}
+    <h2 style="font-size:17px">구역을 골라 주세요</h2>
+    <p class="muted">배치도에서 구역을 누르면 그 구역을 무대 정면 방향으로 돌려서 크게 보여줘요.</p>
+    <div class="list">${secs.map(s => `<button class="li" data-act="openSec" data-v="${esc(secKey(s))}"><span class="main"><b>${esc(secName(s.name))}</b><small>${s.rows}열 · ${s.seats.length}석</small></span>
+      <span class="end"><span class="num">${freeIn(id, s)}석 남음</span></span></button>`).join('')}</div>
+    <p class="tag">공연마다 1인 1석이에요. 좌석을 고르고 3분 안에 결제해야 하고, 같은 좌석을 고른 분들 중 먼저 결제를 끝낸 한 분만 예매돼요.</p>`;
   return `
 <div class="page-head"><div><p class="eyebrow">${md(c.date)} ${c.time} · ${esc(c.venue)}</p><h1>좌석 선택</h1></div><span class="timer" id="entryT">입장 시간 10:00</span></div>
 <div class="split">
   <div class="panel sec">
-    ${S.stages[c.venue] ? stageDrawn(S.stages[c.venue]) : '<div class="stage">STAGE</div>'}
-    <div class="seatmap-wrap"><div class="seatmap">${rows}</div></div>
-    <div class="legend"><span><i style="background:var(--seat)"></i>선택 가능</span><span><i style="background:var(--accent)"></i>내 선택</span>
-      <span><i style="background:repeating-linear-gradient(45deg,var(--warn-weak) 0 4px,var(--seat) 4px 8px)"></i>다른 사람이 결제 중</span><span><i style="background:var(--seat-taken)"></i>예매 완료</span></div>
+    ${floors.length > 1 ? `<div class="chips">${floors.map(fl => `<button class="chip ${fl === f.floor ? 'on' : ''}" data-act="seatFloor" data-v="${fl}" aria-pressed="${fl === f.floor}">${fl}</button>`).join('')}</div>` : ''}
+    ${plan}
+    ${seatLegend}
+    ${dev(`N7 GET /api/concerts/${id}/seats (2초 캐시 · status AVAILABLE · CONTESTED · SOLD — 누가 골랐는지는 안 내려감) + 공연장 배치(구역 모양 · 기울기 · 좌석 좌표 — 공개 API 미정)`)}
   </div>
-  <aside class="panel sec">
-    <h2 style="font-size:17px">선택한 좌석</h2>
-    <p id="selInfo">${selInfo(c)}</p>
-    <button class="btn btn-primary" data-act="hold" ${f.sel.length ? '' : 'disabled'}>좌석 잡고 결제하기</button>
-    <p class="tag">한 번에 2석까지 고를 수 있어요. 좌석을 잡으면 5분 동안 다른 사람이 고를 수 없어요.</p>
-    ${dev(`SET concert:lock:${id}:{seat} NX PX 3000 → seat HELD (TTL 5분) → 락 해제`)}
-  </aside>
-</div>`;
+  <aside class="panel sec">${side}</aside>
+</div>
+<dialog class="sheet" id="secModal" aria-labelledby="secTitle"></dialog>`;
 };
+
+let loadSeq = 0;
+function modalInner() {
+  const f = S.flow, c = CO(f.cid), s = secOf(c, f.sec);
+  const head = `<div class="sheet-head"><div><p class="eyebrow">${s.floor} · 무대를 정면으로 보게 돌렸어요</p><h2 id="secTitle">${esc(secName(s.name))}</h2></div>
+    <span class="timer" id="entryT2">입장 시간 ${mmss(f.entryUntil - Date.now())}</span><button class="btn btn-s" data-act="closeSec">닫기</button></div>`;
+  if (f.loading) return `<div class="sheet-in one"><div class="sec">${head}<div class="empty"><p>좌석 상태를 불러오는 중이에요…</p></div>
+    ${dev('N7 다시 조회 — 이때 뒤로가기 = 창만 닫고 AbortController.abort() · 늦게 온 응답은 버림 (조회라 서버에 되돌릴 것 없음)')}</div></div>`;
+  // 배치도에서 무대를 바라보던 기울기(s.rot)만큼 반대로 돌리면 앞줄이 위, 좌석 번호가 왼쪽 → 오른쪽
+  const r = -s.rot * Math.PI / 180, cos = Math.cos(r), sin = Math.sin(r), [cx, cy] = mid(toC(s.pts));
+  const pts = s.seats.map(t => { const x = t.x * CW - cx, y = t.y * CH - cy; return { t, x: cx + x * cos - y * sin, y: cy + x * sin + y * cos }; });
+  const xs = pts.map(p => p.x), ys = pts.map(p => p.y);
+  const x0 = Math.min(...xs) - SEAT.px * 1.5, y0 = Math.min(...ys) - SEAT.py * .7;
+  const w = Math.max(...xs) + SEAT.px * .7 - x0, h = Math.max(...ys) + SEAT.py * .7 - y0;
+  const rows = pts.filter(p => p.t.num === 1).map(p => `<text class="rowl" x="${(p.x - SEAT.px).toFixed(1)}" y="${p.y.toFixed(1)}">${p.t.row}</text>`).join('');
+  const seats = pts.map(({ t, x, y }) => {
+    const k = seatKey(s, t), st = seatCls(f, k), l = seatLabel(s, t), on = f.pick === k;
+    const attrs = st === 'paid' ? 'role="img"' : `data-act="pickSeat" data-v="${esc(k)}" data-l="${esc(l)}" role="button" tabindex="0" aria-pressed="${on}"`;
+    return `<g class="${st}${on ? ' on' : ''}" transform="translate(${x.toFixed(1)} ${y.toFixed(1)})" ${attrs} aria-label="${esc(l)} · ${SEAT_LABEL[st]}"><rect x="${-SEAT.w / 2}" y="${-SEAT.h / 2}" width="${SEAT.w}" height="${SEAT.h}" rx="1.2"/><text>${t.num}</text></g>`;
+  }).join('');
+  return `<div class="sheet-in"><div class="sec">${head}
+    <div class="stage">STAGE</div>
+    <div class="secview-wrap"><svg class="secview pm" viewBox="${x0.toFixed(1)} ${y0.toFixed(1)} ${w.toFixed(1)} ${h.toFixed(1)}" style="width:${Math.round(w / SEAT.px * 32)}px" role="group" aria-label="${esc(secName(s.name))} 좌석">${rows}${seats}</svg></div>
+    ${seatLegend}
+    <p class="tag">배치도에서는 ${s.rot}° 기울어 있던 구역이에요. 뒤로가기를 누르면 이 창만 닫혀요.</p>
+    ${dev('구역 열기 · 좌석 고르기 = 화면 상태만 (history.pushState) · 서버 호출은 선택완료에서만')}
+  </div><aside class="panel sec" id="pickPanel">${pickPanel()}</aside></div>`;
+}
+// 오른쪽 상자 — 고른 좌석 · 날짜 · 공연명 + 선택완료. 409 는 message 가 아니라 code 로 나눠 보여줌
+function pickPanel() {
+  const f = S.flow, c = CO(f.cid), err = f.err?.code === 'SEAT_UNAVAILABLE' ? takenErr : '';
+  if (!f.pick) return `<h2 style="font-size:17px">선택한 좌석</h2>${err}<p class="muted">좌석을 눌러 골라 주세요. 경합 좌석도 고를 수 있어요.</p>`;
+  const st = seatSt(f.cid, f.pick), swap = f.sel && f.sel.key !== f.pick;
+  return `<h2 style="font-size:17px">선택한 좌석</h2>
+    <dl class="kv"><dt>공연</dt><dd>${esc(c.title)}</dd><dt>일시</dt><dd>${md(c.date)} ${c.time}</dd><dt>장소</dt><dd>${esc(c.venue)}</dd>
+      <dt>좌석</dt><dd><b>${esc(f.pickLabel)}</b></dd><dt>가격</dt><dd class="num">${won(c.price)}</dd></dl>
+    ${err}
+    ${st === 'contested' ? '<p class="notice">다른 분도 고른 좌석이에요. 먼저 결제를 끝낸 한 분만 예매돼요.</p>' : ''}
+    ${swap ? `<p class="tag">선택완료하면 지금 고른 <b>${esc(f.sel.label)}</b> 선택은 취소돼요 (1인 1석).</p>` : ''}
+    <button class="btn btn-primary" data-act="selectSeat" id="selBtn">선택완료</button>
+    <p class="tag">선택완료해도 좌석이 잡히지는 않아요. 3분 안에 결제해 주세요.</p>
+    ${dev(`N10 POST /api/concerts/${c.id}/bookings { seatId } + X-Entry-Token → 200 { bookingId, amount, pgOrderId, status: PENDING, expiresAt } (좌석 안 잡음 · 같은 좌석 = 같은 예매 · 다른 좌석이면 이전 선택 취소) · 409 SEAT_UNAVAILABLE (이미 팔림) · 처리 중 뒤로가기는 무시`)}`;
+}
+function refreshModal() {
+  const m = $('#secModal'); if (!m) return;
+  const v = m.querySelector('.secview-wrap'), sx = v ? v.scrollLeft : 0, sy = v ? v.scrollTop : 0;
+  m.innerHTML = modalInner();
+  const v2 = m.querySelector('.secview-wrap'); if (v2) { v2.scrollLeft = sx; v2.scrollTop = sy; }
+}
+// 좌석 화면 다시 그리기 — rerender 만 하면 AFTER.seats 의 타이머가 겹침
+function redraw() { timers.forEach(t => { clearInterval(t); clearTimeout(t); }); timers = []; rerender(); }
+function closeSec() {
+  const k = S.flow.sec;
+  Object.assign(S.flow, { sec: null, pick: null, pickLabel: null, err: null, loading: 0 });
+  redraw();
+  document.querySelector(`.plan [data-v="${CSS.escape(k)}"]`)?.focus();   // 창을 열었던 구역으로 포커스 돌려줌
+}
+// 내 선택(결제 대기 예매) 버리기 — 좌석 상태는 건드리지 않음 (고를 때 잡지 않았으니까)
+function dropSel() { const f = S.flow; f.sel = null; f.bookingId = null; f.pgOrderId = null; }
 AFTER.seats = () => {
   if (!$('#entryT')) return;
+  const f = S.flow, m = $('#secModal');
+  m.addEventListener('cancel', e => { e.preventDefault(); if (!f.busy) history.back(); });   // Esc 도 뒤로가기와 같은 길
+  m.addEventListener('click', e => { if (e.target === m && !f.busy) history.back(); });      // 창 바깥 누르기
+  if (f.sec) { f.loading = 0; m.innerHTML = modalInner(); m.showModal(); }
   const tick = () => {
-    const left = S.flow.entryUntil - Date.now();
-    if (left <= 0) { const id = S.flow.cid; S.flow = null; toast('입장 시간이 끝났어요. 대기열에 다시 들어가 주세요'); go('concert', { id }); return; }
-    $('#entryT').textContent = '입장 시간 ' + mmss(left);
-    $('#entryT').classList.toggle('warn', left < 120000);
+    const left = f.entryUntil - Date.now();
+    if (left <= 0) { S.flow = null; toast('입장 시간이 끝났어요. 대기열에 다시 들어가 주세요'); go('concert', { id: f.cid }); return; }
+    document.querySelectorAll('#entryT, #entryT2').forEach(el => { el.textContent = '입장 시간 ' + mmss(left); el.classList.toggle('warn', left < 120000); });
+    if (!f.sel) return;
+    const hl = f.sel.until - Date.now();
+    if (hl <= 0) { if (f.busy) return; dropSel(); toast('3분이 지나 좌석 선택이 만료됐어요. 다시 골라 주세요'); redraw(); return; }
+    const ht = $('#selT'); if (ht) { ht.textContent = mmss(hl); ht.classList.toggle('warn', hl < 60000); }
   };
   tick(); timers.push(setInterval(tick, 1000));
 };
+// 뒤로가기 — 서버 요청 중이면 무시, 확대 창이 열려 있으면 그 창만 닫기, 결제 화면이면 선택을 둔 채 좌석 화면으로
+window.addEventListener('popstate', () => {
+  const f = S.flow;
+  if (!f) return;
+  if (f.busy) { history.pushState(f.sec ? { sec: f.sec } : { pay: 1 }, ''); toast(f.busy); return; }
+  if (f.sec) { closeSec(); return; }
+  if (S.route === 'pay') { if (f.sel) toast('고른 좌석은 남은 시간 동안 그대로예요'); go('seats', { id: f.cid }); }
+});
 
-function release() { const f = S.flow, map = seatMap(f.cid); f.sel.forEach(k => { map[k] = 'free'; }); f.sel = []; f.holdUntil = 0; }
-
+const backLink = '<button class="link" data-act="backAsk">← 좌석 다시 고르기</button>';
 V.pay = ({ id }) => {
   const c = CO(id), f = S.flow;
-  if (!f || !f.holdUntil) return `<div class="empty"><p>잡아 둔 좌석이 없어요.</p><button class="btn" data-go="concert" data-id="${id}">공연으로 돌아가기</button></div>`;
+  if (!f || !f.sel) return `<div class="empty"><p>고른 좌석이 없어요.</p><button class="btn" data-go="concert" data-id="${id}">공연으로 돌아가기</button></div>`;
   return `
-<div class="page-head"><div><p class="eyebrow">${esc(c.title)}</p><h1>결제</h1></div><span class="timer" id="holdT">좌석 유지 5:00</span></div>
+<div class="page-head"><div><p class="eyebrow">${esc(c.title)}</p><h1>결제</h1></div><span class="timer" id="selT">선택 유효 3:00</span></div>
 <div class="split">
   <form class="panel form" data-submit="pay">
     <h2>결제 수단</h2>
-    ${[['card', '신용·체크카드'], ['bank', '계좌이체'], ['easy', '간편결제']].map(([v, l], i) => `<label class="check" for="m-${v}"><input type="radio" name="method" id="m-${v}" value="${v}" ${i === 0 ? 'checked' : ''}> ${l}</label>`).join('')}
-    <label class="check fail" for="failsim"><input type="checkbox" id="failsim" name="fail"> 결제 실패 상황 보기</label>
-    <button class="btn btn-primary" type="submit" id="payBtn">${won(c.price * f.sel.length)} 결제하기</button>
-    <p class="tag">실제 결제는 일어나지 않아요. 프로토타입용 더미 결제예요.</p>
-    ${dev('더미 결제 → 성공: booking PAID · outbox concert.booked / 실패: HELD 좌석 보상 해제')}
+    ${tossBox()}
+    <label class="check fail" for="failsim"><input type="checkbox" id="failsim" name="fail"> (시연) 토스 인증 뒤 승인 단계에서 거절되는 상황</label>
+    <label class="check sim" for="raceSim"><input type="checkbox" id="raceSim" name="race"> (시연) 같은 좌석을 고른 다른 분이 먼저 결제를 끝낸 상황</label>
+    <button class="btn btn-primary" type="submit" id="payBtn" disabled>${won(c.price)} 결제하기</button>
+    <p class="tag">토스페이먼츠 테스트 환경이에요. 실제 카드 정보를 넣어도 돈은 나가지 않아요.</p>
+    ${dev(`토스 주문서형 setAmount(N10 의 amount ${c.price}) → 결제하기 = requestPayment({ orderId: N10 의 pgOrderId, orderName }) → { paymentKey, amount } → N16 POST /api/concerts/bookings/${f.bookingId}/confirm { paymentKey, amount } → 서버가 좌석을 먼저 확보(조건부 UPDATE)한 뒤 결제 승인 → { status: CONFIRMED | CANCELLED, paymentStatus } · 409 SEAT_UNAVAILABLE = 같은 좌석을 고른 다른 사람이 먼저 결제 (결제를 부르지 않음 · 돈 안 나감) · DECLINED = 예매 취소 · 좌석은 다시 경합 · 티켓은 P1 으로 결제 불가`)}
   </form>
   <aside class="panel sec"><h2 style="font-size:17px">예매 정보</h2>
     <dl class="kv"><dt>공연</dt><dd>${esc(c.title)}</dd><dt>일시</dt><dd>${md(c.date)} ${c.time}</dd><dt>장소</dt><dd>${esc(c.venue)}</dd>
-      <dt>좌석</dt><dd>${f.sel.join(', ')}</dd><dt>금액</dt><dd class="num">${won(c.price)} × ${f.sel.length}</dd></dl>
+      <dt>좌석</dt><dd>${esc(f.sel.label)}</dd><dt>금액</dt><dd class="num">${won(c.price)}</dd></dl>
+    ${seatSt(f.cid, f.sel.key) === 'contested' ? '<p class="notice">다른 분도 고른 좌석이에요. 먼저 결제를 끝낸 한 분만 예매돼요.</p>' : ''}
+    <div id="backBox">${backLink}</div>
+    <p class="tag">휴대폰 · 브라우저 뒤로가기로 나가면 고른 좌석은 남은 시간 동안 그대로 두고 좌석 화면으로 돌아가요.</p>
   </aside>
 </div>`;
 };
 AFTER.pay = () => {
-  if (!$('#holdT')) return;
+  if (!$('#selT')) return;
+  const f = S.flow;
+  mountToss(CO(f.cid).price);
   const tick = () => {
-    const left = S.flow.holdUntil - Date.now();
-    if (left <= 0) { release(); toast('5분이 지나 좌석이 풀렸어요. 다시 골라 주세요'); go('seats', { id: S.flow.cid }); return; }
-    $('#holdT').textContent = '좌석 유지 ' + mmss(left);
-    $('#holdT').classList.toggle('warn', left < 60000);
+    if (!f.sel || f.busy) return;
+    const left = f.sel.until - Date.now();
+    if (left <= 0) { dropSel(); toast('3분이 지나 좌석 선택이 만료됐어요. 다시 골라 주세요'); history.back(); return; }
+    $('#selT').textContent = '선택 유효 ' + mmss(left);
+    $('#selT').classList.toggle('warn', left < 60000);
   };
   tick(); timers.push(setInterval(tick, 1000));
 };
@@ -896,10 +1437,10 @@ V.done = ({ id }) => {
   <h1 class="display-s">예매가 끝났어요</h1>
   <div class="panel" style="width:100%;text-align:left"><dl class="kv">
     <dt>예매 번호</dt><dd class="mono">${b.id}</dd><dt>공연</dt><dd>${esc(c.title)}</dd><dt>일시</dt><dd>${md(c.date)} ${c.time}</dd>
-    <dt>장소</dt><dd>${esc(c.venue)}</dd><dt>좌석</dt><dd>${b.seats.join(', ')}</dd><dt>결제 금액</dt><dd class="num">${won(b.total)}</dd></dl></div>
-  ${dev('booking PAID → 분산 락 해제 → concert.booked 발행 → Member · AI 구독')}
+    <dt>장소</dt><dd>${esc(c.venue)}</dd><dt>좌석</dt><dd>${esc((b.labels || b.seats).join(', '))}</dd><dt>결제 금액</dt><dd class="num">${won(b.total)}</dd></dl></div>
+  ${dev(`토스 paymentKey ${esc(b.paymentKey || '')} → N16 CONFIRMED → booking PAID → 분산 락 해제 → concert.booked 발행 → Member · AI 구독 · 데모는 승인(N16)을 흉내만 냄`)}
   <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
-    <button class="btn btn-primary" data-act="toBookings">예매 내역 보기</button><button class="btn" data-go="concerts">다른 공연 보기</button></div>
+    <button class="btn btn-primary" data-act="toBookings" data-id="${b.id}">모바일 티켓 보기</button><button class="btn" data-go="concerts">다른 공연 보기</button></div>
 </div>`;
 };
 </script>
@@ -943,6 +1484,7 @@ V.album = ({ id }) => {
         <button class="link" data-go="artist" data-id="${a.id}" style="justify-self:start">${esc(a.name)}</button>
         <p class="muted">${al.date.replaceAll('-', '.')} 발매 · ${tracks.length}곡</p>
         <div style="display:flex;gap:8px;flex-wrap:wrap">
+          ${lpOffer(al) ? `<button class="btn btn-primary" data-go="lpay" data-id="${id}"><span class="num">${won(lpOffer(al)[1])}</span> LP 구매하기</button>` : ''}
           ${al.lp ? `<button class="btn ${w ? 'on' : ''}" data-act="wish" data-id="${id}" aria-pressed="${w}">${wishLabel}</button>` : ''}
           <button class="btn ${o ? 'on' : ''}" data-act="own" data-id="${id}" aria-pressed="${o}">${o ? '보유 중' : '보유 음반으로 표시'}</button>
         </div>
@@ -964,29 +1506,103 @@ V.album = ({ id }) => {
 /* ===== MY ===== */
 const emptyBox = (t, to, label) => `<div class="empty"><p>${t}</p><button class="btn btn-s" data-go="${to}">${label}</button></div>`;
 V.my = () => {
-  const fol = followedIds(), tabs = ['관심 아티스트', '관심 공연', '위시리스트', '컬렉션', '예매 내역', '취향 설정'];
+  const fol = followedIds(), tabs = ['관심 아티스트', '관심 공연', '위시리스트', '컬렉션', '예매 내역', '배송지', '취향 설정', '약관 · 동의'];
   let body = '';
   if (S.mtab === '관심 아티스트') body = fol.length ? `<div class="grid">${fol.map(id => acard(A(id))).join('')}</div>` : emptyBox('팔로우한 아티스트가 없어요.', 'artists', '아티스트 둘러보기');
   if (S.mtab === '관심 공연') { const l = [...S.interest].map(CO).sort(byDate); body = l.length ? `<div class="list">${l.map(concertLi).join('')}</div>` : emptyBox('관심 공연으로 담은 공연이 없어요.', 'concerts', '공연 보기'); }
-  if (S.mtab === '위시리스트') { const l = [...S.wish].map(AL); body = l.length ? `<div class="list">${l.map(lpLi).join('')}</div>` : emptyBox('담아 둔 LP가 없어요. 품절된 LP를 담으면 재입고될 때 알려드려요.', 'albums', 'LP 둘러보기'); }
+  if (S.mtab === '위시리스트') { const l = [...[...S.wish].map(AL).map(lpLi), ...[...S.gwish].map(GD).map(goodsLi)]; body = l.length ? `<div class="list">${l.join('')}</div>` : emptyBox('담아 둔 LP·굿즈가 없어요. 품절된 상품을 담으면 재입고될 때 알려드려요.', 'albums', 'LP 둘러보기'); }
   if (S.mtab === '컬렉션') { const l = [...S.owned].map(AL); body = l.length ? `<div class="grid albums">${l.map(alCard).join('')}</div>` : emptyBox('보유 음반으로 표시한 앨범이 없어요.', 'albums', '음반 둘러보기'); }
   if (S.mtab === '예매 내역') body = S.bookings.length ? `<div class="list">${S.bookings.map(b => { const c = CO(b.cid), d = day(c.date); return `<div class="li">
       <span class="date"><b>${d.getDate()}</b><small>${d.getMonth() + 1}월 ${WD[d.getDay()]}</small></span>
-      <span class="main"><b>${esc(c.title)}</b><small><span class="mono">${b.id}</span> · ${b.seats.join(', ')} · ${won(b.total)}</small></span>
-      ${b.status === 'PAID' ? `<span class="pill ok">예매 완료</span><button class="btn btn-s" data-act="cancel" data-id="${b.id}">취소</button>` : '<span class="pill">취소됨</span>'}</div>`; }).join('')}</div>`
+      <span class="main"><b>${esc(c.title)}</b><small><span class="mono">${b.id}</span> · ${esc((b.labels || b.seats).join(', '))} · ${won(b.total)}</small></span>
+      ${b.status === 'PAID' ? `<span class="pill ok">예매 완료</span><button class="btn btn-s" data-act="ticket" data-id="${b.id}" aria-pressed="${S.ticket === b.id}">${S.ticket === b.id ? '티켓 닫기' : '모바일 티켓'}</button><button class="btn btn-s" data-act="cancel" data-id="${b.id}">취소</button>` : '<span class="pill">취소됨</span>'}</div>`; }).join('')}</div>
+      ${ticketPanel()}`
     : emptyBox('예매한 공연이 없어요.', 'concerts', '공연 보기');
+  if (S.mtab === '배송지') body = addrTab();
   if (S.mtab === '취향 설정') body = `<div class="panel sec" style="max-width:720px">
       <h2 style="font-size:17px">즐겨 듣는 장르</h2><p class="tag">여기서 바꾼 취향은 홈 추천과 AI 챗봇에 바로 반영돼요.</p>
       <div class="chips">${GENRES.map(g => `<button class="chip ${S.user.genres.includes(g) ? 'on' : ''}" data-act="tasteGenre" data-v="${g}" aria-pressed="${S.user.genres.includes(g)}">${g}</button>`).join('')}</div>
       <h2 style="font-size:17px;margin-top:8px">팔로우 중인 밴드</h2><p>${fol.length ? esc(names(fol)) : '<span class="muted">아직 없어요</span>'}</p>
       <button class="btn btn-primary" data-act="saveTaste" style="justify-self:start">취향 저장</button>
       ${dev('PUT /api/members/me/preferences → outbox → member.preference.updated (전체 스냅샷) → ai_db.user_taste 덮어쓰기')}</div>`;
+  if (S.mtab === '약관 · 동의') { const g = S.user.agreements; body = g ? `<div class="panel sec" style="max-width:720px">
+      <dl class="kv">
+        <dt>이용약관</dt><dd>${g.tos} · ${g.at} 동의 <button class="link" data-go="terms" data-id="tos">보기</button></dd>
+        <dt>개인정보 수집 · 이용</dt><dd>${g.privacy} · ${g.at} 동의 <button class="link" data-go="terms" data-id="privacy">개인정보처리방침</button></dd>
+        <dt>만 14세 이상</dt><dd>${g.at} 확인</dd>
+        <dt>마케팅 정보 수신</dt><dd>${g.mkt ? '<span class="pill ok">받음</span>' : '<span class="pill">받지 않음</span>'} ${g.mktAt}부터</dd>
+      </dl>
+      <button class="btn" data-act="toggleMkt" style="justify-self:start">${g.mkt ? '마케팅 정보 그만 받기' : '마케팅 정보 받기'}</button>
+      <p class="tag">팔로우한 밴드의 새 소식 · 재입고 알림은 요청하신 알림이라 이 설정과 상관없이 와요. 마케팅 수신에 동의하면 2년마다 동의 상태를 다시 알려 드려요.</p>
+      ${dev('가입(POST /api/auth/signup) 때 콜백에서 받은 카카오 싱크 동의 내역(service_terms)을 member.user_agreement 에 복사 (구현) · M17 GET /api/members/me/agreements · M18 철회 = 카카오 POST /v2/user/revoke/service_terms + 이력 한 줄 · 다시 동의 = 카카오 추가 동의 화면 — M17 · M18 은 설계')}</div>`
+    : emptyBox('카카오로 가입하면 카카오 동의 화면에서 동의한 약관이 여기 보여요. 이 데모는 가입 흐름 없이 시작했어요.', 'signup', '가입 흐름 보기'); }
   return `
 <div class="page-head"><div style="display:flex;gap:14px;align-items:center">
   <span class="avatar" style="--c1:var(--accent);--c2:#c46bd8;--s:56px" aria-hidden="true">${esc(S.user.nick[0] || '나')}</span>
-  <div><h1>${esc(S.user.nick)}</h1><p class="muted">${S.user.provider ? `${S.user.provider === 'kakao' ? '카카오' : 'Google'} 계정 · ${esc(S.user.email)}` : '로그인 정보 없음'}</p></div></div></div>
+  <div><h1>${esc(S.user.nick)}</h1><p class="muted">${S.user.provider ? `카카오 계정 · ${esc(S.user.email)}` : '로그인 정보 없음'}</p></div></div></div>
 <div class="tabs" role="tablist">${tabs.map(t => `<button role="tab" aria-selected="${S.mtab === t}" data-act="mtab" data-v="${t}">${t}</button>`).join('')}</div>
 ${body}`;
+};
+
+// MY › 배송지 — M19~M23. 최대 10개 · 기본 1개 · 기본을 지우면 가장 최근 배송지가 기본
+function addrTab() {
+  const list = addrList(), e = S.addrEdit, cur = typeof e === 'number' ? list.find(a => a.id === e) : null;
+  const card = a => `<div class="addr">
+      <div class="top"><b>${esc(a.label || '배송지')}</b>${a.isDefault ? '<span class="pill ac">기본</span>' : ''}</div>
+      <span>${esc(a.recipientName)} · ${esc(a.phone)}</span><span class="muted">${esc(addrLine(a))}</span>
+      <div class="acts"><button class="btn btn-s" data-act="addrEdit" data-id="${a.id}">수정</button>
+        ${a.isDefault ? '' : `<button class="btn btn-s" data-act="addrDefault" data-id="${a.id}">기본으로</button>`}
+        <button class="btn btn-s" data-act="addrDel" data-id="${a.id}">삭제</button></div></div>`;
+  return `<div class="sec" style="max-width:720px">
+    <div class="sec-head"><h2>배송지 <span class="tag num">${list.length}/${MAX_ADDR}</span></h2>
+      ${e ? '' : `<button class="btn btn-s" data-act="addrEdit" data-id="new" ${list.length >= MAX_ADDR ? 'disabled' : ''}>새 배송지 추가</button>`}</div>
+    ${e ? `<form class="panel form" data-submit="addrSave">
+      <h2>${cur ? '배송지 수정' : '새 배송지'}</h2>
+      ${addrFields(cur || {}, { label: true })}
+      ${cur?.isDefault ? '' : `<label class="check"><input type="checkbox" name="isDefault" ${list.length ? '' : 'checked disabled'}> 기본 배송지로</label>`}
+      <div style="display:flex;gap:8px"><button class="btn btn-primary" type="submit">저장</button><button class="btn" type="button" data-act="addrCancel">취소</button></div>
+    </form>` : ''}
+    ${list.length ? `<div style="display:grid;gap:8px">${list.map(card).join('')}</div>` : e ? '' : '<div class="empty"><p>저장한 배송지가 없어요. 굿즈 · LP를 처음 결제할 때 입력한 주소가 기본 배송지로 저장돼요.</p></div>'}
+    <p class="tag">${list.length >= MAX_ADDR ? `배송지는 ${MAX_ADDR}개까지 저장할 수 있어요. ` : ''}티켓은 배송하지 않아요 — 예매 내역의 QR로 입장해요. 여기서 고쳐도 지난 주문의 배송지는 그대로예요.</p>
+    ${dev('M19 GET · M20 POST · M21 PUT {id} · M22 POST {id}/default · M23 DELETE {id} — /api/members/me/addresses · 최대 10개 (409 ADDRESS_LIMIT_EXCEEDED) · 기본 1개 · 기본을 지우면 가장 최근 배송지가 기본')}
+  </div>`;
+}
+
+/* ===== 모바일 티켓 — QR 은 qrcode-generator(cdnjs)로 프론트에서 만듦. 표시용 (입장 확인용 서명 토큰은 미구현) ===== */
+const QR_JS = 'https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';
+const ticketText = b => `INDIE-TICKET:${b.id}`;
+function qrMatrix(text) {
+  const q = qrcode(0, 'M'); q.addData(text); q.make();
+  const n = q.getModuleCount();
+  return Array.from({ length: n }, (_, r) => Array.from({ length: n }, (_, c) => q.isDark(r, c)));
+}
+function qrOf(m, label) {
+  let r = '';
+  m.forEach((row, y) => row.forEach((on, x) => { if (on) r += `<rect x="${x}" y="${y}" width="1" height="1"/>`; }));
+  return `<svg class="qr" viewBox="-3 -3 ${m.length + 6} ${m.length + 6}" role="img" aria-label="${esc(label)}"><g fill="#111">${r}</g></svg>`;
+}
+const ticketB = () => S.bookings.find(x => x.id === S.ticket && x.status === 'PAID');
+function ticketPanel() {
+  const b = ticketB(); if (!b) return '';
+  const c = CO(b.cid);
+  return `<div class="panel ticket" style="margin-top:12px">
+    <div id="qrBox"><div class="qr" style="display:grid;place-items:center;color:#666;font-size:12px">QR 만드는 중…</div></div>
+    <div class="sec"><p class="eyebrow">모바일 티켓</p><h2 style="font-size:18px">${esc(c.title)}</h2>
+      <dl class="kv"><dt>일시</dt><dd>${md(c.date)} ${c.time}</dd><dt>장소</dt><dd>${esc(c.venue)}</dd><dt>좌석</dt><dd>${esc((b.labels || b.seats).join(', '))}</dd><dt>예매 번호</dt><dd class="mono">${b.id}</dd></dl>
+      <button class="btn btn-s" data-act="saveQr" data-id="${b.id}" id="saveQr" style="justify-self:start" disabled>QR 저장</button>
+      <p class="tag">입장할 때 이 QR을 보여 주세요. 「QR 저장」으로 사진첩에 넣어 두면 인터넷이 안 될 때도 열 수 있어요.</p>
+      ${dev('N11 GET /api/concerts/bookings → N12 GET /api/concerts/bookings/{id} · QR = 프론트가 bookingId 로 만듦 (표시용 · 배송 없음) — 공연장 입장 확인에 쓰려면 서버가 서명한 입장 토큰 + 검표 API 필요 (미구현)')}
+    </div></div>`;
+}
+AFTER.my = () => {
+  const b = ticketB(); if (!b || !$('#qrBox')) return;   // 예매 내역 탭에서 티켓을 열었을 때만
+  loadJs(QR_JS).then(() => {
+    if (ticketB() !== b || !$('#qrBox')) return;   // 그사이 다른 티켓 · 화면으로 바뀜
+    $('#qrBox').innerHTML = qrOf(qrMatrix(ticketText(b)), `${b.id} 입장 QR`); $('#saveQr').disabled = false;
+  }, () => {
+    if (!$('#qrBox')) return;
+    $('#qrBox').innerHTML = qrSvg(b.id).replace('OTP 등록 QR (데모 무늬)', 'QR 자리 (데모 무늬)') + '<p class="tag">QR 라이브러리를 불러오지 못했어요 (오프라인)</p>';
+  });
 };
 
 /* ===== AI 챗봇 ===== */
@@ -996,7 +1612,7 @@ function aiAnswer(q) {
   // 탈퇴는 안내와 버튼만. 실제 탈퇴는 사용자가 버튼 → 확정을 눌러야 실행 (챗봇 도구로는 실행하지 않음)
   if (/탈퇴|계정\s*삭제/.test(q)) return {
     withdraw: true, ctx: ['회원 탈퇴 안내 · 실행은 버튼으로만'],
-    text: `탈퇴하면 팔로우 ${followedIds().length}팀, 위시리스트 ${S.wish.size}장, 고른 취향, 예매 내역, 대화 기록이 모두 지워지고 되돌릴 수 없어요. 아래 버튼으로 바로 진행할 수 있어요.`
+    text: `탈퇴하면 팔로우 ${followedIds().length}팀, 위시리스트 ${S.wish.size + S.gwish.size}개, 고른 취향, 예매 내역, 대화 기록이 모두 지워지고 되돌릴 수 없어요. 아래 버튼으로 바로 진행할 수 있어요.`
   };
   const ctx = [];
   if (S.user.genres.length) ctx.push('고른 장르 ' + S.user.genres.join('·'));
@@ -1068,53 +1684,727 @@ function drawChat(toEnd) {
   log.scrollTop = toEnd ? log.scrollHeight : y;
 }
 
-/* ===== 관리자 · 무대 편집 ===== */
+/* ===== 관리자 · 좌석 구역 편집 ===== */
 const VENUES = [...new Set(CONCERTS.map(c => c.venue))];
-// 캔버스는 400×300 좌표계. 저장은 0~1 로 정규화한 꼭짓점 좌표만 (밑그림 이미지는 올리지 않음)
+const FLOORS = { '1층': '1F', '2층': '2F', '3층': '3F', '지하 1층': 'B1' };
+// 캔버스는 400×300 좌표계. 저장은 0~1 로 정규화한 좌표만 (밑그림 이미지는 올리지 않음)
 const CW = 400, CH = 300;
-const SAMPLE_PLAN = 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="#f3f0e6"/><rect x="14" y="12" width="372" height="276" fill="none" stroke="#4a4a4a" stroke-width="4"/><path d="M70 26H330V78H286Q200 136 114 78H70Z" fill="#d8ccb0" stroke="#4a4a4a" stroke-width="2"/><text x="200" y="58" font-family="sans-serif" font-size="13" text-anchor="middle" fill="#4a4a4a">STAGE</text>${
-  Array.from({ length: 72 }, (_, i) => `<rect x="${86 + i % 12 * 19 + (i % 12 > 5 ? 10 : 0)}" y="${150 + Math.floor(i / 12) * 21}" width="14" height="14" fill="#bdb6a6"/>`).join('')}</svg>`);
-// 좌석 화면용: 그린 모양의 바깥 상자만 잘라서 좌석 위 폭에 맞춰 그림
-function stageDrawn(pts) {
-  const P = pts.map(([x, y]) => [x * CW, y * CH]), xs = P.map(p => p[0]), ys = P.map(p => p[1]);
-  const x0 = Math.min(...xs), y0 = Math.min(...ys);
-  return `<div class="stage-drawn"><svg viewBox="${x0 - 2} ${y0 - 2} ${Math.max(...xs) - x0 + 4} ${Math.max(...ys) - y0 + 4}" aria-hidden="true"><polygon class="stage-shape" points="${P.join(' ')}"/></svg><span>STAGE</span></div>`;
+// 무대를 따로 그리지 않은 공연장은 위쪽 가운데(샘플 도면의 무대 자리)를 무대로 봄
+const DEFAULT_STAGE = [[.3, .08], [.7, .08], [.7, .2], [.3, .2]];
+const stageOf = v => S.stages[v] || DEFAULT_STAGE;
+const drawing = () => S.admin.mode === 'stage' ? S.admin.spts : S.admin.pts;
+const SAMPLE_PLAN = 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="#f3f0e6"/><rect x="14" y="12" width="372" height="276" fill="none" stroke="#4a4a4a" stroke-width="4"/><rect x="120" y="24" width="160" height="36" fill="#d8ccb0" stroke="#4a4a4a" stroke-width="2"/><text x="200" y="47" font-family="sans-serif" font-size="13" text-anchor="middle" fill="#4a4a4a">STAGE</text><g fill="#e4dccb" stroke="#4a4a4a" stroke-width="1.5"><path d="M68 90L121 151L76 190L23 129Z"/><path d="M140 92H260V196H140Z"/><path d="M332 90L279 151L324 190L377 129Z"/><path d="M60 214H340L360 266H40Z"/></g><g font-family="sans-serif" font-size="14" text-anchor="middle" fill="#4a4a4a"><text x="72" y="145">A</text><text x="200" y="149">B</text><text x="328" y="145">C</text><text x="200" y="245">D</text></g><text x="28" y="280" font-family="sans-serif" font-size="10" fill="#4a4a4a">1F</text></svg>`);
+
+// 좌석 한 칸 크기·간격 (캔버스 단위)
+const SEAT = { w: 7, h: 6, px: 9, py: 10 };
+const toC = pts => pts.map(([x, y]) => [x * CW, y * CH]);
+const mid = P => [0, 1].map(k => P.reduce((s, p) => s + p[k], 0) / P.length);
+const cpts = pts => toC(pts).map(p => p.map(v => +v.toFixed(1)).join(',')).join(' ');
+function inside([x, y], P) {
+  let c = false;
+  for (let i = 0, j = P.length - 1; i < P.length; j = i++) {
+    const [xi, yi] = P[i], [xj, yj] = P[j];
+    if ((yi > y) !== (yj > y) && x < (xj - xi) * (y - yi) / (yj - yi) + xi) c = !c;
+  }
+  return c;
 }
+// 무대를 가장 정면으로 보는 변(길이 × 무대 쪽을 향한 정도)을 앞줄로 잡고,
+// 그 변과 나란한 격자를 깔아 네 모서리가 모두 도형 안에 드는 칸만 좌석으로 남김
+function layoutSeats(pts, stage) {
+  const P = toC(pts), C = mid(P), T = mid(toC(stage));
+  let best = -1, f = null;
+  P.forEach((a, i) => {
+    const b = P[(i + 1) % P.length], L = Math.hypot(b[0] - a[0], b[1] - a[1]);
+    if (!L) return;
+    const m = mid([a, b]), d = Math.hypot(T[0] - m[0], T[1] - m[1]) || 1;
+    let n = [(b[1] - a[1]) / L, (a[0] - b[0]) / L];
+    if (n[0] * (m[0] - C[0]) + n[1] * (m[1] - C[1]) < 0) n = [-n[0], -n[1]];
+    const s = L * Math.max(.01, (n[0] * (T[0] - m[0]) + n[1] * (T[1] - m[1])) / d);
+    if (s > best) { best = s; f = { a, n }; }
+  });
+  if (!f) return { seats: [], rows: 0, rot: 0 };
+  // v: 앞줄 → 뒷줄 방향, u: 객석에서 무대를 볼 때 왼쪽 → 오른쪽 (좌석 번호 방향)
+  const v = [-f.n[0], -f.n[1]], u = [v[1], -v[0]];
+  const at = (t, s) => [f.a[0] + u[0] * t + v[0] * s, f.a[1] + u[1] * t + v[1] * s];
+  const Q = P.map(p => [(p[0] - f.a[0]) * u[0] + (p[1] - f.a[1]) * u[1], (p[0] - f.a[0]) * v[0] + (p[1] - f.a[1]) * v[1]]);
+  const t0 = Math.min(...Q.map(q => q[0])), tw = Math.max(...Q.map(q => q[0])) - t0;
+  const s0 = Math.min(...Q.map(q => q[1])), s1 = Math.max(...Q.map(q => q[1]));
+  const nc = Math.floor(tw / SEAT.px), off = t0 + (tw - nc * SEAT.px) / 2;
+  const seats = []; let row = 0;
+  for (let s = s0 + 1 + SEAT.py / 2; s <= s1; s += SEAT.py) {
+    let num = 0;
+    for (let i = 0; i < nc; i++) {
+      const t = off + SEAT.px * (i + .5);
+      if (![[-1, -1], [1, -1], [1, 1], [-1, 1]].every(([du, dv]) => inside(at(t + du * SEAT.w / 2, s + dv * SEAT.h / 2), P))) continue;
+      if (!num) row++;
+      const [x, y] = at(t, s);
+      seats.push({ row, num: ++num, x: +(x / CW).toFixed(4), y: +(y / CH).toFixed(4) });
+    }
+  }
+  return { seats, rows: row, rot: +(Math.atan2(u[1], u[0]) * 180 / Math.PI).toFixed(1) };
+}
+const seatRects = (seats, rot) => seats.map(t => `<rect x="${-SEAT.w / 2}" y="${-SEAT.h / 2}" width="${SEAT.w}" height="${SEAT.h}" rx="1.5" transform="translate(${(t.x * CW).toFixed(1)} ${(t.y * CH).toFixed(1)}) rotate(${rot})"/>`).join('');
+const label = (pts, t, cls = 'lbl') => { const [x, y] = mid(toC(pts)); return `<text class="${cls}" x="${x.toFixed(1)}" y="${y.toFixed(1)}">${esc(t)}</text>`; };
 
 V.admin = () => {
-  const a = S.admin, n = a.pts.length, xy = a.pts.map(([x, y]) => `${x * CW},${y * CH}`).join(' ');
+  const a = S.admin, st = a.mode === 'stage', P = drawing(), n = P.length;
+  const L = !st && n >= 3 ? layoutSeats(P, stageOf(a.venue)) : null;
+  const here = Object.values(S.sections).filter(s => s.venue === a.venue && s.floor === a.floor);
+  const saved = Object.entries(S.sections).filter(([, s]) => s.venue === a.venue);
   return `
-<div class="page-head"><div><p class="eyebrow">관리자 대시보드</p><h1>공연장 무대 모양</h1></div><button class="link" data-go="signup">← 처음 화면</button></div>
-<div class="sec">
-  <div class="chips">${VENUES.map(v => `<button class="chip ${a.venue === v ? 'on' : ''}" data-act="venue" data-v="${esc(v)}">${esc(v)}${S.stages[v] ? ' ✓' : ''}</button>`).join('')}</div>
-  <p class="muted">실제 무대 사진이나 도면을 밑그림으로 깔고, 무대 모서리를 차례로 눌러 따라 그려요. 좌석은 지금처럼 네모 격자 그대로예요.</p>
-</div>
-<div class="split" style="margin-top:20px">
+<div class="page-head"><div><p class="eyebrow">관리자 대시보드 · 콘서트장</p><h1>좌석 구역 그리기</h1></div><button class="link" data-go="adminHome">← 대시보드</button></div>
+<div class="admin-grid">
+  <aside class="panel form">
+    <label for="admVenue">콘서트장</label>
+    <select id="admVenue">${VENUES.map(v => `<option ${!a.newVenue && v === a.venue ? 'selected' : ''}>${esc(v)}</option>`).join('')}<option value="__new" ${a.newVenue ? 'selected' : ''}>＋ 새 콘서트장 만들기</option></select>
+    ${a.newVenue ? `<form class="inline" data-submit="addVenue"><input type="text" id="newVenue" name="v" placeholder="콘서트장 이름" aria-label="새 콘서트장 이름" autocomplete="off"><button class="btn btn-s" type="submit">만들기</button></form>
+      ${dev('S17 POST /api/studio/venues { name } → 201 { venueId } · 같은 이름이 있으면 그 공연장을 고름 · VENUE_ADMIN')}` : ''}
+    <label for="admFloor">층</label>
+    <select id="admFloor">${Object.keys(FLOORS).map(f => `<option ${f === a.floor ? 'selected' : ''}>${f}</option>`).join('')}</select>
+    <label for="admSec">구역</label>
+    <input type="text" id="admSec" value="${esc(a.name)}" placeholder="예: A구역, VIP, 101" maxlength="12" autocomplete="off">
+    <p class="tag">같은 층에 같은 구역 이름으로 저장하면 새 모양으로 바뀌어요.</p>
+    <h2 style="font-size:15px;margin:14px 0 0">이 콘서트장에 저장된 구역</h2>
+    ${saved.length ? `<div class="list">${saved.map(([k, s]) => `<button class="li" data-act="editSec" data-v="${esc(k)}"><span class="main"><b>${s.floor} · ${esc(s.name)}</b><small>${s.rows}열 · ${s.seats.length}석</small></span><span class="tag">고치기</span></button>`).join('')}</div>`
+      : '<p class="tag">아직 없어요. 오른쪽에 첫 구역을 그려 보세요.</p>'}
+  </aside>
   <div class="panel sec">
     <div class="toolbar">
-      <label class="btn btn-s" for="stageImg">무대 이미지 올리기</label><input type="file" id="stageImg" accept="image/*" hidden>
-      <button class="btn btn-s" data-act="sampleImg">샘플 도면</button>
+      <button class="btn btn-s ${st ? '' : 'on'}" data-act="mode" data-v="sec" aria-pressed="${!st}">좌석 구역</button>
+      <button class="btn btn-s ${st ? 'on' : ''}" data-act="mode" data-v="stage" aria-pressed="${st}">무대 위치</button>
       <span style="flex:1"></span>
+      <label class="btn btn-s" for="stageImg">도면 올리기</label><input type="file" id="stageImg" accept="image/*" hidden>
+      <button class="btn btn-s" data-act="sampleImg">샘플 도면</button>
       <button class="btn btn-s" data-act="undoPt" ${n ? '' : 'disabled'}>마지막 점 지우기</button>
       <button class="btn btn-s" data-act="clearPts" ${n ? '' : 'disabled'}>모두 지우기</button>
     </div>
-    <svg class="canvas" viewBox="0 0 ${CW} ${CH}" data-act="addPt" role="img" aria-label="무대 그리기 영역 · 누를 때마다 꼭짓점이 하나씩 찍혀요">
-      ${a.img ? `<image href="${esc(a.img)}" width="${CW}" height="${CH}" preserveAspectRatio="xMidYMid meet" opacity=".6"/>`
-        : n ? '' : '<text class="hint" x="200" y="144" text-anchor="middle">무대 이미지를 올리거나 샘플 도면을 불러오세요</text><text class="hint" x="200" y="166" text-anchor="middle">밑그림 없이 바로 찍어도 돼요</text>'}
-      ${n >= 3 ? `<polygon class="stage-shape" points="${xy}"/>` : n === 2 ? `<polyline points="${xy}"/>` : ''}
-      ${a.pts.map(([x, y]) => `<circle cx="${x * CW}" cy="${y * CH}" r="5"/>`).join('')}
+    <p class="tag">${st ? '무대 모서리를 눌러 위치를 잡아요. 이 공연장 구역 좌석은 모두 이 무대를 바라보게 기울어요.'
+      : '도면을 밑그림으로 깔고 구역 모서리를 차례로 눌러요. 무대 쪽 변을 앞줄로 삼아 좌석이 도형 안에 채워져요.'}</p>
+    <svg class="canvas" viewBox="0 0 ${CW} ${CH}" data-act="addPt" role="img" aria-label="${st ? '무대' : '구역'} 그리기 영역 · 누를 때마다 꼭짓점이 하나씩 찍혀요">
+      ${a.img ? `<image href="${esc(a.img)}" width="${CW}" height="${CH}" preserveAspectRatio="xMidYMid meet" opacity=".6"/>` : ''}
+      ${here.map(s => `<polygon class="sec-ghost" points="${cpts(s.pts)}"/>${label(s.pts, s.name)}`).join('')}
+      ${st ? '' : `<polygon class="stage-ref" points="${cpts(stageOf(a.venue))}"/>${label(stageOf(a.venue), 'STAGE')}`}
+      ${n >= 3 ? `<polygon class="stage-shape" points="${cpts(P)}"/>` : n === 2 ? `<polyline points="${cpts(P)}"/>` : ''}
+      ${L ? `<g class="seat-pv">${seatRects(L.seats, L.rot)}</g>` : ''}
+      ${P.map(([x, y]) => `<circle cx="${x * CW}" cy="${y * CH}" r="5"/>`).join('')}
+      ${a.img || n ? '' : '<text class="hint" x="200" y="150" text-anchor="middle">구역 모서리를 차례로 눌러 그려요</text><text class="hint" x="200" y="172" text-anchor="middle">도면을 올리거나 샘플 도면을 깔고 따라 그려도 돼요</text>'}
     </svg>
-    <p class="tag">꼭짓점 <b class="num">${n}</b>개 · 3개부터 무대 모양이 닫혀요. 곡선은 점을 촘촘히 찍으면 돼요.</p>
+    <div class="sumbar" id="admFoot">${admFoot()}</div>
+    ${dev(st ? 'S4 PUT /api/studio/venues/{venueId}/stage { points: [[x,y]…] (0~1) } → concert.venue.stage_shape (jsonb) · VENUE_ADMIN'
+      : 'S20 PUT /api/studio/venues/{venueId}/floors/{floor}/sections/{name} { section, seats[] } → venue_section + venue_seat · VENUE_ADMIN')}
+  </div>
+</div>`;
+};
+// 구역 이름을 칠 때마다 화면 전체를 다시 그리지 않도록 아래 줄만 따로 갱신
+function admFoot() {
+  const a = S.admin, name = a.name.trim();
+  if (a.mode === 'stage') return `<p class="tag">꼭짓점 <b class="num">${a.spts.length}</b>개 · 3개부터 무대 모양이 닫혀요</p>
+    <button class="btn btn-primary" data-act="saveStage" ${a.spts.length >= 3 ? '' : 'disabled'}>무대 저장</button>`;
+  const L = a.pts.length >= 3 ? layoutSeats(a.pts, stageOf(a.venue)) : null, k = L ? L.seats.length : 0;
+  const msg = !L ? `꼭짓점 <b class="num">${a.pts.length}</b>개 · 3개부터 구역 모양이 닫혀요`
+    : !k ? '구역이 너무 작아서 좌석이 들어가지 않아요'
+    : `${L.rows}열 · 좌석 <b class="num">${k}</b>석 · 기울기 ${L.rot}°${name ? '' : ' · 왼쪽에 구역 이름을 넣어 주세요'}`;
+  return `<p class="tag">${msg}</p><button class="btn btn-primary" data-act="saveSec" ${k && name ? '' : 'disabled'}>구역 저장</button>`;
+}
+
+// 저장 결과 이미지: 그 층 전체(무대 + 구역들)를 잘라 보여주고, 방금 저장한 구역은 강조 + 열 번호
+function planSvg(key) {
+  const s0 = S.sections[key], stage = stageOf(s0.venue);
+  const secs = Object.entries(S.sections).filter(([, s]) => s.venue === s0.venue && s.floor === s0.floor);
+  const all = toC([...stage, ...secs.flatMap(([, s]) => s.pts)]), xs = all.map(p => p[0]), ys = all.map(p => p[1]);
+  const x0 = Math.min(...xs) - 12, y0 = Math.min(...ys) - 12, w = Math.max(...xs) + 12 - x0, h = Math.max(...ys) + 12 - y0;
+  const r = s0.rot * Math.PI / 180, tr = Math.abs(s0.rot) > 90 ? s0.rot + 180 : s0.rot;
+  const rowl = s0.seats.filter(t => t.num === 1).map(t => `<text class="rowl" transform="translate(${(t.x * CW - Math.cos(r) * 8).toFixed(1)} ${(t.y * CH - Math.sin(r) * 8).toFixed(1)}) rotate(${tr})">${t.row}</text>`).join('');
+  return `<svg class="plan" viewBox="${x0.toFixed(1)} ${y0.toFixed(1)} ${w.toFixed(1)} ${h.toFixed(1)}" role="img" aria-label="${esc(s0.venue)} ${s0.floor} 좌석 배치도 · ${esc(s0.name)} ${s0.seats.length}석">
+    <polygon class="stage-ref" points="${cpts(stage)}"/>${label(stage, 'STAGE')}
+    ${secs.map(([k, s]) => `<g class="${k === key ? 'new' : ''}"><polygon class="sec-ol" points="${cpts(s.pts)}"/>${seatRects(s.seats, s.rot)}${k === key ? rowl : ''}${label(s.pts, s.name, 'secl')}</g>`).join('')}
+  </svg>`;
+}
+
+V.adminSaved = ({ id }) => {
+  const s = S.sections[id], vid = VENUES.indexOf(s.venue) + 1, fc = FLOORS[s.floor];
+  const body = {
+    venueId: vid, venueName: s.venue, floor: fc,
+    section: { name: s.name, shape: s.pts, angle: s.rot, rows: s.rows, seatCount: s.seats.length },
+    seats: s.seats.map(t => ({ seatId: `${fc}-${s.name}-${t.row}-${t.num}`, row: t.row, number: t.num, x: t.x, y: t.y, angle: s.rot }))
+  };
+  // 보기 좋게: 좌표 쌍은 한 줄로, 좌석은 한 석에 한 줄
+  const json = JSON.stringify({ ...body, seats: 0 }, null, 2)
+    .replace(/\[\s+([-\d.,\s]+?)\s+\]/g, (_, g) => `[${g.replace(/\s+/g, '')}]`)
+    .replace('"seats": 0', `"seats": [\n${body.seats.map(x => '    ' + JSON.stringify(x)).join(',\n')}\n  ]`);
+  const res = { sectionId: 101 + Object.keys(S.sections).indexOf(id), venueId: vid, floor: fc, section: s.name, savedSeats: s.seats.length };
+  return `
+<div class="page-head"><div><p class="eyebrow">관리자 대시보드 · 저장 완료</p><h1>${esc(s.venue)} ${s.floor} ${esc(s.name)} 저장 완료</h1></div><button class="link" data-go="admin">← 구역 그리기로</button></div>
+<div class="split">
+  <div class="panel sec">
+    <div class="sec-head"><h2>만들어진 좌석 배치도</h2><span class="tag">${s.floor} 전체 · 방금 저장한 구역 강조</span></div>
+    ${planSvg(id)}
+    <p class="tag">무대를 바라보는 변을 앞줄로 잡고 ${s.rows}열 ${s.seats.length}석을 ${s.rot}° 기울여 도형 안에 채웠어요. 구역 옆 숫자는 열 번호예요.</p>
   </div>
   <aside class="panel sec">
-    <h2 style="font-size:17px">좌석 화면 미리보기</h2>
-    <div>${n >= 3 ? stageDrawn(a.pts) : '<div class="stage">STAGE</div>'}<div class="mini-seats" aria-hidden="true">${'<i></i>'.repeat(84)}</div></div>
-    <p class="tag">${esc(a.venue)} 좌석 선택 화면에 이렇게 보여요. 저장되는 건 꼭짓점 좌표뿐이고 밑그림 이미지는 올리지 않아요.</p>
-    <button class="btn btn-primary" data-act="saveStage" ${n >= 3 ? '' : 'disabled'}>저장</button>
-    ${dev('PUT /api/admin/venues/{venueId}/stage { points: [[x,y]…] (0~1) } → concert.venue.stage_shape (jsonb) · ROLE_ADMIN')}
+    <div class="sec-head"><h2>저장 결과</h2><span class="pill ok">${s.status === 201 ? '201 Created' : '200 OK'}</span></div>
+    <dl class="kv"><dt>콘서트장</dt><dd>${esc(s.venue)}</dd><dt>층</dt><dd>${s.floor}</dd><dt>구역</dt><dd>${esc(s.name)}</dd>
+      <dt>좌석</dt><dd class="num">${s.rows}열 · ${s.seats.length}석</dd><dt>기울기</dt><dd class="num">${s.rot}°</dd></dl>
+    <p class="tag">서버 응답</p>
+    <pre class="json">${esc(JSON.stringify(res, null, 2))}</pre>
+    <button class="btn btn-primary" data-go="admin">다른 구역 그리기</button>
+  </aside>
+</div>
+<div class="panel sec" style="margin-top:20px">
+  <div class="sec-head"><h2>백엔드로 보낸 좌석 JSON</h2><span class="tag num">좌석 ${s.seats.length}개 · ${(new Blob([json]).size / 1024).toFixed(1)}KB</span></div>
+  <p class="mono" style="font-size:13px;overflow-wrap:anywhere">PUT /api/studio/venues/${vid}/floors/${fc}/sections/${esc(s.name)}</p>
+  <pre class="json">${esc(json)}</pre>
+  ${dev('→ concert.venue_section (shape·angle jsonb) + concert.venue_seat 일괄 저장 · 같은 구역이면 좌석을 통째로 교체 · VENUE_ADMIN')}
+</div>`;
+};
+
+/* ===== 관리자 대시보드 — 역할 4종 · 시크릿 계정 (docs/24) ===== */
+// 관리자 계정은 화면에서 만들지 않음 — Member 시크릿(/etc/secrets/admin-accounts)에 등록된 계정만 (데모용 가상 계정)
+const ADMINS = [
+  { loginId: 'venue.kim', name: '김공연장', roles: ['VENUE_ADMIN'], otp: true, last: '10.07 18:12' },
+  { loginId: 'show.lee', name: '이공연', roles: ['CONCERT_ADMIN', 'VENUE_ADMIN'], otp: true, last: '10.08 09:40' },
+  { loginId: 'goods.park', name: '박굿즈', roles: ['GOODS_ADMIN'], otp: false, last: null },
+  { loginId: 'cs.choi', name: '최상담', roles: ['CS_ADMIN'], otp: true, last: '10.06 14:03' },
+  { loginId: 'demo.all', name: '데모 전체 보기', roles: ['VENUE_ADMIN', 'CONCERT_ADMIN', 'GOODS_ADMIN', 'CS_ADMIN'], otp: true, last: '10.08 11:58', demo: true }
+];
+const ROLE = { VENUE_ADMIN: '콘서트장', CONCERT_ADMIN: '공연', GOODS_ADMIN: '굿즈', CS_ADMIN: 'CS' };
+const ADM_TABS = [['venues', '콘서트장', ['VENUE_ADMIN']], ['concerts', '공연', ['CONCERT_ADMIN']], ['products', '상품', ['GOODS_ADMIN']],
+  ['cs', 'CS', ['CS_ADMIN']], ['crawl', '수집 현황', ['VENUE_ADMIN', 'CONCERT_ADMIN', 'GOODS_ADMIN']], ['me', '내 계정', null]];
+const CRAWL = [['venues', '콘서트장', 'VENUE_ADMIN'], ['concerts', '공연', 'CONCERT_ADMIN'], ['albums', 'LP · 앨범', 'GOODS_ADMIN'], ['goods', '굿즈', 'GOODS_ADMIN']];
+const REGIONS = ['서울', '경기', '인천', '부산', '대구', '광주', '대전', '울산', '강원', '충청', '전라', '경상', '제주'];
+const KINDS = [...new Set(GOODS.map(g => g.kind)), '기타'];
+const LOCK_LABEL = { region: '지역', addr: '주소', cap: '수용 인원', title: '제목', date: '날짜', time: '시각', price: '가격', venue: '콘서트장', type: '유형', name: '상품명', kind: '분류', url: '공식판매처 URL' };
+const XL_HEAD = ['판매처 상품코드', '상품명', '분류', '가격', '입고 수량', '공식판매처 URL', '이미지 URL'];
+const sellerOf = aid => `${A(aid).name} 공식 스토어`;
+const slug = aid => A(aid).en.toLowerCase().replace(/\s+/g, '-');
+
+// 삭제(판매 중지)한 행 — 사용자 목록에서는 빠지고, 예매 · 주문 · 위시리스트에서 찾을 때만 씀 (묘비)
+const TRASH = { c: [], g: [], al: [] };
+const VMETA = Object.fromEntries(VENUES.map(v => { const c = CONCERTS.find(x => x.venue === v); return [v, { region: c.region, addr: c.addr, cap: null, src: '수집', del: false, locked: [], stage: true }]; }));
+CONCERTS.forEach(c => Object.assign(c, { src: '수집', locked: [] }));
+ALBUMS.forEach(al => Object.assign(al, { src: '수집', locked: [] }));
+GOODS.forEach(g => Object.assign(g, { src: '엑셀', locked: [], seller: sellerOf(g.artist), code: 'SKU-' + g.id.slice(1).padStart(3, '0'), url: `https://store.example.com/${slug(g.artist)}/SKU-${g.id.slice(1).padStart(3, '0')}` }));
+GD('g4').pending = 1;   // (시연) 결제 대기 주문 1건 — 판매 중지가 막히는 경우
+let admSeq = 100;
+S.adm = {
+  me: null, step: 'id', who: null, fill: '', err: null, tab: null, ptab: '굿즈', edit: null, cq: '', member: null, wd: null,
+  impArtist: 'a1', impSeller: sellerOf('a1'), impBad: false, imp: null, imports: [], ledger: [], running: {}, crawled: {},
+  runs: {
+    venues: [{ at: '10.08 04:00', by: '자동', n: 0, u: 3, s: 9, f: 0 }],
+    concerts: [{ at: '10.08 04:10', by: '자동', n: 2, u: 5, s: 5, f: 1, fails: ['ticket.example.com/show/8812 — 공연 날짜를 읽지 못함'] }],
+    albums: [{ at: '10.08 04:20', by: '자동', n: 1, u: 2, s: 7, f: 0 }],
+    goods: [{ at: '10.08 04:30', by: '자동', n: 0, u: 1, s: 11, f: 0 }]
+  }
+};
+// CS 데모 회원 — 1001 은 지금 이 데모를 쓰는 사용자라 예매 · 주문 내역이 실제로 쌓임
+const MEMBERS = [
+  { id: 1001, nick: '새벽청취자', email: 'listener@kakao.com', provider: '카카오', joined: '2026-09-02', status: 'ACTIVE', live: true },
+  { id: 1002, nick: '기타치는고양이', email: 'cat.guitar@gmail.com', provider: '카카오', joined: '2026-08-15', status: 'ACTIVE',
+    hist: [['예매', 'BK-260921-0031', '가을 소풍 페스티벌 2026 · B구역 12열 7번', 99000, 'CONFIRMED'], ['결제', 'PAY-TICKET-0031', '티켓 · 카드', 99000, 'APPROVED'],
+      ['주문', 'OD-260930-0012', '퇴근길 FM 슬로건 타월 × 2', 36000, 'CONFIRMED'], ['결제', 'PAY-GOODS-0012', '굿즈 · 카드', 36000, 'APPROVED']] },
+  { id: 1003, nick: '공짜티켓드림010', email: 'promo.ticket@kakao.com', provider: '카카오', joined: '2026-10-01', status: 'ACTIVE', hist: [] },
+  { id: 1004, nick: '슈게이저', email: 'shoegazer@gmail.com', provider: '카카오', joined: '2026-07-21', status: 'ACTIVE',
+    hist: [['예매', 'BK-261003-0107', '소음정원 단독 공연 〈젖은 신호〉 · A구역 3열 11번', 66000, 'CONFIRMED'], ['결제', 'PAY-TICKET-0107', '티켓 · 카드', 66000, 'APPROVED'],
+      ['예매', 'BK-261004-0221', '모래시계클럽 10주년 · C구역', 50000, 'EXPIRED'], ['결제', 'PAY-TICKET-0221', '티켓 · 3분 안에 결제 안 함', 50000, 'CANCELLED']] },
+  { id: 1005, nick: '(탈퇴)', email: null, provider: '카카오', joined: '2026-05-11', status: 'WITHDRAWN', hist: [] }
+];
+
+const can = r => !!S.adm.me && S.adm.me.roles.includes(r);
+const myTabs = () => ADM_TABS.filter(([, , rs]) => !rs || rs.some(can));
+const stageOk = v => VMETA[v].stage || Object.values(S.sections).some(s => s.venue === v);
+// 예매 수 — 데모: 좌석이 열린 공연은 대기열 규모의 30% 가 이미 예매했다고 봄 + 내 예매
+const bkCount = c => (c.noSeats ? 0 : Math.round(c.queue * .3)) + S.bookings.filter(b => b.cid === c.id && b.status === 'PAID').length;
+const nowStr = () => { const d = new Date(); return `10.08 ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`; };
+const abtn = (act, label, d = {}, cls = '') => `<button class="btn btn-s ${cls}" data-act="${act}" ${Object.entries(d).map(([k, v]) => `data-${k}="${esc(v)}"`).join(' ')}>${label}</button>`;
+const srcPill = s => `<span class="pill ${s === '수집' ? 'ac' : s === '엑셀' ? 'ok' : ''}">${s}</span>`;
+const lockTag = (row, t, id) => row.locked.length ? `<br><small class="tag">🔒 ${row.locked.map(k => LOCK_LABEL[k]).join(' · ')} 잠김 — 수집이 덮어쓰지 않아요 · <button class="link" data-act="admUnlock" data-t="${t}" data-id="${esc(id)}">수집값 따르기</button></small>` : '';
+const fv = (f, k) => f.elements[k].value.trim();
+const opts = (list, cur) => list.map(([v, l]) => `<option value="${esc(v)}" ${v === cur ? 'selected' : ''}>${esc(l)}</option>`).join('');
+// 수집 · 엑셀로 들어온 행을 관리자가 고치면 고친 필드를 잠금 (docs/24 §3)
+function lockChanged(row, next) {
+  Object.entries(next).forEach(([k, v]) => {
+    if (row[k] === v) return;
+    row[k] = v;
+    if (row.src !== '직접 등록' && !row.locked.includes(k)) row.locked.push(k);
+  });
+}
+const sumStock = al => al.stock.reduce((s, x) => s + x[2], 0);
+const formHead = (title, row) => `<h2>${title}</h2>${row && row.src !== '직접 등록' ? `<p class="tag">${row.src === '엑셀' ? '엑셀로' : '수집으로'} 들어온 행이에요. 고친 칸은 잠겨서 다음 ${row.src === '엑셀' ? '입고 · 수집' : '수집'}이 덮어쓰지 않아요.</p>` : ''}`;
+const formActs = label => `<div class="acts"><button class="btn btn-primary btn-s" type="submit">${label}</button><button class="btn btn-s" type="button" data-act="admCancel">취소</button></div>`;
+
+V.adminLogin = () => {
+  const L = S.adm, w = L.who, err = L.err ? `<p class="err" role="alert">${esc(L.err)}</p>` : '';
+  if (L.step === 'otp') return `
+<div class="page-head"><div><p class="eyebrow">관리자 로그인 · 2단계</p><h1>${w.otp ? 'OTP 6자리 입력' : 'OTP 앱 등록'}</h1></div><button class="link" data-act="admBack">← 아이디 다시 입력</button></div>
+<div class="panel adm-login">
+  <form class="form" data-submit="admOtp">
+    ${w.otp ? `<p>${esc(w.name)}님, OTP 앱에 뜬 6자리를 넣어 주세요.</p>`
+      : `<p>${esc(w.name)}님은 첫 로그인이라 OTP 앱(Google Authenticator 등)에 먼저 등록해요. QR 을 찍고 앱에 뜬 6자리를 넣어 주세요.</p>
+        ${qrSvg(w.loginId)}<p class="tag mono" style="overflow-wrap:anywhere">otpauth://totp/indie:${esc(w.loginId)}?issuer=indie-studio</p>`}
+    <label for="admCode">OTP 6자리</label>
+    <input type="text" id="admCode" name="code" inputmode="numeric" maxlength="6" autocomplete="one-time-code" placeholder="123456">
+    ${err}
+    <button class="btn btn-primary" type="submit">${w.otp ? '로그인' : '등록하고 로그인'}</button>
+  </form>
+  ${dev(w.otp ? 'POST /api/auth/admin/totp { code } → AT · RT 쿠키 (typ=admin · roles)' : 'POST /api/auth/admin/totp { code } — 첫 로그인: 1단계 응답(next=TOTP_ENROLL)의 비밀키로 검증 → totp_secret_enc 저장 → AT · RT')}
+  <p class="tag">데모라 숫자 6자리면 통과해요.</p>
+</div>`;
+  return `
+<div class="page-head"><div><p class="eyebrow">관리자 로그인</p><h1>관리자 대시보드</h1></div><button class="link" data-go="signup">← 처음 화면</button></div>
+<div class="split">
+  <div class="panel">
+    <form class="form" data-submit="admLogin">
+      <label for="admId">아이디</label><input type="text" id="admId" name="id" autocomplete="username" value="${esc(L.fill)}">
+      <label for="admPw">비밀번호</label><input type="password" id="admPw" name="pw" autocomplete="current-password" value="${L.fill ? 'demo-password-12' : ''}">
+      ${err}
+      <button class="btn btn-primary" type="submit">다음</button>
+    </form>
+    ${dev('POST /api/auth/admin/login { loginId, password } → 200 { next: TOTP | TOTP_ENROLL, otpauthUri? } + 2단계 대기 쿠키(5분 · 1회용) · 실패는 401 ADMIN_LOGIN_FAILED (무엇이 틀렸는지 말하지 않음)')}
+    <p class="tag" style="margin-top:12px">소셜 로그인으로는 관리자가 될 수 없어요. 관리자 계정은 화면에서 만들지 않고 시크릿에 등록해요.</p>
+  </div>
+  <aside class="panel sec">
+    <div class="sec-head"><h2>시크릿에 등록된 계정</h2><span class="tag">데모</span></div>
+    <div class="list">${ADMINS.map(a => `<button class="li" data-act="admFill" data-v="${a.loginId}"><span class="main"><b>${esc(a.name)} <span class="tag mono">${a.loginId}</span></b>
+      <small>${a.roles.map(r => ROLE[r] + ' 관리자').join(' · ')}${a.otp ? '' : ' · OTP 미등록(첫 로그인)'}${a.demo ? ' · 데모 전용' : ''}</small></span></button>`).join('')}</div>
+    <p class="tag">누르면 아이디 · 비밀번호가 채워져요. 계정 추가 · 역할 변경 · 비활성화는 시크릿을 고치면 Member 가 1분 안에 맞춰요.</p>
+    ${dev('Member /etc/secrets/admin-accounts [{ loginId, name, roles, passwordHash(bcrypt), enabled, otpRev }] → admin_account 동기화 · KT 의 Studio 에는 두지 않음')}
   </aside>
 </div>`;
 };
+// 진짜 QR 이 아니라 자리만 보여 주는 무늬 (데모)
+function qrSvg(seed) {
+  const N = 21, fin = (x, y) => [[0, 0], [N - 7, 0], [0, N - 7]].some(([a, b]) => x >= a && x < a + 7 && y >= b && y < b + 7);
+  const ring = (x, y) => { const [a, b] = [x < 7 ? 0 : N - 7, y < 7 ? 0 : N - 7], i = x - a, j = y - b; return i === 0 || j === 0 || i === 6 || j === 6 || (i > 1 && i < 5 && j > 1 && j < 5); };
+  let h = 2166136261, r = '';
+  for (let y = 0; y < N; y++) for (let x = 0; x < N; x++) {
+    h = Math.imul(h ^ seed.charCodeAt((x + y * N) % seed.length) ^ x * 31 ^ y, 16777619) >>> 0;
+    if (fin(x, y) ? ring(x, y) : h % 3 === 0) r += `<rect x="${x}" y="${y}" width="1" height="1"/>`;
+  }
+  return `<svg class="qr" viewBox="0 0 ${N} ${N}" role="img" aria-label="OTP 등록 QR (데모 무늬)"><g fill="#111">${r}</g></svg>`;
+}
+
+V.adminHome = () => {
+  const me = S.adm.me;
+  if (!me) return V.adminLogin();
+  const tabs = myTabs(), tab = tabs.some(t => t[0] === S.adm.tab) ? S.adm.tab : tabs[0][0];
+  return `
+<div class="page-head"><div><p class="eyebrow">관리자 대시보드</p><h1>${esc(me.name)} · ${me.roles.map(r => ROLE[r]).join(' · ')} 관리자</h1></div>
+  <button class="link" data-act="admLogout">로그아웃</button></div>
+${admTodo()}
+<div class="tabs" role="tablist">${tabs.map(([k, l]) => `<button role="tab" data-act="admTab" data-v="${k}" aria-selected="${k === tab}">${l}</button>`).join('')}</div>
+<p class="err" role="alert" id="admErr" style="margin-bottom:16px" ${S.adm.err ? '' : 'hidden'}>${esc(S.adm.err || '')}</p>
+${ADM[tab]()}`;
+};
+// 수집으로 새로 들어와 사람 손이 필요한 것 — 역할별
+function admTodo() {
+  const items = [];
+  if (can('VENUE_ADMIN')) { const n = VENUES.filter(v => !stageOk(v)).length; if (n) items.push(['venues', `무대 미작성 콘서트장 ${n}곳`]); }
+  if (can('CONCERT_ADMIN')) { const n = CONCERTS.filter(c => c.noSeats).length; if (n) items.push(['concerts', `좌석 미생성 공연 ${n}개`]); }
+  if (can('GOODS_ADMIN')) { const n = GOODS.filter(g => g.src === '수집' && !g.stock).length; if (n) items.push(['products', `입고 대기 굿즈 ${n}개`]); }
+  return items.length ? `<div class="notice adm-todo"><span>할 일</span>${items.map(([t, l]) => `<button class="link" data-act="admTab" data-v="${t}">${l}</button>`).join('')}</div>` : '';
+}
+const ADM = {};
+// 폼을 열면 폼으로 스크롤 · 오류는 다시 그리지 않고 띄워서 입력한 값을 지키고 · 저장하면 폼을 닫음
+function admOpen(e) {
+  Object.assign(S.adm, { edit: e, err: null }); rerender();
+  const f = $('.adm-form'); if (f) { f.scrollIntoView({ block: 'nearest' }); f.querySelector('input,select')?.focus(); }
+}
+function admErr(msg) { S.adm.err = msg; const el = $('#admErr'); el.textContent = msg; el.hidden = false; el.scrollIntoView({ block: 'nearest' }); }
+function admDone() { Object.assign(S.adm, { edit: null, err: null }); rerender(); }
+const admRow = (t, id) => t === 'venue' ? VMETA[id] : { concert: CO, goods: GD, album: AL }[t](id);
+function binMove(arr, bin, x) { arr.splice(arr.indexOf(x), 1); bin.push(x); x.del = true; }
+
+ADM.venues = () => {
+  const e = S.adm.edit, rows = Object.entries(VMETA);
+  return `
+<div class="sumbar" style="margin-bottom:12px"><p class="tag">수집 ${rows.filter(([, m]) => m.src === '수집').length}곳 · 직접 등록 ${rows.filter(([, m]) => m.src === '직접 등록').length}곳 — 공연을 수집할 때 원문의 공연장 이름으로 자동 등록돼요</p>
+  ${abtn('admNew', '＋ 콘서트장 등록', { t: 'venue' }, 'btn-primary')}</div>
+${e && e.t === 'venue' ? venueForm(e) : ''}
+<div class="tbl-wrap"><table class="table adm"><thead><tr><th>콘서트장</th><th>지역</th><th class="r">수용</th><th>무대</th><th class="r">공연</th><th>출처</th><th>관리</th></tr></thead><tbody>
+${rows.map(([v, m]) => `<tr class="${m.del ? 'del' : ''}"><td><b>${esc(v)}</b><br><small class="tag">${esc(m.addr || '주소 없음')}</small>${lockTag(m, 'venue', v)}</td>
+  <td>${m.region}</td><td class="r num">${m.cap ? m.cap.toLocaleString() : '—'}</td>
+  <td>${m.del ? '<span class="pill">삭제됨</span>' : stageOk(v) ? '<span class="pill ok">작성됨</span>' : '<span class="pill warn">무대 미작성</span>'}</td>
+  <td class="r num">${CONCERTS.filter(c => c.venue === v).length}</td><td>${srcPill(m.src)}</td>
+  <td><div class="acts">${m.del ? abtn('admRestore', '복구', { t: 'venue', id: v })
+    : abtn('admEdit', '수정', { t: 'venue', id: v }) + abtn('admDraw', '무대 그리기', { id: v }) + abtn('admDel', '삭제', { t: 'venue', id: v })}</div></td></tr>`).join('')}
+</tbody></table></div>
+${dev('S15 GET /api/studio/venues · S17 POST · S18 PUT (수집 행이면 locked_fields) · S19 DELETE 소프트 삭제 · 409 VENUE_IN_USE → Concert /internal/admin/concerts/venues (I24) · VENUE_ADMIN')}`;
+};
+function venueForm(e) {
+  const m = e.m === 'edit' ? VMETA[e.id] : { region: '서울', addr: '', cap: '' };
+  return `<form class="panel form adm-form" data-submit="admSaveVenue">
+  ${formHead(e.m === 'edit' ? `${esc(e.id)} 수정` : '콘서트장 등록', e.m === 'edit' && m)}
+  <div class="fgrid">
+    ${e.m === 'new' ? '<div><label for="fvName">이름</label><input type="text" id="fvName" name="vname" maxlength="100" required></div>' : ''}
+    <div><label for="fvRegion">지역</label><select id="fvRegion" name="region">${opts(REGIONS.map(r => [r, r]), m.region)}</select></div>
+    <div><label for="fvAddr">주소</label><input type="text" id="fvAddr" name="addr" maxlength="255" value="${esc(m.addr || '')}"></div>
+    <div><label for="fvCap">수용 인원</label><input type="number" id="fvCap" name="cap" min="1" value="${m.cap || ''}"></div>
+  </div>
+  ${formActs(e.m === 'edit' ? '저장' : '등록')}
+  ${dev(e.m === 'edit' ? 'S18 PUT /api/studio/venues/{id} { region, address, capacity }' : 'S17 POST /api/studio/venues { name, region, address, capacity } → 201 · 같은 이름 409 VENUE_EXISTS · source=ADMIN')}
+</form>`;
+}
+
+ADM.concerts = () => {
+  const e = S.adm.edit, rows = [...CONCERTS, ...TRASH.c].sort(byDate);
+  return `
+<div class="sumbar" style="margin-bottom:12px"><p class="tag">수집한 공연은 바로 공개돼요. 좌석을 만들기 전에는 사용자 화면에 예매 버튼이 없어요</p>
+  ${abtn('admNew', '＋ 공연 등록', { t: 'concert' }, 'btn-primary')}</div>
+${e && e.t === 'concert' ? (e.m === 'seats' ? seatsForm(CO(e.id)) : concertForm(e)) : ''}
+<div class="tbl-wrap"><table class="table adm"><thead><tr><th>공연</th><th>콘서트장</th><th>일시</th><th>좌석</th><th class="r">예매</th><th>출처</th><th>관리</th></tr></thead><tbody>
+${rows.map(c => `<tr class="${c.del ? 'del' : ''}"><td><b>${esc(c.title)}</b><br><small class="tag">${esc(names(c.artists))}</small>${lockTag(c, 'concert', c.id)}</td>
+  <td>${esc(c.venue)}</td><td class="num">${md(c.date)} ${c.time}</td>
+  <td>${c.del ? '<span class="pill">삭제됨</span>' : c.noSeats ? '<span class="pill warn">좌석 미생성</span>' : '<span class="pill ok">열림</span>'}</td>
+  <td class="r num">${bkCount(c).toLocaleString()}</td><td>${srcPill(c.src)}</td>
+  <td><div class="acts">${c.del ? abtn('admRestore', '복구', { t: 'concert', id: c.id })
+    : abtn('admEdit', '수정', { t: 'concert', id: c.id }) + (c.noSeats ? abtn('admSeatsAsk', '좌석 만들기', { id: c.id }) : '') + abtn('admDel', '삭제', { t: 'concert', id: c.id })}</div></td></tr>`).join('')}
+</tbody></table></div>
+${dev('S22 GET /api/studio/concerts · S24 POST · S25 PUT · S26 DELETE (409 CONCERT_HAS_BOOKINGS) · S5 POST /api/studio/concerts/{id}/seats → Concert (I24) · CONCERT_ADMIN')}`;
+};
+function concertForm(e) {
+  const c = e.m === 'edit' ? CO(e.id) : { artists: ['a1'], title: '', type: '단독', venue: VENUES[0], date: '2026-12-12', time: '19:00', price: 50000 };
+  return `<form class="panel form adm-form" data-submit="admSaveConcert">
+  ${formHead(e.m === 'edit' ? `${esc(c.title)} 수정` : '공연 등록', e.m === 'edit' && c)}
+  <div class="fgrid">
+    ${e.m === 'new' ? `<div><label for="fcArtist">아티스트</label><select id="fcArtist" name="artist">${opts(ARTISTS.map(a => [a.id, a.name]), c.artists[0])}</select></div>` : ''}
+    <div><label for="fcTitle">제목</label><input type="text" id="fcTitle" name="ctitle" maxlength="200" required value="${esc(c.title)}"></div>
+    <div><label for="fcType">유형</label><select id="fcType" name="type">${opts([['단독', '단독'], ['페스티벌', '페스티벌']], c.type)}</select></div>
+    <div><label for="fcVenue">콘서트장</label><select id="fcVenue" name="venue">${opts(VENUES.map(v => [v, v]), c.venue)}</select></div>
+    <div><label for="fcDate">날짜</label><input type="date" id="fcDate" name="date" required value="${c.date}"></div>
+    <div><label for="fcTime">시각</label><input type="time" id="fcTime" name="time" required value="${c.time}"></div>
+    <div><label for="fcPrice">대표 가격</label><input type="number" id="fcPrice" name="price" min="0" step="1000" value="${c.price}"></div>
+  </div>
+  ${e.m === 'edit' && bkCount(c) ? `<p class="tag">예매 ${bkCount(c).toLocaleString()}건이 있어서 콘서트장은 바꿀 수 없어요. 날짜를 바꾸면 예매자 안내는 따로 해야 해요.</p>` : ''}
+  ${formActs(e.m === 'edit' ? '저장' : '등록')}
+  ${dev(e.m === 'edit' ? 'S25 PUT /api/studio/concerts/{id} — 예매가 있으면 콘서트장 변경 409 CONCERT_HAS_BOOKINGS' : 'S24 POST /api/studio/concerts → 201 · source=ADMIN · 같은 아티스트 + 날짜 + 콘서트장이면 409 CONCERT_EXISTS')}
+</form>`;
+}
+// 공연 좌석 = 콘서트장 무대 그리기 결과(구역)를 복사 + 구역별 가격 (S5)
+function secsOf(v) {
+  const drawn = Object.values(S.sections).filter(s => s.venue === v).map(s => [`${s.floor} ${s.name}`, s.seats.length]);
+  return drawn.length ? drawn : VMETA[v].stage ? Object.keys(SAMPLE_SECS).map(k => [`1층 ${k}구역`, null]) : [];
+}
+function seatsForm(c) {
+  const secs = secsOf(c.venue);
+  return `<form class="panel form adm-form" data-submit="admSeats">
+  <h2>${esc(c.title)} 좌석 만들기</h2>
+  ${secs.length ? `<p class="tag">${esc(c.venue)}에 그려 둔 구역을 이 공연 좌석으로 복사하고 구역마다 가격을 붙여요. 예매가 열린 뒤에는 다시 만들 수 없어요.</p>
+    <div class="fgrid">${secs.map(([n, k], i) => `<div><label for="fs${i}">${esc(n)}${k ? ` · ${k}석` : ''}</label><input type="number" id="fs${i}" name="p${i}" min="1000" step="1000" required value="${c.price}"></div>`).join('')}</div>
+    ${formActs('좌석 만들기')}`
+    : `<p class="notice">${esc(c.venue)}은 아직 무대를 그리지 않았어요. 콘서트장 관리자가 구역을 그리면 좌석을 만들 수 있어요.</p>
+    <div class="acts">${can('VENUE_ADMIN') ? abtn('admDraw', '무대 그리러 가기', { id: c.venue }, 'btn-primary') : ''}<button class="btn btn-s" type="button" data-act="admCancel">닫기</button></div>`}
+  ${dev('S5 POST /api/studio/concerts/{id}/seats { sectionPrices: { "1F-A": 99000, … } } → concert.seat 일괄 생성 · 예매 오픈 뒤 409 BOOKING_OPENED')}
+</form>`;
+}
+
+ADM.products = () => {
+  const t = S.adm.ptab;
+  return `<div class="chips" role="group" aria-label="상품 종류" style="margin-bottom:16px">${['굿즈', 'LP · 앨범', '엑셀 입고'].map(k => `<button class="chip ${k === t ? 'on' : ''}" data-act="admPtab" data-v="${k}" aria-pressed="${k === t}">${k}</button>`).join('')}</div>
+${t === '굿즈' ? goodsTab() : t === '엑셀 입고' ? importTab() : albumTab()}`;
+};
+function goodsTab() {
+  const e = S.adm.edit, rows = [...GOODS, ...TRASH.g];
+  return `
+<div class="sumbar" style="margin-bottom:12px"><p class="tag">결제는 우리 사이트에서 하고, 재고는 공식판매처가 보내 준 엑셀로 입고해요</p>
+  <div class="acts">${abtn('admPtab', '엑셀로 입고', { v: '엑셀 입고' })}${abtn('admNew', '＋ 굿즈 직접 등록', { t: 'goods' }, 'btn-primary')}</div></div>
+${e && e.t === 'goods' ? (e.m === 'stock' ? stockForm(GD(e.id)) : goodsForm(e)) : ''}
+<div class="tbl-wrap"><table class="table adm"><thead><tr><th>상품</th><th>분류</th><th class="r">가격</th><th class="r">재고</th><th>공식판매처</th><th>출처</th><th>관리</th></tr></thead><tbody>
+${rows.map(g => `<tr class="${g.del ? 'del' : ''}"><td><b>${esc(g.name)}</b><br><small class="tag">${esc(A(g.artist).name)} · <span class="mono">${esc(g.code)}</span></small>${lockTag(g, 'goods', g.id)}</td>
+  <td>${esc(g.kind)}</td><td class="r num">${won(g.price)}</td>
+  <td class="r">${g.del ? '<span class="pill">판매 중지</span>' : g.stock ? `<span class="num">${g.stock}개</span>` : g.src === '수집' ? '<span class="pill warn">입고 대기</span>' : '<span class="pill bad">품절</span>'}</td>
+  <td>${g.url ? `<a href="${esc(g.url)}" target="_blank" rel="noopener noreferrer">${esc(g.seller)}</a>` : '—'}</td><td>${srcPill(g.src)}</td>
+  <td><div class="acts">${g.del ? abtn('admRestore', '복구', { t: 'goods', id: g.id })
+    : abtn('admEdit', '수정', { t: 'goods', id: g.id }) + abtn('admStockAsk', '재고', { id: g.id }) + abtn('admDel', '판매 중지', { t: 'goods', id: g.id })}</div></td></tr>`).join('')}
+</tbody></table></div>
+${dev('S27 GET /api/studio/products?type=GOODS · S29 POST · S30 PUT · S31 DELETE 판매 중지 (409 PRODUCT_HAS_PENDING_ORDERS) · S32 재고 조정 → Catalog (I23) · GOODS_ADMIN')}`;
+}
+function goodsForm(e) {
+  const g = e.m === 'edit' ? GD(e.id) : { artist: 'a1', name: '', kind: KINDS[0], price: 20000, stock: 10, url: 'https://' };
+  return `<form class="panel form adm-form" data-submit="admSaveGoods">
+  ${formHead(e.m === 'edit' ? `${esc(g.name)} 수정` : '굿즈 직접 등록', e.m === 'edit' && g)}
+  <div class="fgrid">
+    ${e.m === 'new' ? `<div><label for="fgArtist">아티스트</label><select id="fgArtist" name="artist">${opts(ARTISTS.map(a => [a.id, a.name]), g.artist)}</select></div>` : ''}
+    <div><label for="fgName">상품명</label><input type="text" id="fgName" name="gname" maxlength="200" required value="${esc(g.name)}"></div>
+    <div><label for="fgKind">분류</label><select id="fgKind" name="kind">${opts(KINDS.map(k => [k, k]), g.kind)}</select></div>
+    <div><label for="fgPrice">가격</label><input type="number" id="fgPrice" name="price" min="0" step="100" required value="${g.price}"></div>
+    ${e.m === 'new' ? `<div><label for="fgStock">처음 재고</label><input type="number" id="fgStock" name="stock" min="0" required value="${g.stock}"></div>` : ''}
+    <div><label for="fgUrl">공식판매처 URL</label><input type="url" id="fgUrl" name="url" maxlength="1024" required value="${esc(g.url)}"></div>
+  </div>
+  ${formActs(e.m === 'edit' ? '저장' : '등록')}
+  ${dev(e.m === 'edit' ? 'S30 PUT /api/studio/products/{id} { name, category, price, purchaseUrl }' : 'S29 POST /api/studio/products { type: GOODS, artistId, name, category, price, stock, purchaseUrl } · source=ADMIN')}
+</form>`;
+}
+function stockForm(g) {
+  const log = S.adm.ledger.filter(x => x.id === g.id);
+  return `<form class="panel form adm-form" data-submit="admStock">
+  <h2>${esc(g.name)} 재고 조정</h2>
+  <p class="tag">지금 재고 <b class="num">${g.stock}개</b> · 공식판매처 입고는 엑셀로, 회수 · 파손 · 실사 보정은 여기서 해요.</p>
+  <div class="fgrid">
+    <div><label for="fsDelta">늘리거나 줄일 수량</label><input type="number" id="fsDelta" name="delta" step="1" required placeholder="예: -3"></div>
+    <div><label for="fsReason">사유</label><select id="fsReason" name="reason">${opts([['RETURN', '판매처 회수'], ['DAMAGE', '파손'], ['CORRECTION', '실사 보정']], 'RETURN')}</select></div>
+  </div>
+  ${log.length ? `<p class="tag">이 화면에서 바꾼 기록 — ${log.map(x => `${x.at} ${x.delta > 0 ? '+' : ''}${x.delta} (${x.reason})`).join(' · ')}</p>` : ''}
+  ${formActs('조정')}
+  ${dev('S32 POST /api/studio/products/{id}/stock-adjustments { delta, reason } → UPDATE stock SET qty = qty + :delta WHERE qty + :delta >= 0 · 0행이면 409 STOCK_NEGATIVE · stock_movement 기록')}
+</form>`;
+}
+function albumTab() {
+  const e = S.adm.edit, rows = [...ALBUMS, ...TRASH.al];
+  return `
+<div class="sumbar" style="margin-bottom:12px"><p class="tag">LP · 앨범은 수집으로 자동 등록돼요. 엑셀 입고는 이번엔 굿즈만 해요</p>
+  ${abtn('admNew', '＋ 앨범 직접 등록', { t: 'album' }, 'btn-primary')}</div>
+${e && e.t === 'album' ? albumForm(e) : ''}
+<div class="tbl-wrap"><table class="table adm"><thead><tr><th>앨범</th><th>유형</th><th>LP</th><th class="r">재고</th><th>출처</th><th>관리</th></tr></thead><tbody>
+${rows.map(al => `<tr class="${al.del ? 'del' : ''}"><td><b>${esc(al.title)}</b><br><small class="tag">${esc(A(al.artist).name)} · ${al.date}</small>${lockTag(al, 'album', al.id)}</td>
+  <td>${al.type}</td><td>${al.lp ? esc(al.lp.press) : '<span class="tag">LP 없음</span>'}</td>
+  <td class="r">${al.del ? '<span class="pill">판매 중지</span>' : !al.lp ? '—' : al.stock.length ? `<span class="num">${sumStock(al)}장</span>` : '<span class="pill ac">발매 전</span>'}</td><td>${srcPill(al.src)}</td>
+  <td><div class="acts">${al.del ? abtn('admRestore', '복구', { t: 'album', id: al.id }) : abtn('admEdit', '수정', { t: 'album', id: al.id }) + abtn('admDel', '판매 중지', { t: 'album', id: al.id })}</div></td></tr>`).join('')}
+</tbody></table></div>
+${dev('S27 GET /api/studio/products?type=LP|CD · S29~S31 → Catalog (I23) · 수집은 I5 /ingest/catalog/albums · GOODS_ADMIN')}`;
+}
+function albumForm(e) {
+  const al = e.m === 'edit' ? AL(e.id) : { artist: 'a1', title: '', type: '정규', date: '2026-12-01' };
+  return `<form class="panel form adm-form" data-submit="admSaveAlbum">
+  ${formHead(e.m === 'edit' ? `${esc(al.title)} 수정` : '앨범 직접 등록', e.m === 'edit' && al)}
+  <div class="fgrid">
+    ${e.m === 'new' ? `<div><label for="faArtist">아티스트</label><select id="faArtist" name="artist">${opts(ARTISTS.map(a => [a.id, a.name]), al.artist)}</select></div>` : ''}
+    <div><label for="faTitle">제목</label><input type="text" id="faTitle" name="atitle" maxlength="200" required value="${esc(al.title)}"></div>
+    <div><label for="faType">유형</label><select id="faType" name="type">${opts([['정규', '정규'], ['EP', 'EP'], ['싱글', '싱글']], al.type)}</select></div>
+    ${e.m === 'new' ? `<div><label for="faDate">발매일</label><input type="date" id="faDate" name="date" required value="${al.date}"></div>` : ''}
+  </div>
+  ${formActs(e.m === 'edit' ? '저장' : '등록')}
+</form>`;
+}
+
+function importTab() {
+  const p = S.adm.imp, a = S.adm.impArtist;
+  return `
+<div class="split">
+  <div class="panel form">
+    <h2>굿즈 엑셀 입고</h2>
+    <p class="tag">공식판매처가 보내 준 엑셀을 올리면 그 아티스트의 굿즈를 등록하고 입고 수량만큼 재고를 더해요. 결제는 우리 사이트에서 하고, 공식판매처 URL 은 상품 화면에 링크로 붙어요.</p>
+    <label for="impArtist">아티스트</label><select id="impArtist">${opts(ARTISTS.map(x => [x.id, x.name]), a)}</select>
+    <label for="impSeller">공식판매처</label><input type="text" id="impSeller" maxlength="60" value="${esc(S.adm.impSeller)}">
+    <label for="impFile">엑셀 파일 (.xlsx · 5MB · 1,000행까지)</label>
+    <input type="file" id="impFile" accept=".xlsx,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet">
+    <div class="acts">${abtn('impTemplate', '양식 내려받기 (샘플 행 포함)')}${abtn('impSample', '샘플로 바로 해보기')}</div>
+    <label class="tag" style="display:flex;gap:6px;align-items:center"><input type="checkbox" id="impBad" ${S.adm.impBad ? 'checked' : ''}> (시연) 샘플에 오류 행 섞기</label>
+    ${dev('S33 POST /api/studio/goods/imports (multipart: file · artistId · sellerCode) → Studio 파일 검사 · 파싱(1차) → Catalog dryRun 값 검사(2차) → 미리보기 · 저장 안 함')}
+  </div>
+  <aside class="panel sec"><h2>양식 — 첫 시트 · 1행 머리글</h2>
+    <div class="tbl-wrap"><table class="table"><tbody>${XL_HEAD.map((h, i) => `<tr><td class="mono">${String.fromCharCode(65 + i)}</td><td style="white-space:nowrap">${h}</td><td class="tag">${XL_RULE[i]}</td></tr>`).join('')}</tbody></table></div>
+    <p class="tag">.xls · .xlsm · .csv 는 받지 않아요. 수식은 실행하지 않고 저장된 계산값만 읽어요. 오류 행이 하나라도 있으면 확정할 수 없어요.</p></aside>
+</div>
+${p ? importPreview(p) : ''}
+<section class="sec" style="margin-top:24px"><div class="sec-head"><h2>입고 내역</h2><span class="tag">S35</span></div>
+  ${S.adm.imports.length ? `<div class="tbl-wrap"><table class="table adm"><thead><tr><th>일시</th><th>파일</th><th>아티스트 · 판매처</th><th class="r">신규</th><th class="r">변경</th><th class="r">입고</th><th>파일 해시</th></tr></thead><tbody>
+    ${S.adm.imports.map(x => `<tr><td class="num">${x.at}</td><td>${esc(x.file)}</td><td>${esc(A(x.artist).name)} · ${esc(x.seller)}</td><td class="r num">${x.created}</td><td class="r num">${x.updated}</td><td class="r num">+${x.qty}개</td><td class="mono tag">${x.sha.slice(0, 12)}…</td></tr>`).join('')}
+  </tbody></table></div>` : '<p class="tag">아직 입고한 파일이 없어요.</p>'}</section>`;
+}
+const XL_RULE = ['필수 · 1~64자 · 파일 안 중복 금지', '필수 · 1~200자', `필수 · ${KINDS.join(' · ')}`, '필수 · 0 이상 정수(원)', '필수 · 1 이상 정수', '필수 · https:// 만', '선택 · https:// 만'];
+function importPreview(p) {
+  if (p.fileErr) return `<div class="panel sec" id="impPreview" style="margin-top:20px"><div class="sec-head"><h2>${esc(p.file)}</h2></div><p class="err" role="alert">${esc(p.fileErr)}</p></div>`;
+  const c = k => p.rows.filter(r => r.res === k).length, bad = c('ERROR'), qty = p.rows.reduce((s, r) => s + r.qty, 0);
+  const dup = S.adm.imports.find(x => x.sha === p.sha);
+  const RES = { NEW: ['신규', 'ac'], UPDATE: ['변경', 'ok'], ERROR: ['오류', 'bad'] };
+  return `<div class="panel sec" id="impPreview" style="margin-top:20px">
+  <div class="sec-head"><h2>미리보기 — ${esc(p.file)}</h2><span class="tag">${esc(A(p.artist).name)} · ${esc(p.seller)} · ${p.rows.length}행 · 아직 저장 안 함</span></div>
+  <div class="chips"><span class="pill ac">신규 ${c('NEW')}</span><span class="pill ok">변경 ${c('UPDATE')}</span><span class="pill ${bad ? 'bad' : ''}">오류 ${bad}</span><span class="pill">입고 합계 ${qty}개</span></div>
+  <div class="tbl-wrap"><table class="table adm"><thead><tr><th class="r">행</th><th>상품</th><th>분류</th><th class="r">가격</th><th class="r">재고</th><th>공식판매처</th><th>결과</th></tr></thead><tbody>
+  ${p.rows.map(r => `<tr><td class="r num">${r.n}</td><td><b>${esc(r.name || '(이름 없음)')}</b><br><small class="tag mono">${esc(r.code || '—')}</small></td><td>${esc(r.kind)}</td>
+    <td class="r num">${isNaN(r.price) ? '—' : won(r.price)}${r.priceChanged ? '<br><small class="tag">가격 바뀜</small>' : ''}</td>
+    <td class="r num">${r.res === 'ERROR' ? '—' : `${r.before} → <b>${r.after}</b>`}</td>
+    <td class="tag" style="overflow-wrap:anywhere">${esc(r.url)}</td>
+    <td><span class="pill ${RES[r.res][1]}">${RES[r.res][0]}</span>${r.errs.length ? `<br><small style="color:var(--bad)">${r.errs.map(esc).join(' · ')}</small>` : ''}</td></tr>`).join('')}
+  </tbody></table></div>
+  ${dup ? `<p class="err" role="alert">409 ALREADY_IMPORTED — 이 파일은 ${dup.at}에 이미 입고했어요. 재고가 두 번 더해지지 않게 막았어요.</p>`
+    : bad ? '<p class="err" role="alert">오류 행이 있어서 확정할 수 없어요. 엑셀을 고쳐서 다시 올려 주세요 — 일부만 반영하면 판매처 엑셀과 우리 재고가 어긋나요.</p>' : ''}
+  <div class="acts"><button class="btn btn-primary" data-act="impCommit" ${bad || dup ? 'disabled' : ''}>확정 — 재고 ${qty}개 더하기</button><button class="btn" data-act="impCancel">취소</button></div>
+  ${dev('S34 POST /api/studio/goods/imports/{importId}/commit → Catalog 한 트랜잭션: goods · product upsert (source=판매처 · external_id=상품코드) + stock += 입고 + stock_movement · 같은 파일(SHA-256) 409 ALREADY_IMPORTED')}
+</div>`;
+}
+
+ADM.cs = () => {
+  const m = MEMBERS.find(x => x.id === S.adm.member);
+  return `
+<div class="split">
+  <div class="panel sec">
+    <label for="csQ" class="tag">회원 검색 — id · 닉네임 · 이메일</label>
+    <input type="text" id="csQ" class="search" value="${esc(S.adm.cq)}" placeholder="예: 1003, 고양이, gmail" autocomplete="off">
+    <div class="list" id="csList">${csList()}</div>
+    ${dev('S6 GET /api/studio/members?q= → Member /internal/admin/members (X-Internal-Token + X-Admin-Token) · 감사 로그에 검색어 값은 남기지 않음')}
+  </div>
+  <aside class="panel sec">${m ? csDetail(m) : '<p class="tag">왼쪽에서 회원을 고르세요.</p>'}</aside>
+</div>`;
+};
+function csList() {
+  const q = S.adm.cq.trim().toLowerCase();
+  const list = MEMBERS.filter(m => !q || String(m.id).includes(q) || m.nick.toLowerCase().includes(q) || (m.email || '').includes(q));
+  return list.length ? list.map(m => `<button class="li" data-act="csPick" data-id="${m.id}" ${m.id === S.adm.member ? 'aria-current="true"' : ''}><span class="main"><b>${esc(m.nick)} <span class="tag num">#${m.id}</span></b>
+    <small>${esc(m.email || '개인정보 비움')} · ${m.provider}</small></span>${m.status === 'ACTIVE' ? '' : '<span class="pill bad">탈퇴</span>'}</button>`).join('') : '<p class="tag">맞는 회원이 없어요.</p>';
+}
+function csHist(m) {
+  if (!m.live) return m.hist;
+  const h = S.bookings.flatMap(b => [['예매', b.id, `${CO(b.cid).title} · ${b.labels.join(', ')}`, b.total, b.status === 'PAID' ? 'CONFIRMED' : b.status], ['결제', 'PAY-' + b.id, '티켓 · 카드', b.total, 'APPROVED']]);
+  if (S.order) h.push(['주문', S.order.id, `${GD(S.order.gid).name} × ${S.order.qty}`, S.order.total, 'CONFIRMED'], ['결제', 'PAY-' + S.order.id, '굿즈 · 카드', S.order.total, 'APPROVED']);
+  return h;
+}
+function csDetail(m) {
+  const h = csHist(m), act = m.status === 'ACTIVE';
+  return `<div class="sec-head"><h2>${esc(m.nick)}</h2><span class="pill ${act ? 'ok' : 'bad'}">${act ? '이용 중' : '탈퇴'}</span></div>
+  <dl class="kv"><dt>회원 id</dt><dd class="num">${m.id}</dd><dt>이메일</dt><dd>${esc(m.email || '—')}</dd><dt>가입</dt><dd>${m.provider} · ${m.joined}</dd></dl>
+  ${act ? `<div class="acts">${abtn('csNick', '닉네임 초기화', { id: m.id })}${abtn('csWdAsk', '계정 탈퇴 처리', { id: m.id }, 'btn-danger')}</div>` : ''}
+  ${act && S.adm.wd === m.id ? `<form class="confirm" data-submit="csWithdraw">
+    <p><b>되돌릴 수 없어요.</b> 개인정보를 비우고 팔로우 · 위시리스트를 지운 뒤 그 회원의 로그인을 모두 끊어요.</p>
+    <label class="tag" for="wdReason">사유</label><select id="wdReason" name="reason">${opts([['USER_REQUEST', '본인 요청'], ['POLICY_VIOLATION', '정책 위반'], ['ETC', '기타']], 'USER_REQUEST')}</select>
+    <label class="tag" for="wdOtp">내 OTP 6자리 (탈퇴 처리만 다시 받아요)</label><input type="text" id="wdOtp" name="otp" inputmode="numeric" maxlength="6" autocomplete="one-time-code">
+    ${S.adm.wdErr ? `<p class="err" role="alert">${esc(S.adm.wdErr)}</p>` : ''}
+    <div class="acts"><button class="btn btn-danger btn-s" type="submit">탈퇴 처리</button><button class="btn btn-s" type="button" data-act="csWdCancel">취소</button></div>
+  </form>` : ''}
+  ${dev('S7 GET /api/studio/members/{id} · S8 POST …/nickname-reset → user + 숫자 4자리 · S9 POST …/withdraw { reasonCode } + X-Admin-Otp · CS_ADMIN')}
+  <h3 style="font-size:15px;margin-top:8px">예매 · 주문 · 결제 내역 <span class="tag">읽기 전용</span></h3>
+  ${h.length ? `<div class="tbl-wrap"><table class="table"><thead><tr><th>구분</th><th>내용</th><th class="r">금액</th><th>상태</th></tr></thead><tbody>
+    ${h.map(([k, ref, t, amt, st]) => `<tr><td>${k}</td><td>${esc(t)}<br><small class="tag mono">${esc(ref)}</small></td><td class="r num">${won(amt)}</td><td><span class="pill ${/CONFIRMED|APPROVED/.test(st) ? 'ok' : ''}">${st}</span></td></tr>`).join('')}
+  </tbody></table></div>` : '<p class="tag">내역이 없어요.</p>'}
+  ${dev('S36 GET /api/studio/members/{id}/history → Concert · Catalog · Payment /internal/admin/users/{id}/{bookings,orders,payments} (I25)')}
+  <p class="tag">환불 · 예매 취소 대행은 아직 없어요 (결제 취소 정책 결정 대기).</p>`;
+}
+
+ADM.crawl = () => `
+<p class="tag" style="margin-bottom:12px">KT 수집 작업이 하루 한 번 대상별로 돌아요. 새로 들어와 손이 필요한 것은 위 '할 일'에 떠요. 관리자가 고친 칸은 덮어쓰지 않고, 삭제한 행은 되살리지 않아요.</p>
+<div class="grid">${CRAWL.filter(([, , r]) => can(r)).map(([k, l]) => {
+  const r = S.adm.runs[k][0], run = S.adm.running[k];
+  return `<div class="panel sec"><div class="sec-head"><h2>${l}</h2>${run ? '<span class="pill warn">수집 중</span>' : ''}</div>
+    <p class="tag">마지막 ${r.at} · ${r.by} · 총 ${S.adm.runs[k].length}회</p>
+    <div class="chips"><span class="pill ac">신규 ${r.n}</span><span class="pill ok">변경 ${r.u}</span><span class="pill">무변경 ${r.s}</span><span class="pill ${r.f ? 'bad' : ''}">실패 ${r.f}</span></div>
+    ${r.skip ? `<p class="tag">🔒 잠긴 칸 ${r.skip}개는 덮어쓰지 않았어요</p>` : ''}
+    ${r.fails ? r.fails.map(x => `<p class="tag" style="color:var(--bad)">${esc(x)}</p>`).join('') : ''}
+    ${abtn('admCrawl', run ? '수집 중…' : '지금 수집', { v: k })}</div>`;
+}).join('')}</div>
+${dev('S37 GET /api/studio/crawl/runs?target= · S38 POST /api/studio/crawl/{target}/runs → Studio 가 CronJob 으로 Job 생성 (가안 · 실행 중 409 CRAWL_RUNNING) · 끝나면 CronJob → I27 요약 보고')}`;
+
+ADM.me = () => {
+  const me = S.adm.me;
+  return `<div class="split">
+  <div class="panel sec"><dl class="kv"><dt>이름</dt><dd>${esc(me.name)}</dd><dt>아이디</dt><dd class="mono">${me.loginId}</dd>
+    <dt>역할</dt><dd>${me.roles.map(r => `<span class="pill ac">${ROLE[r]} 관리자</span>`).join(' ')}</dd><dt>OTP</dt><dd>등록됨</dd><dt>지난 로그인</dt><dd>${me.prev || '처음'}</dd></dl>
+    <p class="tag">계정 · 역할 · 비밀번호는 대시보드에서 바꾸지 않아요. 시크릿을 고치면 Member 가 1분 안에 맞추고, 바뀐 계정은 로그인이 끊겨요.</p>
+    ${dev('S39 GET /api/studio/me → { loginId, name, roles, lastLoginAt }')}</div>
+  <aside class="panel sec"><h2>시크릿 속 내 항목</h2>
+    <pre class="json">${esc(JSON.stringify({ loginId: me.loginId, name: me.name, roles: me.roles, passwordHash: '$2a$12$…', enabled: true, otpRev: 0 }, null, 2))}</pre>
+    <p class="tag">비밀번호는 본인이 해시로 만들어 넘겨서 시크릿을 다루는 사람도 몰라요. OTP 기기를 잃어버리면 otpRev 를 올려요 → 다음 로그인 때 다시 등록. 퇴사하면 enabled: false (계정은 지우지 않음 · 감사 로그 1년).</p></aside>
+</div>`;
+};
+
+/* ===== 엑셀(.xlsx) 읽기 · 쓰기 — 라이브러리 없이 (zip + XML) ===== */
+async function readXlsx(buf) {
+  const u8 = new Uint8Array(buf), dv = new DataView(buf), td = new TextDecoder();
+  let e = u8.length - 22; while (e >= 0 && dv.getUint32(e, true) !== 0x06054b50) e--;
+  if (e < 0) throw new Error('400 XLSX_INVALID — 엑셀 파일을 읽을 수 없어요');
+  const files = {}; let p = dv.getUint32(e + 16, true), total = 0;
+  for (let i = dv.getUint16(e + 10, true); i > 0; i--) {
+    const nl = dv.getUint16(p + 28, true);
+    files[td.decode(u8.subarray(p + 46, p + 46 + nl))] = { m: dv.getUint16(p + 10, true), cs: dv.getUint32(p + 20, true), off: dv.getUint32(p + 42, true) };
+    total += dv.getUint32(p + 24, true);
+    p += 46 + nl + dv.getUint16(p + 30, true) + dv.getUint16(p + 32, true);
+  }
+  if (files['xl/vbaProject.bin']) throw new Error('400 MACRO_NOT_ALLOWED — 매크로가 든 파일은 받지 않아요');
+  if (total > 50 * 1024 * 1024) throw new Error('400 XLSX_TOO_BIG — 압축을 푼 크기가 50MB 를 넘어요');
+  const text = async name => {
+    const f = files[name]; if (!f) return null;
+    const s = f.off + 30 + dv.getUint16(f.off + 26, true) + dv.getUint16(f.off + 28, true), raw = u8.subarray(s, s + f.cs);
+    return f.m === 0 ? td.decode(raw) : new Response(new Blob([raw]).stream().pipeThrough(new DecompressionStream('deflate-raw'))).text();
+  };
+  const xml = async name => new DOMParser().parseFromString((await text(name)) || '<x/>', 'application/xml');
+  const sheet = (await xml('xl/workbook.xml')).getElementsByTagName('sheet')[0];
+  if (!sheet) throw new Error('400 XLSX_INVALID — 시트가 없어요');
+  const rid = sheet.getAttribute('r:id'), rel = [...(await xml('xl/_rels/workbook.xml.rels')).getElementsByTagName('Relationship')].find(r => r.getAttribute('Id') === rid);
+  const target = rel.getAttribute('Target').replace(/^\//, '');
+  const ss = [...(await xml('xl/sharedStrings.xml')).getElementsByTagName('si')].map(si => [...si.getElementsByTagName('t')].map(t => t.textContent).join(''));
+  const rows = [];
+  for (const r of (await xml(target.startsWith('xl/') ? target : 'xl/' + target)).getElementsByTagName('row')) {
+    const out = [];
+    for (const c of r.getElementsByTagName('c')) {
+      const ref = c.getAttribute('r'), col = ref ? [...ref.replace(/\d+/g, '')].reduce((n, ch) => n * 26 + ch.charCodeAt(0) - 64, 0) - 1 : out.length;
+      // 수식(<f>)은 실행하지 않고 저장된 계산값(<v>)만 읽음
+      const t = c.getAttribute('t'), v = c.getElementsByTagName('v')[0]?.textContent ?? '';
+      out[col] = t === 's' ? ss[+v] ?? '' : t === 'inlineStr' ? [...c.getElementsByTagName('t')].map(x => x.textContent).join('') : v;
+    }
+    rows[r.getAttribute('r') ? +r.getAttribute('r') - 1 : rows.length] = Array.from(out, v => v ?? '');
+  }
+  return Array.from(rows, r => r || []);
+}
+const CRC = Array.from({ length: 256 }, (_, n) => { for (let k = 0; k < 8; k++) n = n & 1 ? 0xEDB88320 ^ (n >>> 1) : n >>> 1; return n >>> 0; });
+const crc32 = d => { let c = -1; for (const b of d) c = CRC[(c ^ b) & 255] ^ (c >>> 8); return (c ^ -1) >>> 0; };
+// 압축 없이(stored) zip 으로 묶음 — 양식 내려받기용
+function zipBlob(entries) {
+  const enc = new TextEncoder(), parts = [], cen = []; let off = 0;
+  for (const [name, body] of entries) {
+    const n = enc.encode(name), d = enc.encode(body), c = crc32(d), h = new DataView(new ArrayBuffer(30)), ch = new DataView(new ArrayBuffer(46));
+    h.setUint32(0, 0x04034b50, true); h.setUint16(4, 20, true); h.setUint32(14, c, true); h.setUint32(18, d.length, true); h.setUint32(22, d.length, true); h.setUint16(26, n.length, true);
+    ch.setUint32(0, 0x02014b50, true); ch.setUint16(4, 20, true); ch.setUint16(6, 20, true); ch.setUint32(16, c, true); ch.setUint32(20, d.length, true); ch.setUint32(24, d.length, true); ch.setUint16(28, n.length, true); ch.setUint32(42, off, true);
+    parts.push(h, n, d); cen.push(ch, n); off += 30 + n.length + d.length;
+  }
+  const e = new DataView(new ArrayBuffer(22));
+  e.setUint32(0, 0x06054b50, true); e.setUint16(8, entries.length, true); e.setUint16(10, entries.length, true); e.setUint32(12, cen.reduce((s, x) => s + x.byteLength, 0), true); e.setUint32(16, off, true);
+  return new Blob([...parts, ...cen, e], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+}
+function xlsxBlob(rows) {
+  const X = '<?xml version="1.0" encoding="UTF-8" standalone="yes"?>', R = 'http://schemas.openxmlformats.org/', col = i => String.fromCharCode(65 + i);
+  const cell = (v, i, r) => typeof v === 'number' ? `<c r="${col(i)}${r}"><v>${v}</v></c>` : v === '' ? '' : `<c r="${col(i)}${r}" t="inlineStr"><is><t>${esc(v)}</t></is></c>`;
+  return zipBlob([
+    ['[Content_Types].xml', `${X}<Types xmlns="${R}package/2006/content-types"><Default Extension="rels" ContentType="application/vnd.openxmlformats-package.relationships+xml"/><Default Extension="xml" ContentType="application/xml"/><Override PartName="/xl/workbook.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet.main+xml"/><Override PartName="/xl/worksheets/sheet1.xml" ContentType="application/vnd.openxmlformats-officedocument.spreadsheetml.worksheet+xml"/></Types>`],
+    ['_rels/.rels', `${X}<Relationships xmlns="${R}package/2006/relationships"><Relationship Id="rId1" Type="${R}officeDocument/2006/relationships/officeDocument" Target="xl/workbook.xml"/></Relationships>`],
+    ['xl/workbook.xml', `${X}<workbook xmlns="${R}spreadsheetml/2006/main" xmlns:r="${R}officeDocument/2006/relationships"><sheets><sheet name="굿즈입고" sheetId="1" r:id="rId1"/></sheets></workbook>`],
+    ['xl/_rels/workbook.xml.rels', `${X}<Relationships xmlns="${R}package/2006/relationships"><Relationship Id="rId1" Type="${R}officeDocument/2006/relationships/worksheet" Target="worksheets/sheet1.xml"/></Relationships>`],
+    ['xl/worksheets/sheet1.xml', `${X}<worksheet xmlns="${R}spreadsheetml/2006/main"><sheetData>${rows.map((row, j) => `<row r="${j + 1}">${row.map((v, i) => cell(v, i, j + 1)).join('')}</row>`).join('')}</sheetData></worksheet>`]
+  ]);
+}
+// 샘플: 그 아티스트의 기존 굿즈 1개(재입고 → 변경) + 새 굿즈 2개(신규)
+function sampleRows(aid, bad) {
+  const a = A(aid), K = aid.toUpperCase(), url = code => `https://store.example.com/${slug(aid)}/${code}`;
+  const mine = GOODS.filter(g => g.artist === aid && g.seller === S.adm.impSeller).slice(0, 1);
+  const rows = [XL_HEAD, ...mine.map(g => [g.code, g.name, g.kind, g.price, 20, g.url, '']),
+    [`NEW-${K}-01`, `${a.name} 로고 후드 집업`, '의류', 59000, 30, url(`NEW-${K}-01`), ''],
+    [`NEW-${K}-02`, `${a.name} 투어 포스터 A2`, '포스터', 15000, 50, url(`NEW-${K}-02`), '']];
+  if (bad) rows.push([`NEW-${K}-02`, `${a.name} 스티커`, '스티커', -1000, 0, `http://store.example.com/${slug(aid)}/x`, ''], [`NEW-${K}-03`, '', '문구', 3000, 10, url(`NEW-${K}-03`), '']);
+  return rows;
+}
+function checkRows(list, artist, seller) {
+  const seen = new Set();
+  return list.map(({ r, n }) => {
+    const [code, name, kind, price, qty, url, img] = Array.from({ length: 7 }, (_, i) => String(r[i] ?? '').trim()), errs = [];
+    if (!code || code.length > 64) errs.push('상품코드 1~64자');
+    else if (seen.has(code)) errs.push('파일 안에서 상품코드 중복');
+    seen.add(code);
+    if (!name || name.length > 200) errs.push('상품명 1~200자');
+    if (!KINDS.includes(kind)) errs.push('정해진 분류가 아님');
+    if (!/^\d+$/.test(price)) errs.push('가격은 0 이상 정수');
+    if (!/^[1-9]\d*$/.test(qty)) errs.push('입고 수량은 1 이상 정수');
+    if (!/^https:\/\/\S+$/.test(url) || url.length > 1024) errs.push('공식판매처 URL 은 https://');
+    if (img && !/^https:\/\/\S+$/.test(img)) errs.push('이미지 URL 은 https://');
+    const g = [...GOODS, ...TRASH.g].find(x => x.seller === seller && x.code === code);
+    if (g && g.artist !== artist) errs.push('다른 아티스트의 상품코드');
+    if (g && g.del) errs.push('판매 중지된 상품 — 먼저 복구');
+    const q = errs.length ? 0 : +qty, before = g ? g.stock : 0;
+    return { n, code, name, kind, url, price: +price, qty: q, g: g && g.id, errs, res: errs.length ? 'ERROR' : g ? 'UPDATE' : 'NEW', before, after: before + q, priceChanged: !!g && g.price !== +price };
+  });
+}
+async function readImport(file) {
+  const seller = S.adm.impSeller.trim(), fail = msg => { S.adm.imp = { file: file.name, fileErr: msg }; rerender(); $('#impPreview')?.scrollIntoView({ block: 'nearest' }); };
+  if (!seller) return fail('공식판매처 이름을 넣어 주세요');
+  if (!/\.xlsx$/i.test(file.name)) return fail('400 XLSX_ONLY — .xlsx 파일만 받아요 (.xls · .xlsm · .csv 는 안 돼요)');
+  if (file.size > 5 * 1024 * 1024) return fail('413 FILE_TOO_LARGE — 5MB 이하만 받아요');
+  const buf = await file.arrayBuffer();
+  let rows; try { rows = await readXlsx(buf); } catch (e) { return fail(e.message); }
+  if (XL_HEAD.slice(0, 6).some((h, i) => String((rows[0] || [])[i] ?? '').trim() !== h)) return fail('400 TEMPLATE_MISMATCH — 1행 머리글이 양식과 달라요. 양식을 내려받아 그 안에 채워 주세요');
+  const list = rows.slice(1).map((r, i) => ({ r, n: i + 2 })).filter(x => x.r.some(v => String(v).trim()));
+  if (!list.length) return fail('400 EMPTY — 상품 행이 없어요');
+  if (list.length > 1000) return fail('400 TOO_MANY_ROWS — 1,000행까지 받아요');
+  const sha = [...new Uint8Array(await crypto.subtle.digest('SHA-256', buf))].map(b => b.toString(16).padStart(2, '0')).join('');
+  S.adm.imp = { file: file.name, sha, artist: S.adm.impArtist, seller, rows: checkRows(list, S.adm.impArtist, seller) };
+  rerender(); $('#impPreview')?.scrollIntoView({ block: 'nearest' });
+}
 </script>
 
 <script>
@@ -1126,20 +2416,28 @@ function nextEvent() {
     sold.stock[0][2] = 5;
     return { kind: 'LP', artist: sold.artist, text: `위시리스트의 〈${sold.title}〉 LP가 ${sold.stock[0][0]}에 다시 들어왔어요`, go: ['album', sold.id] };
   }
+  const soldG = [...S.gwish].map(GD).find(g => !g.stock);
+  if (step === 2 && soldG) {
+    soldG.stock = 5;
+    return { kind: '굿즈', artist: soldG.artist, text: `위시리스트의 ${soldG.name}${hasB(soldG.name) ? '이' : '가'} 다시 들어왔어요`, go: ['goods', soldG.id] };
+  }
   if (step === 0) return { kind: '신보', artist: a.id, text: `${a.name} 새 싱글 〈${['겨울 주파수', '첫눈 예보', '작은 방송국'][S.simStep % 3]}〉 발매`, go: ['artist', a.id] };
   return { kind: '공연', artist: a.id, text: `${a.name} 추가 공연 오픈 · 12.27 (일) 롤링홀`, go: ['artist', a.id] };
 }
 
 /* ===== 라우터 ===== */
 const NAV = [['home', '홈'], ['artists', '아티스트'], ['concerts', '공연'], ['albums', '음반·LP'], ['my', 'MY']];
-const SECTION = { home: 'home', artists: 'artists', artist: 'artists', concerts: 'concerts', concert: 'concerts', queue: 'concerts', seats: 'concerts', pay: 'concerts', done: 'concerts', albums: 'albums', album: 'albums', my: 'my' };
+const SECTION = { home: 'home', artists: 'artists', artist: 'artists', concerts: 'concerts', concert: 'concerts', queue: 'concerts', seats: 'concerts', pay: 'concerts', done: 'concerts', albums: 'albums', album: 'albums', lpay: 'albums', goods: 'artists', gpay: 'artists', gdone: 'artists', my: 'my' };
 function go(route, p = {}) {
   timers.forEach(t => { clearInterval(t); clearTimeout(t); }); timers = [];
   if (NARROW.matches) S.chatOpen = false;
+  if (route === 'gpay' || route === 'lpay') S.ship = null;   // 결제 화면은 늘 기본 배송지를 미리 고른 채로
   S.route = route; S.p = p; render(); window.scrollTo(0, 0);
 }
 function render() {
-  document.body.classList.toggle('bare', ['landing', 'signup', 'genre', 'pickArtists', 'admin'].includes(S.route));
+  document.body.classList.toggle('bare', ['landing', 'signup', 'pickArtists', 'admin', 'adminSaved', 'adminLogin', 'adminHome'].includes(S.route));
+  // 푸터: 가입 단계(밴드 고르기)와 관리자 화면만 빼고 모든 화면 — 첫 화면 · 로그인 화면 포함
+  $('#foot').hidden = S.route === 'pickArtists' || S.route.startsWith('admin');
   $('#loginBtn').hidden = S.route !== 'landing';
   $('#app').innerHTML = V[S.route](S.p);
   drawNav();
@@ -1158,37 +2456,37 @@ const flip = (arr, v) => { const i = arr.indexOf(v); if (i >= 0) arr.splice(i, 1
 /* ===== 동작 ===== */
 const ACT = {
   sso(d, el) {
-    const label = d.v === 'kakao' ? '카카오' : 'Google';
     document.querySelectorAll('.sso').forEach(b => { b.disabled = true; });
-    el.textContent = `${label} 계정 확인 중…`;
+    el.textContent = '카카오 계정 확인 중…';
     timers.push(setTimeout(() => {
       S.user.provider = d.v;
-      S.user.email = d.v === 'kakao' ? 'listener@kakao.com' : 'listener@gmail.com';
-      toast(`${label} 계정으로 가입했어요. 이제 취향을 골라 주세요`);
-      go('genre');
+      S.user.email = 'listener@kakao.com';
+      S.user.addresses = [];   // 새로 가입 — 배송지는 첫 결제 때
+      S.draft = { artists: [], shown: [], chain: [] };
+      const at = dot(TODAY);   // 카카오 싱크 — 동의는 카카오 화면에서 끝남 (데모는 필수만 동의 · 마케팅 안 받음)
+      S.user.agreements = { tos: TERMS.tos.ver, privacy: TERMS.privacy.ver, mkt: false, at, mktAt: at };
+      toast('카카오 동의 화면에서 약관에 동의했어요. 좋아하는 밴드를 고르면 가입이 끝나요');
+      go('pickArtists');
     }, 900));
   },
-  pickTop(d) {
-    flip(S.draft.tops, d.v);
-    if (!S.draft.tops.includes(d.v)) { const subs = GENRE_TREE.find(t => t.name === d.v).subs; S.draft.genres = S.draft.genres.filter(g => !subs.includes(g)); }
-    rerender();
-  },
-  pickGenre(d) { flip(S.draft.genres, d.v); rerender(); },
-  toArtists() { go('pickArtists'); },
+  // 처음 고를 때만 비슷한 밴드를 받아 이어 붙임 — 지금까지 보여 준 밴드는 빼고 (서버의 exclude)
   pickArtist(d) {
-    flip(S.draft.artists, d.id);
-    if (S.draft.artists.includes(d.id) && !S.draft.revealed.includes(d.id)) S.draft.revealed.push(d.id);
+    const s = S.draft;
+    flip(s.artists, d.id);
+    if (s.artists.includes(d.id) && !s.chain.some(m => m.from === d.id)) {
+      const list = similar(A(d.id), new Set(s.shown)).map(b => b.id);
+      s.chain.push({ from: d.id, list }); s.shown.push(...list);
+    }
     rerender();
   },
   finishOnb() {
     const now = Date.now();
-    S.user.genres = pickedGenres();
     S.draft.artists.forEach(id => { S.user.follows[id] = now; });
     S.user.onboarded = true; S.lastSeen = now;
-    toast(`취향을 저장했어요. 장르 ${S.user.genres.length}개, 밴드 ${S.draft.artists.length}팀을 추천에 써요`);
+    toast(`가입을 마쳤어요. 밴드 ${S.draft.artists.length}팀을 팔로우했어요`);
     go('home');
   },
-  skipOnb() { toast('건너뛰었어요. MY › 취향 설정에서 언제든 고를 수 있어요'); go('home'); },
+  skipOnb() { toast('가입을 마쳤어요. 취향은 MY › 취향 설정에서 언제든 고를 수 있어요'); go('home'); },
   follow(d) {
     const on = following(d.id), n = A(d.id).name;
     if (on) delete S.user.follows[d.id]; else S.user.follows[d.id] = Date.now();
@@ -1218,35 +2516,161 @@ const ACT = {
     toast(on ? (st === '품절' ? '재입고되면 홈 새 소식으로 알려드려요' : st === '발매 전' ? '판매가 시작되면 알려드려요' : '위시리스트에 담았어요') : '위시리스트에서 뺐어요');
     rerender();
   },
-  own(d) { toggle(S.owned, d.id); rerender(); },
-  seat(d, el) {
-    const f = S.flow, map = seatMap(f.cid), k = d.v;
-    if (map[k] === 'held') { toast('다른 분이 결제 중인 좌석이에요. 5분 안에 결제되지 않으면 다시 열려요'); return; }
-    if (f.sel.includes(k)) flip(f.sel, k);
-    else if (f.sel.length >= 2) { toast('한 번에 2석까지 고를 수 있어요'); return; }
-    else f.sel.push(k);
-    el.classList.toggle('sel', f.sel.includes(k));
-    $('#selInfo').innerHTML = selInfo(CO(f.cid));
-    $('[data-act="hold"]').disabled = !f.sel.length;
-  },
-  hold() {
-    const f = S.flow, map = seatMap(f.cid);
-    f.sel.forEach(k => { map[k] = 'mine'; });
-    f.holdUntil = Date.now() + 300000;
-    go('pay', { id: f.cid });
-  },
-  pay(form) {
-    const btn = $('#payBtn'), fail = form.fail.checked, f = S.flow, c = CO(f.cid);
-    btn.disabled = true; btn.textContent = '결제 중…';
+  gqty(d) { S.gq[d.id] = Math.min(GD(d.id).stock, Math.max(1, (S.gq[d.id] || 1) + Number(d.v))); rerender(); },
+  // 결제하기 = C9 주문 생성(재고 차감 · 배송지 값 복사) → 토스 결제창 인증 → P1 승인. 거절이면 payment.failed 로 주문 취소 · 재고 복구 → 다시 결제 = 새 주문
+  async gpay(form) {
+    const it = buyItem(S.route, S.p.id), q = it.qty, btn = $('#payBtn'), fail = form.fail.checked, label = btn.textContent;
+    const pick = form.elements.shipPick ? form.elements.shipPick.value : 'new';
+    const ship = pick === 'new' ? readAddr(form) : S.user.addresses.find(a => a.id === Number(pick));
+    if (!ship) return;
+    const save = pick === 'new' && (!S.user.addresses.length || form.elements.saveAddr?.checked);   // 첫 배송지는 늘 저장 (기본)
+    btn.disabled = true; btn.textContent = '토스 결제창에서 결제하는 중…';
+    const paid = await tossRequest(newPgOrderId('G'), q > 1 ? `${it.name} ${q}개` : it.name,
+      { customerName: ship.recipientName, customerMobilePhone: ship.phone.replace(/\D/g, '') });
+    if (!paid) { btn.disabled = false; btn.textContent = label; return; }   // 주문은 15분 뒤 자동 취소 · 다시 결제 = 새 주문
+    btn.textContent = '결제 승인 중…';
     timers.push(setTimeout(() => {
-      if (fail) { release(); toast('결제에 실패해서 잡아 둔 좌석을 풀었어요. 다시 골라 주세요'); go('seats', { id: c.id }); return; }
-      const map = seatMap(c.id); f.sel.forEach(k => { map[k] = 'paid'; });
-      const bk = { id: 'BK-261008-' + String(S.bookings.length + 1).padStart(4, '0'), cid: c.id, seats: [...f.sel], total: c.price * f.sel.length, status: 'PAID' };
-      S.bookings.unshift(bk); S.flow = null;
-      go('done', { id: bk.id });
+      if (fail) { toast('토스 인증은 됐지만 승인이 거절돼서 주문을 취소했어요. 돈은 나가지 않았어요'); btn.disabled = false; btn.textContent = label; return; }
+      if (save) addAddr(ship);
+      it.take(q);
+      const { recipientName, phone, zonecode, address, addressDetail } = ship;
+      S.order = { id: 'OD-261008-' + String(++orderNo).padStart(4, '0'), name: it.name, qty: q, total: it.price * q, more: it.more,
+        ship: { recipientName, phone, zonecode, address, addressDetail }, paymentKey: paid.paymentKey };   // 주문 당시 값 — 배송지를 고쳐도 그대로
+      S.ship = null;
+      go('gdone');
     }, 900));
   },
-  toBookings() { S.mtab = '예매 내역'; go('my'); },
+  postcode(_, el) {
+    const f = el.closest('form'), box = f.querySelector('.postcode');
+    if (!box.hidden) { box.hidden = true; box.innerHTML = ''; return; }
+    const fill = (zone, addr) => { f.elements.zonecode.value = zone; f.elements.address.value = addr; box.hidden = true; box.innerHTML = ''; f.elements.addressDetail.focus(); };
+    loadJs(POSTCODE_JS).then(() => {
+      box.hidden = false;
+      new daum.Postcode({ oncomplete: r => fill(r.zonecode, r.userSelectedType === 'J' ? r.jibunAddress : r.roadAddress), width: '100%', height: '100%' }).embed(box);
+    }, () => { fill('04043', '서울 마포구 양화로 45'); toast('우편번호 서비스를 불러오지 못해 예시 주소를 넣었어요 (오프라인)'); });
+  },
+  addrEdit(d) { S.addrEdit = d.id === 'new' ? 'new' : Number(d.id); rerender(); },
+  addrCancel() { S.addrEdit = null; rerender(); },
+  addrSave(f) {
+    const a = readAddr(f); if (!a) return;
+    const e = S.addrEdit, mk = f.elements.isDefault?.checked;
+    if (e === 'new') {
+      if (S.user.addresses.length >= MAX_ADDR) { toast(`배송지는 최대 ${MAX_ADDR}개까지 저장할 수 있어요`); return; }
+      addAddr(a, mk); toast('배송지를 저장했어요');
+    } else {
+      const cur = S.user.addresses.find(x => x.id === e);
+      Object.assign(cur, a); if (mk) setDefault(cur);
+      toast('배송지를 고쳤어요');
+    }
+    S.addrEdit = null; rerender();
+  },
+  addrDefault(d) { setDefault(S.user.addresses.find(x => x.id === Number(d.id))); toast('기본 배송지를 바꿨어요'); rerender(); },
+  addrDel(d) {
+    const list = S.user.addresses, [gone] = list.splice(list.findIndex(x => x.id === Number(d.id)), 1);
+    const promote = gone.isDefault && list.length;
+    if (promote) setDefault(list.reduce((x, y) => (y.id > x.id ? y : x)));   // 가장 최근 배송지가 기본
+    if (S.addrEdit === gone.id) S.addrEdit = null;
+    toast(promote ? '배송지를 지웠어요. 가장 최근 배송지가 기본이 됐어요' : '배송지를 지웠어요');
+    rerender();
+  },
+  gwish(d) {
+    const on = toggle(S.gwish, d.id);
+    toast(on ? (GD(d.id).stock ? '위시리스트에 담았어요' : '재입고되면 홈 새 소식으로 알려드려요') : '위시리스트에서 뺐어요');
+    rerender();
+  },
+  own(d) { toggle(S.owned, d.id); rerender(); },
+  dropQueue,
+  openSec(d) {
+    const f = S.flow, seq = ++loadSeq;
+    Object.assign(f, { sec: d.v, pick: null, pickLabel: null, err: null, loading: seq });
+    history.pushState({ sec: d.v }, '');
+    const m = $('#secModal'); m.innerHTML = modalInner(); m.showModal();
+    timers.push(setTimeout(() => { if (f.loading !== seq) return; f.loading = 0; refreshModal(); }, 450));
+  },
+  closeSec() { if (!S.flow.busy) history.back(); },
+  pickSeat(d, el) {
+    const f = S.flow, prev = $('#secModal g.on');
+    if (prev) { prev.classList.remove('on'); prev.setAttribute('aria-pressed', 'false'); }
+    el.classList.add('on'); el.setAttribute('aria-pressed', 'true');
+    Object.assign(f, { pick: d.v, pickLabel: d.l, err: null });
+    $('#pickPanel').innerHTML = pickPanel();
+  },
+  // 선택완료 = N10. 좌석은 잡지 않음 — 이미 팔린 좌석만 409, 같은 좌석이면 같은 예매, 다른 좌석이면 이전 선택 취소
+  selectSeat() {
+    const f = S.flow, k = f.pick, l = f.pickLabel, btn = $('#selBtn');
+    f.busy = '좌석 선택을 처리하는 중이에요. 잠시만 기다려 주세요'; f.err = null;
+    btn.disabled = true; btn.textContent = '처리 중…';
+    timers.push(setTimeout(() => {
+      f.busy = null;
+      if (seatSt(f.cid, k) === 'paid') {
+        Object.assign(f, { pick: null, pickLabel: null, err: { code: 'SEAT_UNAVAILABLE' } });
+        refreshModal(); return;
+      }
+      if (f.sel?.key === k) toast('이미 고른 좌석이에요. 남은 시간은 그대로예요');
+      else {
+        if (f.sel) toast(`${f.sel.label} 선택을 취소하고 이 좌석으로 바꿨어요`);
+        dropSel();
+        f.sel = { key: k, label: l, until: Date.now() + 180000 };
+        f.bookingId = 'BK-261008-' + String(S.bookings.length + 1).padStart(4, '0');
+        f.pgOrderId = newPgOrderId('T');   // 같은 좌석 다시 결제 = 같은 pgOrderId
+      }
+      Object.assign(f, { sec: null, pick: null, pickLabel: null });
+      history.replaceState({ pay: 1 }, '');   // 확대 창 기록을 결제 화면 기록으로 바꿈 — 결제에서 뒤로가기 = 좌석 화면
+      go('pay', { id: f.cid });
+    }, 800));
+  },
+  toPay() { history.pushState({ pay: 1 }, ''); go('pay', { id: S.flow.cid }); },
+  unsel() { dropSel(); toast('좌석 선택을 취소했어요. 다른 좌석을 골라 주세요'); redraw(); },
+  seatFloor(d) { S.flow.floor = d.v; redraw(); },
+  backAsk() {
+    $('#backBox').innerHTML = `<div class="confirm" role="alert"><p>좌석 화면으로 돌아갈까요? 다른 좌석을 선택완료하면 지금 고른 <b>${esc(S.flow.sel.label)}</b> 선택은 취소돼요.</p>
+      <button class="btn btn-danger" data-act="backConfirm">좌석 다시 고르기</button><button class="btn" data-act="backCancel">계속 결제하기</button></div>`;
+  },
+  backConfirm() { history.back(); },
+  backCancel() { $('#backBox').innerHTML = backLink; },
+  // 결제하기 = N16. 서버가 좌석을 먼저 확보 — 다른 사람이 먼저 결제했으면 결제를 부르지 않고 409
+  async pay(form) {
+    const btn = $('#payBtn'), fail = form.fail.checked, race = form.race.checked, f = S.flow, c = CO(f.cid), label = btn.textContent;
+    f.busy = '결제하는 중이에요. 잠시만 기다려 주세요';
+    btn.disabled = true; btn.textContent = '토스 결제창에서 결제하는 중…';
+    const paid = await tossRequest(f.pgOrderId, `${c.title} ${f.sel.label}`);
+    if (!paid) { f.busy = null; btn.disabled = false; btn.textContent = label; return; }   // 같은 pgOrderId 로 다시 결제할 수 있음
+    btn.textContent = '좌석 확인 중…';
+    if (race) {
+      timers.push(setTimeout(() => {
+        f.busy = null;
+        seatMap(c.id)[f.sel.key] = 'paid'; dropSel(); f.err = { code: 'SEAT_UNAVAILABLE' };
+        toast('이미 선택된 좌석입니다. 토스 인증만 됐고 승인은 하지 않아 돈은 나가지 않았어요'); history.back();
+      }, 600));
+      return;
+    }
+    timers.push(setTimeout(() => { btn.textContent = '결제 승인 중…'; }, 500));
+    timers.push(setTimeout(() => {
+      f.busy = null;
+      if (fail) { dropSel(); toast('토스 인증은 됐지만 승인이 거절돼서 예매가 취소됐어요. 좌석을 다시 골라 주세요'); history.back(); return; }
+      seatMap(c.id)[f.sel.key] = 'paid';
+      const bk = { id: f.bookingId, cid: c.id, seats: [f.sel.key], labels: [f.sel.label], total: c.price, status: 'PAID', paymentKey: paid.paymentKey };
+      S.bookings.unshift(bk); S.flow = null;
+      history.replaceState(null, '');
+      go('done', { id: bk.id });
+    }, 1200));
+  },
+  toBookings(d) { S.mtab = '예매 내역'; if (d.id) S.ticket = d.id; go('my'); },
+  ticket(d) { S.ticket = S.ticket === d.id ? null : d.id; rerender(); },
+  // QR 저장 — 티켓 정보와 QR 을 PNG 한 장으로 (사진첩 보관용)
+  saveQr(d) {
+    const b = S.bookings.find(x => x.id === d.id), c = CO(b.cid), m = qrMatrix(ticketText(b)), px = 8, pad = 32, w = m.length * px + pad * 2;
+    const cv = document.createElement('canvas'); cv.width = w; cv.height = w + 96;
+    const g = cv.getContext('2d');
+    g.fillStyle = '#fff'; g.fillRect(0, 0, cv.width, cv.height); g.fillStyle = '#111';
+    m.forEach((row, y) => row.forEach((on, x) => { if (on) g.fillRect(pad + x * px, pad + y * px, px, px); }));
+    g.textAlign = 'center';
+    g.font = '600 16px "IBM Plex Sans KR", sans-serif'; g.fillText(c.title, w / 2, w + 12, w - 24);
+    g.font = '14px "IBM Plex Sans KR", sans-serif'; g.fillText(`${md(c.date)} ${c.time} · ${(b.labels || b.seats).join(', ')}`, w / 2, w + 40, w - 24);
+    g.font = '13px "IBM Plex Mono", monospace'; g.fillText(b.id, w / 2, w + 66, w - 24);
+    const a = document.createElement('a'); a.href = cv.toDataURL('image/png'); a.download = `ticket-${b.id}.png`; a.click();
+    toast('티켓 QR을 이미지로 저장했어요');
+  },
   cancel(d) {
     const b = S.bookings.find(x => x.id === d.id), map = seatMap(b.cid);
     b.status = 'CANCELLED'; b.seats.forEach(k => { map[k] = 'free'; });
@@ -1255,6 +2679,11 @@ const ACT = {
   },
   tasteGenre(d) { flip(S.user.genres, d.v); rerender(); },
   saveTaste() { toast('취향을 저장했어요. AI 추천에 바로 반영돼요'); },
+  toggleMkt() {
+    const g = S.user.agreements; g.mkt = !g.mkt; g.mktAt = dot(TODAY);
+    toast(`${g.mktAt} 마케팅 정보 수신 ${g.mkt ? '동의' : '철회'}를 처리했어요`);
+    rerender();
+  },
   openTaste() { S.mtab = '취향 설정'; go('my'); },
   openChat() { S.chatOpen = true; drawChat(true); if (!NARROW.matches) $('#askq').focus(); },
   toggleChat() { if (S.chatOpen) { S.chatOpen = false; drawChat(); } else ACT.openChat(); },
@@ -1282,25 +2711,221 @@ const ACT = {
   withdrawCancel(d) { S.chat[d.i].confirm = false; drawChat(); },
   withdraw() {
     Object.assign(S, {
-      user: { nick: '새벽청취자', email: '', provider: null, genres: [], follows: {}, onboarded: false },
-      draft: { tops: [], genres: [], artists: [], revealed: [] },
-      wish: new Set(), owned: new Set(), interest: new Set(), bookings: [], activity: [], flow: null, chat: [], chatOpen: false
+      user: { nick: '새벽청취자', email: '', provider: null, genres: [], follows: {}, onboarded: false, addresses: [] },
+      draft: { artists: [], shown: [], chain: [] }, addrEdit: null, ship: null, ticket: null,
+      wish: new Set(), gwish: new Set(), owned: new Set(), interest: new Set(), bookings: [], activity: [], flow: null, chat: [], chatOpen: false
     });
     toast('탈퇴했어요. 그동안 이용해 주셔서 고마워요');
     go('landing');
   },
-  venue(d) { S.admin ={ venue: d.v, img: null, pts: (S.stages[d.v] || []).map(p => [...p]) }; rerender(); },
+  venue(d) { Object.assign(S.admin, { venue: d.v, newVenue: false, mode: 'sec', img: null, pts: [], spts: [] }); rerender(); },
+  addVenue(f) {
+    const v = f.v.value.trim(); if (!v) return;
+    if (VMETA[v]?.del) { toast('삭제한 콘서트장이에요. 대시보드 › 콘서트장에서 복구해 주세요'); return; }
+    const had = VENUES.includes(v); if (!had) { VENUES.push(v); VMETA[v] = { region: '서울', addr: '', cap: null, src: '직접 등록', del: false, locked: [], stage: false }; }
+    toast(had ? `이미 있는 콘서트장이라 ${eul(v)} 골랐어요` : `새 콘서트장 ${eul(v)} 만들었어요. 층과 구역을 넣고 그려 주세요`);
+    ACT.venue({ v });
+  },
+  mode(d) { const a = S.admin; a.mode = d.v; a.spts = stageOf(a.venue).map(p => [...p]); rerender(); },
   sampleImg() { S.admin.img = SAMPLE_PLAN; rerender(); },
   addPt(d, el, e) {
     const p = new DOMPoint(e.clientX, e.clientY).matrixTransform(el.getScreenCTM().inverse());
     const n = v => Math.min(1, Math.max(0, +v.toFixed(3)));
-    S.admin.pts.push([n(p.x / CW), n(p.y / CH)]); rerender();
+    drawing().push([n(p.x / CW), n(p.y / CH)]); rerender();
   },
-  undoPt() { S.admin.pts.pop(); rerender(); },
-  clearPts() { S.admin.pts = []; rerender(); },
+  undoPt() { drawing().pop(); rerender(); },
+  clearPts() { drawing().length = 0; rerender(); },
   saveStage() {
-    const a = S.admin; S.stages[a.venue] = a.pts.map(p => [...p]);
-    toast(`${a.venue} 무대 모양을 저장했어요. 이 공연장 좌석 화면에 바로 반영돼요`); rerender();
+    const a = S.admin; S.stages[a.venue] = a.spts.map(p => [...p]); a.mode = 'sec';
+    toast(`${a.venue} 무대 위치를 저장했어요. 구역 좌석이 이 무대를 바라보게 놓여요`); rerender();
+  },
+  saveSec(d, el) {
+    const a = S.admin, name = a.name.trim(), key = [a.venue, a.floor, name].join('|');
+    const sec = { venue: a.venue, floor: a.floor, name, pts: a.pts.map(p => [...p]), ...layoutSeats(a.pts, stageOf(a.venue)), status: S.sections[key] ? 200 : 201 };
+    el.disabled = true; el.textContent = `좌석 ${sec.seats.length}석 배치하는 중…`;
+    timers.push(setTimeout(() => { el.textContent = '백엔드로 보내는 중…'; }, 500));
+    timers.push(setTimeout(() => { S.sections[key] = sec; a.pts = []; a.name = ''; go('adminSaved', { id: key }); }, 1200));
+  },
+  editSec(d) { const s = S.sections[d.v]; Object.assign(S.admin, { floor: s.floor, name: s.name, mode: 'sec', pts: s.pts.map(p => [...p]) }); rerender(); },
+  // ---- 관리자 대시보드 (docs/24) ----
+  admFill(d) { Object.assign(S.adm, { fill: d.v, err: null }); rerender(); $('#admPw').focus(); },
+  admLogin(f) {
+    const w = ADMINS.find(a => a.loginId === fv(f, 'id'));
+    if (!w || !f.elements.pw.value) { S.adm.err = '아이디 또는 비밀번호가 맞지 않아요'; S.adm.fill = fv(f, 'id'); rerender(); return; }
+    Object.assign(S.adm, { who: w, step: 'otp', err: null }); rerender(); $('#admCode').focus();
+  },
+  admBack() { Object.assign(S.adm, { step: 'id', who: null, err: null }); rerender(); },
+  admOtp(f) {
+    if (!/^\d{6}$/.test(fv(f, 'code'))) { S.adm.err = 'OTP 6자리 숫자를 넣어 주세요'; rerender(); $('#admCode').focus(); return; }
+    const w = S.adm.who, first = !w.otp;
+    w.otp = true; w.prev = w.last; w.last = nowStr();
+    Object.assign(S.adm, { me: w, step: 'id', who: null, fill: '', err: null, tab: null, edit: null });
+    toast(first ? 'OTP 앱 등록을 마치고 로그인했어요' : `${w.name}님, 로그인했어요`);
+    go('adminHome');
+  },
+  admLogout() { Object.assign(S.adm, { me: null, step: 'id', edit: null, err: null, imp: null, member: null, wd: null }); toast('로그아웃했어요'); go('adminLogin'); },
+  admTab(d) { Object.assign(S.adm, { tab: d.v, edit: null, err: null, wd: null }); if (d.v === 'products') S.adm.ptab = '굿즈'; rerender(); },
+  admPtab(d) { Object.assign(S.adm, { ptab: d.v, edit: null, err: null }); rerender(); },
+  admNew(d) { admOpen({ t: d.t, m: 'new' }); },
+  admEdit(d) { admOpen({ t: d.t, id: d.id, m: 'edit' }); },
+  admSeatsAsk(d) { admOpen({ t: 'concert', id: d.id, m: 'seats' }); },
+  admStockAsk(d) { admOpen({ t: 'goods', id: d.id, m: 'stock' }); },
+  admCancel() { Object.assign(S.adm, { edit: null, err: null }); rerender(); },
+  admDraw(d) { Object.assign(S.admin, { venue: d.id, newVenue: false, mode: 'sec', img: null, pts: [], spts: [] }); S.adm.edit = null; go('admin'); },
+  admUnlock(d) {
+    admRow(d.t, d.id).locked = [];
+    toast('잠금을 풀었어요. 다음 수집부터 수집값을 따라요'); rerender();
+  },
+  admSaveVenue(f) {
+    const e = S.adm.edit, next = { region: fv(f, 'region'), addr: fv(f, 'addr'), cap: Number(fv(f, 'cap')) || null };
+    if (e.m === 'new') {
+      const name = fv(f, 'vname');
+      if (VMETA[name]) return admErr('409 VENUE_EXISTS — 같은 이름의 콘서트장이 이미 있어요');
+      VMETA[name] = { ...next, src: '직접 등록', del: false, locked: [], stage: false }; VENUES.push(name);
+      toast(`${eul(name)} 등록했어요. 무대를 그려야 공연 좌석을 만들 수 있어요`);
+    } else { lockChanged(VMETA[e.id], next); toast(`${e.id} 정보를 저장했어요`); }
+    admDone();
+  },
+  admSaveConcert(f) {
+    const e = S.adm.edit, venue = fv(f, 'venue');
+    const next = { title: fv(f, 'ctitle'), type: fv(f, 'type'), venue, date: fv(f, 'date'), time: fv(f, 'time'), price: Number(fv(f, 'price')) || 0 };
+    if (e.m === 'new') {
+      const artist = fv(f, 'artist');
+      if (CONCERTS.some(c => c.artists[0] === artist && c.date === next.date && c.venue === venue)) return admErr('409 CONCERT_EXISTS — 같은 아티스트 · 날짜 · 콘서트장 공연이 이미 있어요');
+      CONCERTS.push({ id: 'c' + (++admSeq), artists: [artist], ...next, region: VMETA[venue].region, addr: VMETA[venue].addr, queue: 0, noSeats: true, src: '직접 등록', locked: [] });
+      toast('공연을 등록했어요. 좌석을 만들면 예매 버튼이 열려요');
+    } else {
+      const c = CO(e.id);
+      if (venue !== c.venue && bkCount(c)) return admErr(`409 CONCERT_HAS_BOOKINGS — 예매 ${bkCount(c).toLocaleString()}건이 있어서 콘서트장을 바꿀 수 없어요`);
+      lockChanged(c, next); Object.assign(c, { region: VMETA[venue].region, addr: VMETA[venue].addr });
+      toast('공연 정보를 저장했어요');
+    }
+    admDone();
+  },
+  admSeats(f) {
+    const c = CO(S.adm.edit.id), secs = secsOf(c.venue);
+    c.secPrices = Object.fromEntries(secs.map(([n], i) => [n, Number(fv(f, 'p' + i))]));
+    delete c.noSeats;
+    toast(`좌석을 만들었어요 (${secs.length}개 구역). 이제 사용자 화면에 예매하기 버튼이 보여요`); admDone();
+  },
+  admSaveGoods(f) {
+    const e = S.adm.edit, next = { name: fv(f, 'gname'), kind: fv(f, 'kind'), price: Number(fv(f, 'price')), url: fv(f, 'url') };
+    if (!/^https:\/\/\S+$/.test(next.url)) return admErr('400 INVALID_URL — 공식판매처 URL 은 https:// 로 시작해야 해요');
+    if (e.m === 'new') {
+      const artist = fv(f, 'artist'), id = 'g' + (++admSeq);
+      GOODS.push({ id, artist, ...next, stock: Number(fv(f, 'stock')), v: 1 + admSeq % 4, src: '직접 등록', locked: [], seller: sellerOf(artist), code: 'admin:' + id });
+      toast(`${eul(next.name)} 등록했어요`);
+    } else { lockChanged(GD(e.id), next); toast('상품 정보를 저장했어요'); }
+    admDone();
+  },
+  admSaveAlbum(f) {
+    const e = S.adm.edit, next = { title: fv(f, 'atitle'), type: fv(f, 'type') };
+    if (e.m === 'new') { ALBUMS.push({ id: 'al' + (++admSeq), artist: fv(f, 'artist'), ...next, date: fv(f, 'date'), v: 1 + admSeq % 4, tracks: next.title, lp: null, stock: [], src: '직접 등록', locked: [] }); toast(`${eul(next.title)} 등록했어요`); }
+    else { lockChanged(AL(e.id), next); toast('앨범 정보를 저장했어요'); }
+    admDone();
+  },
+  admStock(f) {
+    const g = GD(S.adm.edit.id), delta = parseInt(fv(f, 'delta'), 10), reason = fv(f, 'reason');
+    if (!delta) return admErr('늘리거나 줄일 수량을 넣어 주세요 (0 은 안 돼요)');
+    if (g.stock + delta < 0) return admErr(`409 STOCK_NEGATIVE — 지금 재고(${g.stock}개)보다 많이 뺄 수 없어요`);
+    g.stock += delta; S.adm.ledger.unshift({ id: g.id, delta, reason, at: nowStr() });
+    toast(`재고를 ${delta > 0 ? '+' : ''}${delta}개 조정했어요 → ${g.stock}개`); admDone();
+  },
+  admDel(d) {
+    if (d.t === 'venue') {
+      const used = CONCERTS.filter(c => c.venue === d.id);
+      if (used.length) return admErr(`409 VENUE_IN_USE — 이 콘서트장을 쓰는 공연이 ${used.length}개 있어요 (${used[0].title}${used.length > 1 ? ' 외' : ''}). 공연을 먼저 옮기거나 삭제해 주세요`);
+      VMETA[d.id].del = true; VENUES.splice(VENUES.indexOf(d.id), 1);
+      if (S.admin.venue === d.id) S.admin.venue = VENUES[0];
+    }
+    if (d.t === 'concert') {
+      const c = CO(d.id), n = bkCount(c);
+      if (n) return admErr(`409 CONCERT_HAS_BOOKINGS — 예매 ${n.toLocaleString()}건이 있어서 삭제할 수 없어요. 공연 취소 · 환불 흐름은 아직 정하지 않았어요`);
+      binMove(CONCERTS, TRASH.c, c);
+    }
+    if (d.t === 'goods') {
+      const g = GD(d.id);
+      if (g.pending) return admErr(`409 PRODUCT_HAS_PENDING_ORDERS — 결제 대기 주문 ${g.pending}건이 끝나면(최대 3분) 다시 해 주세요`);
+      binMove(GOODS, TRASH.g, g);
+    }
+    if (d.t === 'album') binMove(ALBUMS, TRASH.al, AL(d.id));
+    toast(d.t === 'goods' || d.t === 'album' ? '판매를 중지했어요. 사용자 화면에서 빠지고 주문 내역은 남아요' : '삭제했어요. 사용자 화면에서 빠지고, 수집이 다시 가져와도 되살리지 않아요');
+    admDone();
+  },
+  admRestore(d) {
+    if (d.t === 'venue') { VMETA[d.id].del = false; VENUES.push(d.id); }
+    else { const [arr, bin] = { concert: [CONCERTS, TRASH.c], goods: [GOODS, TRASH.g], album: [ALBUMS, TRASH.al] }[d.t], x = bin.find(y => y.id === d.id); bin.splice(bin.indexOf(x), 1); arr.push(x); x.del = false; }
+    toast('복구했어요'); admDone();
+  },
+  impTemplate() {
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(xlsxBlob(sampleRows(S.adm.impArtist, S.adm.impBad)));
+    a.download = `굿즈입고_${A(S.adm.impArtist).en.replace(/\s+/g, '')}.xlsx`; a.click();
+    setTimeout(() => URL.revokeObjectURL(a.href), 1000);
+    toast('양식을 내려받았어요. 행을 고친 뒤 위 파일 칸에 올려 주세요');
+  },
+  impSample() { readImport(new File([xlsxBlob(sampleRows(S.adm.impArtist, S.adm.impBad))], `굿즈입고_샘플_${A(S.adm.impArtist).en.replace(/\s+/g, '')}${S.adm.impBad ? '_오류' : ''}.xlsx`)); },
+  impCancel() { S.adm.imp = null; rerender(); },
+  impCommit(d, el) {
+    const p = S.adm.imp;
+    if (S.adm.imports.some(x => x.sha === p.sha)) { rerender(); return; }
+    el.disabled = true; el.textContent = '입고하는 중…';
+    timers.push(setTimeout(() => {
+      let created = 0, updated = 0;
+      p.rows.forEach(r => {
+        const g = r.g && GD(r.g), next = { name: r.name, kind: r.kind, price: r.price, url: r.url };
+        if (g) { Object.entries(next).forEach(([k, v]) => { if (!g.locked.includes(k)) g[k] = v; }); g.stock += r.qty; updated++; }
+        else { GOODS.push({ id: 'g' + (++admSeq), artist: p.artist, ...next, stock: r.qty, v: 1 + admSeq % 4, src: '엑셀', locked: [], seller: p.seller, code: r.code }); created++; }
+      });
+      const qty = p.rows.reduce((s, r) => s + r.qty, 0);
+      S.adm.imports.unshift({ at: nowStr(), file: p.file, artist: p.artist, seller: p.seller, created, updated, qty, sha: p.sha });
+      S.adm.imp = null;
+      toast(`입고를 마쳤어요 — 신규 ${created} · 변경 ${updated} · 재고 +${qty}개`); rerender();
+    }, 900));
+  },
+  admCrawl(d) {
+    const k = d.v;
+    if (S.adm.running[k]) return admErr('409 CRAWL_RUNNING — 이미 수집 중이에요');
+    S.adm.running[k] = true; rerender();
+    timers.push(setTimeout(() => {
+      const first = !S.adm.crawled[k], r = { at: nowStr(), by: '수동 · ' + S.adm.me.name, n: 0, u: 0, s: 0, f: 0 };
+      S.adm.crawled[k] = true;
+      if (k === 'concerts') {
+        r.s = CONCERTS.length;
+        if (first) {
+          VMETA['구름아래 소극장'] = { region: '서울', addr: '서울 마포구 동교로 12', cap: null, src: '수집', del: false, locked: [], stage: false }; VENUES.push('구름아래 소극장');
+          CONCERTS.push({ id: 'c' + (++admSeq), artists: ['a9'], title: '유리온실 〈김 서린 창〉 발매 공연', venue: '구름아래 소극장', region: '서울', addr: '서울 마포구 동교로 12', date: '2026-12-12', time: '19:00', type: '단독', price: 44000, queue: 0, noSeats: true, src: '수집', locked: [] });
+          r.n = 1;
+        }
+      }
+      if (k === 'venues') {
+        const m = VMETA['롤링홀'];
+        r.s = VENUES.length;
+        if (first) { if (m.locked.includes('cap')) r.skip = 1; else { m.cap = 800; r.u = 1; r.s--; } }
+      }
+      if (k === 'goods') {
+        r.s = GOODS.filter(g => g.src !== '직접 등록').length;
+        if (first) { GOODS.push({ id: 'g' + (++admSeq), artist: 'a9', name: '〈김 서린 창〉 머그컵', kind: '생활', price: 16000, stock: 0, v: 2, src: '수집', locked: [], seller: sellerOf('a9'), code: 'SKU-901', url: `https://store.example.com/${slug('a9')}/SKU-901` }); r.n = 1; }
+      }
+      if (k === 'albums') r.s = ALBUMS.length;
+      S.adm.runs[k].unshift(r); S.adm.running[k] = false;
+      toast(`${CRAWL.find(c => c[0] === k)[1]} 수집을 마쳤어요 — 신규 ${r.n} · 변경 ${r.u}${r.skip ? ` · 잠긴 칸 ${r.skip}개 건너뜀` : ''}`); rerender();
+    }, 1200));
+  },
+  csPick(d) { Object.assign(S.adm, { member: +d.id, wd: null, wdErr: null }); rerender(); },
+  csNick(d) {
+    const m = MEMBERS.find(x => x.id === +d.id), old = m.nick;
+    m.nick = 'user' + (1000 + Math.floor(Math.random() * 9000));
+    toast(`${old} → ${m.nick} 으로 초기화했어요. 본인이 다시 바꿀 수 있어요`); rerender();
+  },
+  csWdAsk(d) { Object.assign(S.adm, { wd: +d.id, wdErr: null }); rerender(); $('#wdOtp').focus(); },
+  csWdCancel() { Object.assign(S.adm, { wd: null, wdErr: null }); rerender(); },
+  csWithdraw(f) {
+    if (!/^\d{6}$/.test(fv(f, 'otp'))) { S.adm.wdErr = '내 OTP 6자리를 넣어 주세요 — 되돌릴 수 없는 작업이라 다시 확인해요'; rerender(); $('#wdOtp').focus(); return; }
+    const m = MEMBERS.find(x => x.id === S.adm.wd);
+    Object.assign(m, { status: 'WITHDRAWN', nick: '(탈퇴)', email: null });
+    Object.assign(S.adm, { wd: null, wdErr: null });
+    toast(`#${m.id} 회원을 탈퇴 처리했어요 (사유 ${fv(f, 'reason')})`); rerender();
   }
 };
 
@@ -1313,8 +2938,33 @@ document.addEventListener('click', e => {
 document.addEventListener('submit', e => { e.preventDefault(); const f = e.target; if (ACT[f.dataset.submit]) ACT[f.dataset.submit](f); });
 document.addEventListener('input', e => { if (e.target.id === 'q') { S.q = e.target.value; $('#artistGrid').innerHTML = artistGrid(); } });
 document.addEventListener('change', e => { if (e.target.id === 'stageImg' && e.target.files[0]) { S.admin.img = URL.createObjectURL(e.target.files[0]); rerender(); } });
+document.addEventListener('input', e => { if (e.target.id === 'admSec') { S.admin.name = e.target.value; $('#admFoot').innerHTML = admFoot(); } });
+document.addEventListener('change', e => {
+  const t = e.target;
+  if (t.id === 'admFloor') { S.admin.floor = t.value; rerender(); }
+  if (t.id === 'admVenue') { if (t.value !== '__new') ACT.venue({ v: t.value }); else { S.admin.newVenue = true; rerender(); $('#newVenue').focus(); } }
+});
+// SVG 안의 버튼(구역 · 좌석)은 button 요소가 아니라서 Enter · Space 를 클릭으로 바꿔 줌
+document.addEventListener('keydown', e => {
+  const t = e.target;
+  if ((e.key === 'Enter' || e.key === ' ') && t instanceof SVGElement && t.matches('[role=button][data-act]')) { e.preventDefault(); t.dispatchEvent(new MouseEvent('click', { bubbles: true })); }
+});
+document.addEventListener('input', e => {
+  if (e.target.id === 'csQ') { S.adm.cq = e.target.value; $('#csList').innerHTML = csList(); }
+  if (e.target.id === 'impSeller') S.adm.impSeller = e.target.value;
+});
+document.addEventListener('change', e => {
+  const t = e.target;
+  if (t.id === 'impArtist') { Object.assign(S.adm, { impArtist: t.value, impSeller: sellerOf(t.value), imp: null }); rerender(); }
+  if (t.id === 'impBad') S.adm.impBad = t.checked;
+  if (t.id === 'impFile' && t.files[0]) readImport(t.files[0]);
+});
+document.addEventListener('change', e => {
+  if (e.target.name === 'shipPick') { S.ship = e.target.value === 'new' ? 'new' : Number(e.target.value); $('#shipBox').innerHTML = shipBox(); }
+});
 $('#devmode').addEventListener('change', e => document.body.classList.toggle('devmode', e.target.checked));
 
+$('#foot').innerHTML = footHtml();
 render();
 </script>
 </body>
