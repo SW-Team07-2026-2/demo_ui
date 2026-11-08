@@ -173,8 +173,18 @@ button.li:hover{background:var(--surface-2)}
 .terms-doc{max-width:760px;display:grid;gap:10px}
 .terms-doc h2{font-size:16px;margin-top:14px}
 .terms-doc p,.terms-doc li{color:var(--muted)}
-.terms-doc ul{margin:0;padding-left:1.2em;display:grid;gap:4px}
+.terms-doc ul,.terms-doc ol{margin:0;padding-left:1.2em;display:grid;gap:4px}
 .terms-doc mark{background:var(--warn-weak);color:var(--warn);padding:0 4px;border-radius:3px}
+/* 가입 — 약관 동의 (M24) */
+.steps{display:flex;flex-wrap:wrap;gap:6px 16px;margin:0;padding:0;list-style:none;font-size:13px;color:var(--muted)}
+.steps .on{color:var(--accent);font-weight:700}
+.agree{display:grid;padding:4px 20px}
+.agree>.check{padding:14px 0;font-size:15px}
+.agree-row{display:grid;gap:10px;padding:13px 0;border-top:1px solid var(--line)}
+.agree-row .head{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.agree .req{color:var(--accent);font-weight:600}
+.agree .opt{color:var(--muted);font-weight:600}
+.agree-body{max-width:none;max-height:280px;overflow:auto;padding:12px 16px;background:var(--surface-2);border-radius:8px;font-size:13px}
 .site-foot{border-top:1px solid var(--line);background:var(--surface)}
 .foot-in{max-width:1120px;margin:0 auto;padding:28px 16px 88px;display:grid;gap:12px}
 .foot-links{display:flex;flex-wrap:wrap;gap:6px 20px}
@@ -553,18 +563,19 @@ const GOODS = [
 ];
 
 const CONCERTS = [
-  {id:'c1',artists:['a1'],title:'소음정원 단독 공연 〈젖은 신호〉',venue:'KT&G 상상마당 라이브홀',region:'서울',addr:'서울 마포구 어울마당로 65',date:'2026-10-17',time:'18:00',type:'단독',price:66000,queue:1284},
-  {id:'c2',artists:['a2','a7','a11'],title:'가을 소풍 페스티벌 2026',venue:'난지 한강공원',region:'서울',addr:'서울 마포구 한강난지로 162',date:'2026-10-24',time:'13:00',type:'페스티벌',price:99000,queue:3420},
-  {id:'c3',artists:['a3'],title:'한낮의 고래 〈수면 위 오후〉 앙코르',venue:'오방가르드',region:'부산',addr:'부산 수영구 광남로 172',date:'2026-10-31',time:'19:00',type:'단독',price:55000,queue:640},
-  {id:'c4',artists:['a6'],title:'네온극장 단독 〈심야 상영〉',venue:'웨스트브릿지',region:'서울',addr:'서울 마포구 양화로 188',date:'2026-11-07',time:'19:00',type:'단독',price:58000,queue:820},
-  {id:'c5',artists:['a4'],title:'모래시계클럽 10주년',venue:'클럽 헤비',region:'대구',addr:'대구 중구 동성로',date:'2026-11-14',time:'18:00',type:'단독',price:50000,queue:310},
-  {id:'c6',artists:['a9'],title:'유리온실 첫 정규 쇼케이스',venue:'벨로주 망원',region:'서울',addr:'서울 마포구 망원동',date:'2026-11-21',time:'19:30',type:'단독',price:45000,queue:420},
-  {id:'c7',artists:['a8','a10','a2'],title:'라우드 시티 2026',venue:'송도 달빛축제공원',region:'인천',addr:'인천 연수구 송도동',date:'2026-12-05',time:'12:00',type:'페스티벌',price:120000,queue:2860},
-  {id:'c8',artists:['a5'],title:'새벽세탁소 연말 공연',venue:'롤링홀',region:'서울',addr:'서울 마포구 어울마당로 35',date:'2026-12-19',time:'18:00',type:'단독',price:55000,queue:560},
-  {id:'c9',artists:['a12'],title:'반지하 오케스트라 정기 공연',venue:'무대륙',region:'서울',addr:'서울 마포구 독막로',date:'2026-10-10',time:'19:00',type:'단독',price:40000,queue:180},
-  {id:'c10',artists:['a8'],title:'검은 우산 목요 펑크 나이트',venue:'클럽 FF',region:'서울',addr:'서울 마포구 와우산로',date:'2026-10-08',time:'20:00',type:'단독',price:30000,queue:150},
-  {id:'c11',artists:['a5'],title:'새벽세탁소 어쿠스틱 라이브',venue:'언플러그드',region:'서울',addr:'서울 마포구 서교동',date:'2026-10-08',time:'19:30',type:'단독',price:38000,queue:260},
-  {id:'c12',artists:['a10'],title:'열대야 심야 잼 세션',venue:'프리버드',region:'서울',addr:'서울 마포구 서교동',date:'2026-10-08',time:'21:00',type:'단독',price:33000,queue:210}
+  // queueEnabled · open(bookingOpenAt) = N2 응답. queue 는 대기열 시연용 앞사람 수
+  {id:'c1',artists:['a1'],title:'소음정원 단독 공연 〈젖은 신호〉',venue:'KT&G 상상마당 라이브홀',region:'서울',addr:'서울 마포구 어울마당로 65',date:'2026-10-17',time:'18:00',type:'단독',price:66000,queue:1284,queueEnabled:true,open:'2026-10-01T20:00'},
+  {id:'c2',artists:['a2','a7','a11'],title:'가을 소풍 페스티벌 2026',venue:'난지 한강공원',region:'서울',addr:'서울 마포구 한강난지로 162',date:'2026-10-24',time:'13:00',type:'페스티벌',price:99000,queue:3420,queueEnabled:true,open:'2026-10-01T20:00'},
+  {id:'c3',artists:['a3'],title:'한낮의 고래 〈수면 위 오후〉 앙코르',venue:'오방가르드',region:'부산',addr:'부산 수영구 광남로 172',date:'2026-10-31',time:'19:00',type:'단독',price:55000,queue:640,queueEnabled:true,open:'2026-10-01T20:00'},
+  {id:'c4',artists:['a6'],title:'네온극장 단독 〈심야 상영〉',venue:'웨스트브릿지',region:'서울',addr:'서울 마포구 양화로 188',date:'2026-11-07',time:'19:00',type:'단독',price:58000,queue:820,queueEnabled:true,open:'2026-10-05T20:00'},
+  {id:'c5',artists:['a4'],title:'모래시계클럽 10주년',venue:'클럽 헤비',region:'대구',addr:'대구 중구 동성로',date:'2026-11-14',time:'18:00',type:'단독',price:50000,queue:310,queueEnabled:false,open:'2026-10-01T20:00'},
+  {id:'c6',artists:['a9'],title:'유리온실 첫 정규 쇼케이스',venue:'벨로주 망원',region:'서울',addr:'서울 마포구 망원동',date:'2026-11-21',time:'19:30',type:'단독',price:45000,queue:420,queueEnabled:false,open:'2026-10-01T20:00'},
+  {id:'c7',artists:['a8','a10','a2'],title:'라우드 시티 2026',venue:'송도 달빛축제공원',region:'인천',addr:'인천 연수구 송도동',date:'2026-12-05',time:'12:00',type:'페스티벌',price:120000,queue:2860,queueEnabled:true,open:'2026-10-15T20:00'},
+  {id:'c8',artists:['a5'],title:'새벽세탁소 연말 공연',venue:'롤링홀',region:'서울',addr:'서울 마포구 어울마당로 35',date:'2026-12-19',time:'18:00',type:'단독',price:55000,queue:560,queueEnabled:true,open:'2026-10-20T20:00'},
+  {id:'c9',artists:['a12'],title:'반지하 오케스트라 정기 공연',venue:'무대륙',region:'서울',addr:'서울 마포구 독막로',date:'2026-10-10',time:'19:00',type:'단독',price:40000,queue:180,queueEnabled:false,open:'2026-10-01T20:00'},
+  {id:'c10',artists:['a8'],title:'검은 우산 목요 펑크 나이트',venue:'클럽 FF',region:'서울',addr:'서울 마포구 와우산로',date:'2026-10-08',time:'20:00',type:'단독',price:30000,queue:150,queueEnabled:false,open:'2026-10-01T20:00'},
+  {id:'c11',artists:['a5'],title:'새벽세탁소 어쿠스틱 라이브',venue:'언플러그드',region:'서울',addr:'서울 마포구 서교동',date:'2026-10-08',time:'19:30',type:'단독',price:38000,queue:260,queueEnabled:false,open:'2026-10-01T20:00'},
+  {id:'c12',artists:['a10'],title:'열대야 심야 잼 세션',venue:'프리버드',region:'서울',addr:'서울 마포구 서교동',date:'2026-10-08',time:'21:00',type:'단독',price:33000,queue:210,queueEnabled:false,open:'2026-10-01T20:00'}
 ];
 </script>
 
@@ -575,7 +586,7 @@ const S = {
   user:{nick:'새벽청취자', email:'', provider:null, genres:[], follows:{}, onboarded:false,
     addresses:[{id:1, label:'집', recipientName:'김새벽', phone:'010-2345-6789', zonecode:'04043', address:'서울 마포구 양화로 45', addressDetail:'3층', isDefault:true}]},
   draft:{artists:[], shown:[], chain:[]},
-  wish:new Set(), gwish:new Set(), gq:{}, order:null, owned:new Set(['al8']), interest:new Set(),
+  wish:new Set(), gwish:new Set(), gq:{}, order:null, orders:[], owned:new Set(['al8']), interest:new Set(),
   bookings:[], activity:[], lastSeen:0, feedFilter:'전체', simStep:0,
   q:'', gfilter:'전체', cview:'캘린더', month:9, region:'전체', ctype:'전체',
   atab:'신보', mtab:'관심 아티스트', seats:{}, flow:null, chat:[], chatOpen:false, addrEdit:null, ship:null, ticket:null,
@@ -732,7 +743,7 @@ async function tossRequest(orderId, orderName, customer = {}) {
     return null;
   }
 }
-const newPgOrderId = kind => `IND-${kind}-${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;   // 서버(C9 · N10)가 만들어 주는 pgOrderId 흉내
+const newPgOrderId = kind => `${kind}-${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;   // 서버(C9 · N10)가 만들어 주는 pgOrderId(GOODS-… · TICKET-…) 흉내
 
 /* ===== 화면 ===== */
 const V = {}, AFTER = {};
@@ -772,12 +783,12 @@ V.signup = () => `
   <div style="display:grid;gap:14px">
   <div class="panel form">
     <h2>시작하기</h2>
-    <p class="tag">처음이면 카카오 동의 화면에서 약관에 동의하고, 좋아하는 밴드를 고르면 가입이 끝나요. 이미 가입했다면 바로 로그인돼요.</p>
+    <p class="tag">처음이면 약관에 동의하고 좋아하는 밴드를 고르면 가입이 끝나요. 이미 가입했다면 바로 로그인돼요.</p>
     <button class="btn sso kakao" data-act="sso" data-v="kakao">
       <svg viewBox="0 0 24 24" aria-hidden="true"><path fill="#000" d="M12 3C6.48 3 2 6.58 2 11c0 2.85 1.86 5.35 4.66 6.77l-.95 3.48c-.08.3.26.54.52.37l4.15-2.75c.53.07 1.07.11 1.62.11 5.52 0 10-3.58 10-8S17.52 3 12 3z"/></svg>
       카카오로 시작하기</button>
-    ${dev('GET /oauth2/authorization/kakao → 카카오 싱크 동의 화면(이용약관 · 개인정보 · 마케팅 선택) → 콜백 · 동의 내역 GET kapi.kakao.com/v2/user/service_terms → 기존 회원: AT · RT → 302 홈 · 처음: 회원을 만들지 않고 사인업 토큰(JWT · SIGNUP 쿠키 HttpOnly · 30분) → 302 /signup (밴드 고르기) · 로그인은 카카오만')}
-    <p class="tag" style="text-align:center;margin-top:6px">프로토타입이라 실제 로그인은 일어나지 않아요. 누르면 가입된 것처럼 넘어가요.</p>
+    ${dev('G1 GET /oauth2/authorization/kakao → 카카오 동의 화면(닉네임 · 이메일만) → 콜백 G2 → 기존 회원: AT · RT → 302 / · 처음: 회원을 만들지 않고 사인업 토큰(JWT · SIGNUP 쿠키 HttpOnly · 30분) → 302 /welcome (약관 동의 → 밴드 고르기) · 실패 · 취소: 302 /login · 로그인은 카카오만')}
+    <p class="tag" style="text-align:center;margin-top:6px">프로토타입이라 실제 로그인은 일어나지 않아요. 누르면 처음 가입하는 회원으로 넘어가요.</p>
   </div>
   <p class="tag" style="text-align:center">운영팀 관리자라면 <button class="link" data-go="adminLogin">관리자로 들어가기</button></p>
   </div>
@@ -792,62 +803,209 @@ const BIZ = [
   ['통신판매업 신고번호', '<i>신고 전</i>'], ['주소', '<i>등록 후 기재</i>'], ['전화', '<i>등록 후 기재</i>'],
   ['이메일', '<i>도메인 확정 후 기재</i>'], ['개인정보 보호책임자', '<i>등록 후 기재</i>'], ['호스팅 제공자', 'Amazon Web Services, Inc.']
 ];
+/* 약관 본문은 운영 DB 시드 그대로 (member V9 · V10 — 법무 검토 전 초안). 화면은 M24 · M25 응답 모양을 씀. PRIVACY v2 는 11/14 시행이라 지금은 v1 */
+const TERMS_CONSENT = [
+  { termsId: 1, code: 'AGE14', version: 'v1', title: '만 14세 이상입니다', required: true, content: `# 만 14세 이상 확인
+
+인디 아카이브는 만 14세 미만 아동의 회원가입을 받지 않습니다 (이용약관 제2조 ②).
+
+만 14세 이상인 경우에만 동의해 주세요.` },
+  { termsId: 2, code: 'TOS', version: 'v1', title: '이용약관 동의', required: true, content: `# 서비스 이용약관
+
+**제1조 (목적)**
+
+이 약관은 인디 아카이브(이하 "운영자")가 제공하는 인디 아카이브 서비스(indig.co.kr — 공연 정보 · 예매, 음반 · 굿즈 판매 등, 이하 "서비스")의 이용 조건 및 절차, 운영자와 회원의 권리 · 의무를 규정합니다.
+
+**제2조 (회원가입)**
+
+① 회원가입은 카카오 계정으로 로그인한 뒤 가입 화면에서 이 약관과 개인정보 수집 · 이용에 동의하고 가입을 마치면 완료됩니다.
+
+② 만 14세 미만은 가입할 수 없습니다.
+
+**제3조 (서비스의 제공 및 변경)**
+
+서비스는 시범 운영(베타) 단계이며, 운영자는 서비스 내용을 변경하거나 중단할 수 있습니다. 이 경우 서비스 화면에 사전 공지합니다.
+
+**제4조 (회원의 의무)**
+
+회원은 다음 행위를 해서는 안 됩니다.
+
+1. 타인의 정보 도용
+2. 서비스 운영 방해
+3. 법령 및 공공질서에 반하는 행위
+
+**제5조 (이용 제한 및 탈퇴)**
+
+① 회원은 언제든지 서비스 내에서 탈퇴할 수 있습니다.
+
+② 제4조를 위반한 회원은 이용이 제한될 수 있습니다.
+
+**제6조 (책임 제한)**
+
+운영자는 천재지변, 회원의 귀책사유 등 운영자의 고의 또는 중대한 과실이 없는 사유로 발생한 손해에 대해 책임을 지지 않습니다.
+
+**제7조 (약관의 변경)**
+
+약관을 변경하는 경우 시행일 7일 전부터 서비스 화면에 공지합니다.
+
+**부칙**
+
+이 약관은 2026년 11월 5일부터 적용합니다.` },
+  { termsId: 3, code: 'PRIVACY', version: 'v1', title: '개인정보 수집 및 이용 동의', required: true, content: `# 개인정보 수집 및 이용 동의
+
+인디 아카이브는 회원가입과 서비스 제공을 위해 아래와 같이 개인정보를 수집 · 이용합니다.
+
+**수집 항목**
+
+- 가입 시 (카카오 로그인): 카카오 회원번호, 닉네임, 이메일
+- 서비스 이용 시: 팔로우한 아티스트, 위시리스트, 예매 · 주문 · 결제 내역 (카드 번호 등 결제 수단 정보는 결제대행사만 보관)
+- 굿즈 · 음반 주문 시: 배송지 정보 (받는 분 이름, 연락처, 주소)
+- 자동 수집: 접속 기록, IP 주소, 쿠키
+
+**수집 목적**
+
+- 회원 식별 및 가입 · 로그인 처리
+- 공연 예매, 굿즈 · 음반 판매, 결제 및 환불
+- 굿즈 · 음반 배송
+- 팔로우한 아티스트 소식 등 서비스 알림
+- 공지사항 전달 및 고객 문의 응대
+- 부정 이용 방지 및 서비스 보안
+
+**보유 기간**
+
+- 회원 탈퇴 시까지 보유하며, 탈퇴 시 지체 없이 파기합니다.
+- 다만 관계 법령에 따라 보관해야 하는 정보는 해당 기간 동안 보관합니다.
+  - 계약 · 청약철회, 대금 결제 및 재화 공급에 관한 기록: 5년 (전자상거래법)
+  - 소비자 불만 또는 분쟁 처리에 관한 기록: 3년 (전자상거래법)
+  - 접속 기록: 3개월 (통신비밀보호법)
+
+**동의 거부 권리**
+
+- 동의를 거부할 수 있으나, 필수 항목이므로 동의하지 않으면 회원가입이 불가합니다.` },
+  { termsId: 4, code: 'MARKETING', version: 'v1', title: '마케팅 정보 수신 동의', required: false, content: `# 마케팅 정보 수신 동의 (선택)
+
+인디 아카이브는 새 공연 · 이벤트 · 혜택 안내를 위해 아래와 같이 개인정보를 이용합니다.
+
+**이용 항목**
+
+- 이메일, 닉네임
+
+**이용 목적**
+
+- 새 공연, 할인 · 이벤트, 추천 굿즈 · 음반 소식 안내 (이메일, 서비스 내 알림)
+- 밤 9시부터 아침 8시 사이에는 보내지 않습니다.
+
+**보유 기간**
+
+- 동의 철회 또는 회원 탈퇴 시까지
+
+**동의 철회**
+
+- MY › 약관 · 동의에서 언제든 철회할 수 있으며, 동의 · 철회하면 처리 결과를 알려 드립니다.
+
+**동의 거부 권리**
+
+- 동의하지 않아도 서비스 이용에는 제한이 없습니다.
+- 팔로우한 아티스트 소식처럼 회원이 요청한 알림은 이 동의와 관계없이 받습니다.` }
+];
+const termsDoc = code => TERMS_CONSENT.find(t => t.code === code);
+const PRIVACY_POLICY_MD = `# 개인정보처리방침
+
+인디 아카이브(이하 "운영자")는 「개인정보 보호법」에 따라 회원의 개인정보를 아래와 같이 처리합니다.
+
+**1. 처리하는 개인정보 항목과 목적**
+
+- 회원가입 (카카오 로그인): 카카오 회원번호, 닉네임, 이메일, 약관 동의 기록 (약관 · 버전 · 일시) — 회원 식별, 가입 · 로그인, 동의 기록
+- 서비스 이용: 팔로우한 아티스트, 고른 장르, 위시리스트 — 아티스트 소식 알림, 추천
+- 공연 예매 · 굿즈 · 음반 주문: 예매 · 주문 · 결제 내역 (카드 번호 등 결제 수단 정보는 결제대행사만 보관) — 예매 · 판매, 결제 및 환불
+- 굿즈 · 음반 주문 시 배송지: 받는 분 이름, 연락처, 주소 — 배송
+- AI 챗봇 이용: 질문 내용 — 답변 및 추천
+- 마케팅 정보 수신 동의: 수신 동의 여부 · 일시 — 새 공연 · 이벤트 소식 안내
+- 자동 수집: 접속 기록, IP 주소, 쿠키 — 로그인 유지, 서비스 보안, 부정 이용 방지
+
+만 14세 미만은 가입할 수 없으므로 아동의 개인정보는 처리하지 않습니다.
+
+**2. 보유 기간**
+
+- 회원 탈퇴 시까지 보유하며, 탈퇴 시 지체 없이 파기합니다.
+- 다만 관계 법령에 따라 보관해야 하는 정보는 해당 기간 동안 따로 보관합니다.
+  - 계약 · 청약철회, 대금 결제 및 재화 공급에 관한 기록: 5년 (전자상거래법)
+  - 소비자 불만 또는 분쟁 처리에 관한 기록: 3년 (전자상거래법)
+  - 접속 기록: 3개월 (통신비밀보호법)
+
+**3. 제3자 제공**
+
+운영자는 회원의 개인정보를 제3자에게 제공하지 않습니다. 【확인 필요】 공연 입장 확인을 위해 기획사 · 공연장에 예매자 명단을 넘기게 되면 제3자 제공이므로 따로 동의를 받습니다.
+
+**4. 처리 위탁**
+
+- Amazon Web Services, Inc. — 서버 운영 및 데이터 보관 (서울 리전)
+- 토스페이먼츠 주식회사 — 결제 처리
+- Cloudflare, Inc. — 웹사이트 접속 중계 및 보안 (IP 주소, 접속 기록) 【확인 필요: 국외 이전 해당 여부】
+- Vercel Inc. — 웹 화면 제공 (IP 주소, 접속 기록) 【확인 필요: 국외 이전 해당 여부】
+- 택배사 — 굿즈 · 음반 배송 【확인 필요: 업체 선정 후 기재】
+
+**5. 국외 이전**
+
+- 이전받는 자: Google LLC (미국)
+- 항목: AI 챗봇 질문 내용, 취향 요약 (고른 장르, 팔로우한 아티스트). 이름 · 연락처 · 결제 정보는 보내지 않습니다.
+- 목적: AI 챗봇 답변 생성 (Gemini API)
+- 시기 및 방법: 질문할 때마다 암호화된 통신으로 전송
+- 보유 기간: 【확인 필요: Google 쪽 보관 기간 · 학습 이용 여부를 유료 API 약관 기준으로 기재】
+- 거부 방법: AI 챗봇을 쓰지 않으면 이전되지 않습니다.
+
+**6. 파기**
+
+보유 기간이 끝나거나 처리 목적을 이루면 지체 없이 다시 살릴 수 없는 방법으로 파기합니다.
+
+**7. 회원의 권리**
+
+- MY에서 내 정보와 약관 동의 내역을 확인하고, 마케팅 정보 수신 동의를 언제든 철회할 수 있습니다.
+- 개인정보 열람 · 정정 · 삭제 · 처리 정지를 아래 개인정보 보호책임자에게 요청할 수 있습니다.
+- 언제든 탈퇴할 수 있습니다.
+
+**8. 쿠키**
+
+로그인 유지, 가입 진행, 위조 요청 방지를 위한 쿠키만 사용합니다. 광고 · 추적 쿠키는 사용하지 않습니다. 브라우저 설정으로 쿠키 저장을 거부할 수 있으나, 이 경우 로그인할 수 없습니다.
+
+**9. 안전성 확보 조치**
+
+- 모든 전송 구간을 암호화합니다 (HTTPS).
+- 비밀번호를 받지 않습니다 (카카오 로그인).
+- 카드 번호 등 결제 수단 정보를 보관하지 않습니다.
+- 개인정보에 접근할 수 있는 권한을 최소한으로 둡니다. 【확인 필요: 관리자 접근 통제 · 접속 기록 보관 방식】
+
+**10. 개인정보 보호책임자**
+
+【확인 필요: 사업자 등록 후 이름 · 직책 · 연락처 기재】
+
+**11. 시행일**
+
+이 방침은 2026년 11월 6일부터 적용합니다.`;
+// 약관 본문(마크다운) → HTML. 시드에 쓰인 문법만 — # 제목(화면 제목과 같아서 뺌) · 한 줄 전체 **굵게**(소제목) · - 목록 · 1. 목록 · 【확인 필요】
+function termsHtml(md) {
+  const inline = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/【확인 필요[^】]*】/g, m => `<mark>${m}</mark>`);
+  let html = '', list = null;
+  const closeList = () => { if (list) { html += `</${list}>`; list = null; } };
+  md.split('\n').forEach(raw => {
+    const line = raw.trim(), item = line.match(/^(-|\d+\.)\s+(.*)/);
+    if (item) {
+      const tag = item[1] === '-' ? 'ul' : 'ol';
+      if (list !== tag) { closeList(); html += `<${tag}>`; list = tag; }
+      html += `<li>${inline(item[2])}</li>`;
+      return;
+    }
+    closeList();
+    if (!line || line.startsWith('#')) return;
+    const head = line.match(/^\*\*(.+)\*\*$/);
+    html += head ? `<h2>${inline(head[1])}</h2>` : `<p>${inline(line)}</p>`;
+  });
+  closeList();
+  return html;
+}
 const TERMS = {
-  tos: { t: '이용약관', ver: 'v0.1', body: `
-<h2>제1조 (목적)</h2>
-<p>이 약관은 인디 아카이브(이하 "회사")가 제공하는 공연 정보 · 예매, 음반 · LP 정보, 굿즈 판매, AI 추천 서비스(이하 "서비스")를 이용하는 조건과 절차, 회사와 회원의 권리 · 의무를 정합니다.</p>
-<h2>제2조 (회원가입)</h2>
-<p>① 카카오 계정으로 로그인할 때 카카오 동의 화면에서 이 약관과 개인정보 수집 · 이용에 동의하고, 이어지는 가입 화면을 마치면 회원이 됩니다. ② 만 14세 미만은 가입할 수 없습니다.</p>
-<h2>제3조 (예매)</h2>
-<p>① 예매는 대기열 → 좌석 선택 → 결제 순서로 진행합니다. 대기열을 벗어나면 순번이 사라집니다. ② 좌석은 결제를 마쳐야 확정됩니다. 같은 좌석을 여러 회원이 골랐다면 먼저 결제를 마친 회원에게 배정하고, 나머지 회원의 결제는 승인 전에 중단합니다.</p>
-<h2>제4조 (굿즈 판매)</h2>
-<p>굿즈는 각 아티스트 공식 판매처에서 받은 재고로 판매하고, 결제는 서비스 안에서 합니다. 상품 화면에 공식 판매처를 함께 표시합니다. ${todo('판매 당사자(회사 직접 판매 · 위탁 판매 · 중개)에 따라 이 조항과 책임 범위가 바뀝니다')}</p>
-<h2>제5조 (취소 · 환불)</h2>
-<p>취소 · 환불은 별도의 「취소 · 환불 정책」을 따릅니다.</p>
-<h2>제6조 (금지 행위)</h2>
-<p>매크로 같은 자동화 프로그램으로 예매하는 행위, 예매한 티켓을 산 값보다 비싸게 되파는 행위, 다른 사람의 계정을 쓰는 행위를 금지합니다. 위반하면 예매를 취소하고 이용을 제한할 수 있습니다.</p>
-<h2>제7조 (AI 챗봇)</h2>
-<p>AI 챗봇의 답변은 참고용이며 틀릴 수 있습니다. 예매 · 결제 · 탈퇴처럼 결과가 남는 일은 회원이 직접 버튼을 눌러야만 실행됩니다.</p>
-<h2>제8조 (탈퇴)</h2>
-<p>회원은 언제든 탈퇴할 수 있습니다. 법령에 따라 보관해야 하는 기록을 뺀 정보는 바로 지웁니다.</p>
-<h2>제9조 (약관 변경)</h2>
-<p>약관을 바꿀 때는 시행 7일 전부터, 회원에게 불리한 변경은 30일 전부터 공지하고 알립니다. 바뀐 약관에 동의하지 않으면 탈퇴할 수 있습니다.</p>
-<h2>부칙</h2>
-<p>이 약관은 서비스 정식 오픈일부터 시행합니다.</p>` },
-  privacy: { t: '개인정보처리방침', ver: 'v0.1',
-    body: `
-<p>인디 아카이브(이하 "회사")는 개인정보 보호법에 따라 회원의 개인정보를 아래와 같이 처리합니다.</p>
-<h2>1. 처리하는 개인정보와 목적</h2>
-<div class="tbl-wrap"><table class="table"><thead><tr><th>언제</th><th>항목</th><th>목적</th></tr></thead><tbody>
-<tr><td>가입</td><td>카카오 계정 식별자, 이메일(제공 시), 닉네임, 프로필 이미지, 카카오 동의 화면에서 동의한 약관 · 일시</td><td>회원 식별 · 로그인 · 동의 기록</td></tr>
-<tr><td>예매 · 주문</td><td>예매 · 주문 · 결제 내역 (카드 번호는 결제대행사만 보관)</td><td>예매 · 판매 · 환불</td></tr>
-<tr><td>굿즈 · 음반 결제 (배송지 저장)</td><td>받는 분 이름, 연락처, 배송지 주소 (최대 10개)</td><td>굿즈 · 음반 배송</td></tr>
-<tr><td>취향 고르기 · AI 챗봇</td><td>고른 장르, 팔로우한 밴드, 위시리스트, 챗봇 대화</td><td>추천</td></tr>
-<tr><td>마케팅 수신 동의 때</td><td>수신 동의 여부 · 일시</td><td>공연 · 이벤트 소식 발송</td></tr>
-<tr><td>이용 중 자동</td><td>접속 기록, IP 주소, 쿠키</td><td>로그인 유지 · 보안 · 부정 이용 방지</td></tr>
-</tbody></table></div>
-<p>만 14세 미만은 가입할 수 없어 아동의 개인정보는 처리하지 않습니다.</p>
-<h2>2. 보유 기간</h2>
-<p>탈퇴하면 바로 지웁니다. 다만 법령이 정한 기록은 그 기간 동안 따로 보관합니다.</p>
-<ul><li>계약 · 청약철회, 대금 결제 · 재화 공급 기록 — 5년 (전자상거래법)</li><li>소비자 불만 · 분쟁 처리 기록 — 3년 (전자상거래법)</li><li>접속 기록 — 3개월 (통신비밀보호법)</li></ul>
-<h2>3. 제3자 제공</h2>
-<p>제공하지 않습니다. ${todo('공연 입장 확인을 위해 기획사 · 공연장에 예매자 명단을 넘기면 제3자 제공이라 따로 동의를 받아야 합니다')}</p>
-<h2>4. 처리 위탁</h2>
-<ul><li>Amazon Web Services, Inc. — 서버 운영 · 데이터 보관 (서울 리전)</li><li>결제대행사(PG) — 결제 처리 ${todo('업체 선정 후 기재')}</li><li>택배사 — 굿즈 · 음반 배송 ${todo('업체 선정 후 기재')}</li></ul>
-<h2>5. 국외 이전</h2>
-<p>Google LLC (미국) — AI 챗봇 답변을 만들기 위해 질문과 취향 요약(고른 장르 · 팔로우한 밴드)을 Gemini API로 보냅니다. 질문할 때마다 암호화된 통신으로 보내며, 이름 · 연락처 · 결제 정보는 보내지 않습니다. AI 챗봇을 쓰지 않으면 이전되지 않습니다. ${todo('Google 쪽 보관 기간 · 학습 이용 여부를 유료 API 약관 기준으로 기재')}</p>
-<h2>6. 파기</h2>
-<p>보유 기간이 끝나거나 목적을 이루면 다시 살릴 수 없게 지웁니다.</p>
-<h2>7. 회원의 권리</h2>
-<p>MY에서 직접 보거나 고칠 수 있고, 고객센터로 열람 · 정정 · 삭제 · 처리 정지를 요청할 수 있습니다. 탈퇴는 언제든 할 수 있습니다.</p>
-<h2>8. 쿠키</h2>
-<p>로그인을 유지하고 위조 요청을 막는 쿠키만 씁니다. 광고 · 추적 쿠키는 쓰지 않습니다.</p>
-<h2>9. 안전성 확보 조치</h2>
-<p>모든 구간을 암호화해 전송합니다. 관리자는 역할별 권한과 2단계 인증(OTP)을 거치고, 회원 정보 조회 · 변경은 감사 로그로 남깁니다.</p>
-<h2>10. 개인정보 보호책임자</h2>
-<p>${todo('사업자 등록 후 이름 · 직책 · 연락처 기재')}</p>
-<h2>11. 시행일</h2>
-<p>서비스 정식 오픈일부터 시행합니다.</p>` },
+  tos: { t: '이용약관', ver: termsDoc('TOS').version, code: 'TOS', body: termsHtml(termsDoc('TOS').content) },
+  privacy: { t: '개인정보처리방침', ver: 'v1', code: 'PRIVACY_POLICY', body: termsHtml(PRIVACY_POLICY_MD) },
   refund: { t: '취소 · 환불 정책', ver: 'v0.1', body: `
 <h2>공연 티켓</h2>
 <ul><li>공연 시작 <b>24시간 전까지</b> MY › 예매 내역에서 취소하면 전액 환불해요. 그 뒤에는 취소할 수 없어요.</li>
@@ -859,14 +1017,7 @@ const TERMS = {
 <li>상품이 표시 · 광고와 다르면 받은 날부터 3개월, 그 사실을 안 날부터 30일 안에 반품할 수 있고 배송비는 회사가 내요.</li>
 <li>사용하거나 훼손해 가치가 크게 떨어진 상품은 반품할 수 없어요.</li>
 <li>${todo('배송 방식(택배 · 공연장 현장 수령)과 반품 주소 결정 후 기재')}</li></ul>` },
-  marketing: { t: '마케팅 정보 수신', ver: 'v0.1',
-    body: `
-<p>동의하지 않아도 서비스는 그대로 쓸 수 있어요.</p>
-<h2>받는 내용</h2><p>새 공연 · 할인 · 이벤트 소식, 추천 굿즈 · LP 소식</p>
-<h2>받는 방법</h2><p>이메일, 앱 알림. 밤 9시부터 아침 8시 사이에는 보내지 않아요.</p>
-<h2>이용하는 정보</h2><p>이메일, 앱 알림 토큰, 고른 취향 — 동의를 철회하거나 탈퇴할 때까지 써요.</p>
-<h2>팔로우 알림과 다른 점</h2><p>팔로우한 밴드의 새 소식, 위시리스트 재입고 알림은 회원이 요청한 알림이라 이 동의와 상관없이 와요.</p>
-<h2>철회 · 정기 안내</h2><p>MY › 약관 · 동의에서 언제든 끌 수 있어요. 동의 · 철회하면 처리한 날짜를 알려 드리고, 동의한 날부터 2년마다 동의 상태를 다시 알려 드려요.</p>` },
+  marketing: { t: '마케팅 정보 수신', ver: termsDoc('MARKETING').version, code: 'MARKETING', body: termsHtml(termsDoc('MARKETING').content) },
   biz: { t: '사업자 정보', ver: '', body: `
 <dl class="kv">${BIZ.map(([k, v]) => `<dt>${k}</dt><dd>${v}</dd>`).join('')}</dl>
 <p class="notice">사업자 등록 전이라 비어 있어요. 실제로 팔기 전에 사업자 등록 → 통신판매업 신고를 마치고 여기를 채워야 해요.</p>
@@ -888,7 +1039,7 @@ V.terms = ({ id }) => {
 <article class="terms-doc">
   ${d.ver ? `<p class="notice">${d.ver} 초안 · 법무 검토 전이에요. 정식 오픈 전에 확정해요.</p>` : ''}
   ${d.body}
-  ${d.ver ? dev(`정적 파일 /terms/${k}/${d.ver} — 프론트 배포물 · 버전별로 남김 · API 없음`) : ''}
+  ${d.code ? dev(`M25 GET /api/members/terms/${d.code} → { termsId, code, version: ${d.ver}, title, content(마크다운), required } · 공개 API · 본문은 DB (terms)`) : d.ver ? dev('프론트 정적 내용 · API 없음 (docs/25 §2)') : ''}
 </article>`;
 };
 
@@ -898,7 +1049,41 @@ function similar(a, skip) {
     .map(b => ({ b, s: b.genres.filter(x => a.genres.includes(x)).length * 2 + (a.label !== '독립' && b.label === a.label ? 1 : 0) }))
     .filter(x => x.s > 0).sort((x, y) => y.s - x.s || y.b.followers - x.b.followers).slice(0, 3).map(x => x.b);
 }
-// 가입 = 소셜 로그인(카카오 싱크 동의) 다음 한 화면. 첫 세트를 보여 주고, 고른 밴드마다 비슷한 밴드를 이어서 엶 (체인)
+// 가입 = 카카오 로그인 → /welcome 한 화면에서 ① 약관 동의 ② 밴드 고르기 → G13 에서 한 번에 회원 생성. 그 전에는 회원이 아니라 아무것도 저장되지 않음
+const stepper = n => `<ol class="steps">${['약관 동의', '밴드 고르기'].map((t, i) => `<li class="${i + 1 === n ? 'on' : ''}" ${i + 1 === n ? 'aria-current="step"' : ''}>${i + 1}. ${t}</li>`).join('')}</ol>`;
+// ① 약관 동의 — M24 의 약관을 순서대로 체크박스로. 체크는 화면에만 두고 서버에는 G13 에서 밴드와 함께 보냄
+V.agree = () => {
+  const a = S.draft.agreed;
+  return `
+<section class="onb">
+  ${stepper(1)}
+  <h1 class="display-s">약관에 동의해 주세요</h1>
+  <p class="lead">아직 가입 전이에요. 약관에 동의하고 좋아하는 밴드를 고르면 가입이 끝나요.</p>
+  <div class="panel agree">
+    <label class="check"><input type="checkbox" id="agreeAll" data-act="agreeAll"> <b>전체 동의</b></label>
+    ${TERMS_CONSENT.map(t => `<div class="agree-row">
+      <div class="head">
+        <label class="check"><input type="checkbox" data-act="agree" data-id="${t.termsId}" ${a[t.termsId] ? 'checked' : ''}> <span><span class="${t.required ? 'req' : 'opt'}">[${t.required ? '필수' : '선택'}]</span> ${esc(t.title)}</span></label>
+        <button class="link" data-act="termsView" data-id="${t.termsId}" aria-expanded="false" aria-controls="tc${t.termsId}">보기</button>
+      </div>
+      <div class="terms-doc agree-body" id="tc${t.termsId}" hidden>${termsHtml(t.content)}</div>
+    </div>`).join('')}
+  </div>
+  ${dev('G14 GET /api/auth/signup (사인업 토큰 있으면 200 · 없으면 401 SIGNUP_EXPIRED → /) → M24 GET /api/members/terms → items[{ termsId, code, version, title, content, required }] · 응답 헤더 X-XSRF-TOKEN 보관 · termsId 는 응답 값 그대로 (약관이 바뀌면 id 도 바뀜) · 체크 결과는 메모리에만')}
+  <div class="onb-foot">
+    <span class="saved">필수 약관에 모두 동의해야 다음으로 넘어가요. 30분 안에 가입을 마쳐 주세요.</span>
+    <button class="btn btn-primary" id="agreeNext" data-go="pickArtists">다음</button>
+  </div>
+</section>`;
+};
+function drawAgree() {
+  const a = S.draft.agreed;
+  document.querySelectorAll('[data-act="agree"]').forEach(c => { c.checked = !!a[c.dataset.id]; });
+  $('#agreeAll').checked = TERMS_CONSENT.every(t => a[t.termsId]);
+  $('#agreeNext').disabled = !TERMS_CONSENT.every(t => !t.required || a[t.termsId]);
+}
+AFTER.agree = drawAgree;
+// ② 밴드 고르기 — 첫 세트를 보여 주고, 고른 밴드마다 비슷한 밴드를 이어서 엶 (체인)
 // 이미 보여 준 밴드(shown)는 요청에 실어 보내고 서버가 빼서 줌 — 같은 밴드가 두 번 나오지 않음
 const SEED = 12;   // 데모 밴드 30팀 중 인기순 12팀 — 나머지 18팀은 체인으로 열림 (운영은 24팀쯤)
 const seedArtists = () => ARTISTS.slice().sort((x, y) => y.followers - x.followers).slice(0, SEED);
@@ -909,16 +1094,17 @@ V.pickArtists = () => {
     ${avatar(a, 40)}<span class="nm"><b>${esc(a.name)}</b><br><small class="muted">${esc(a.genres.join(' · '))}</small></span><span class="ck">${on ? '✓' : ''}</span></button>`; };
   return `
 <section class="onb">
+  ${stepper(2)}
   <h1 class="display-s">좋아하는 밴드를 골라 주세요</h1>
-  <p class="lead">마음에 드는 밴드를 누르면 비슷한 밴드가 아래에 이어서 열려요. 거기서 또 고르면 또 이어져요. 고른 밴드는 팔로우돼요.</p>
+  <p class="lead">마음에 드는 밴드를 누르면 비슷한 밴드가 아래에 이어서 열려요. 거기서 또 고르면 또 이어져요. 고른 밴드는 팔로우돼요. <b>1팀 이상</b> 골라야 가입이 끝나요.</p>
   <div class="sec"><div class="sec-head"><h2>요즘 많이 듣는 밴드</h2><span class="tag">${SEED}팀</span></div><div class="grid">${seedArtists().map(pick).join('')}</div></div>
   ${d.chain.map(m => `<div class="sec"><div class="sec-head"><h2>${esc(wa(A(m.from).name))} 비슷한 밴드</h2><span class="tag">${m.list.length}팀</span></div>
     ${m.list.length ? `<div class="grid">${m.list.map(id => pick(A(id))).join('')}</div>` : '<p class="muted">새로 보여 드릴 비슷한 밴드가 없어요. 다른 밴드를 골라 보세요.</p>'}</div>`).join('')}
-  ${dev(`첫 세트 GET /api/assistant/artists/similar?size=${SEED} → 고를 때마다 GET /api/assistant/artists/similar?artistId={고른 밴드}&exclude={지금까지 보여 준 밴드 ${d.shown.length}팀}&size=3 — 서버는 exclude 를 빼고 top-3 · 아직 회원이 아니라 공개 API (설계 · 어시스턴트 담당)`)}
+  ${dev(`첫 세트 X4 GET /api/chatbot/artists/similar → 고를 때마다 ?artistId={고른 밴드}&exclude={지금까지 보여 준 밴드 ${d.shown.length}팀}&size=3 · 🔴 X4 는 챗봇 서비스 미구현(설계) — 지금 운영은 C2 GET /api/catalog/artists?q= 목록 · 검색으로 대체`)}
   <div class="onb-foot">
     <div class="saved"><span><b class="num">${n}</b>팀을 팔로우하고 AI 추천에 써요</span>
-      ${dev('아직 회원이 아니라 고른 밴드는 화면에만 모음 → 완료 · 건너뛰기 = POST /api/auth/signup { artistIds } (SIGNUP 쿠키 + CSRF) → 회원 · 팔로우 · 카카오 동의 이력을 한 번에 → AT · RT · 장르는 묻지 않음 — MY › 취향 설정')}</div>
-    <div style="display:flex;gap:8px"><button class="btn" data-act="skipOnb">건너뛰기</button>
+      ${dev('고른 밴드도 화면에만 모음 → 완료 = G13 POST /api/auth/signup { artistIds(1~50개), agreements: [{ termsId, agreed } …] } (SIGNUP 쿠키 + X-XSRF-TOKEN) → 회원 · 팔로우 · 약관 동의 이력(user_terms)을 한 번에 → AT · RT · 400 INVALID_REQUEST (0팀) · 400 REQUIRED_AGREEMENT_MISSING · 409 TERMS_OUTDATED → 약관부터 다시 · 401 SIGNUP_EXPIRED → 다시 로그인')}</div>
+    <div style="display:flex;gap:8px"><button class="btn" data-go="agree">이전</button>
       <button class="btn btn-primary" data-act="finishOnb" ${n ? '' : 'disabled'}>완료하고 시작하기</button></div>
   </div>
 </section>`;
@@ -1031,11 +1217,13 @@ function buyItem(route, id) {
   if (route === 'lpay') {
     const al = AL(id), o = lpOffer(al);
     return { kind: 'LP', name: `${al.title} LP`, artist: al.artist, price: o ? o[1] : 0, stock: o ? o[2] : 0, qty: 1,
-      back: ['album', id, '음반으로 돌아가기'], more: ['albums', '', '다른 음반 보기'], take: q => { o[2] -= q; } };
+      back: ['album', id, '음반으로 돌아가기'], more: ['albums', '', '다른 음반 보기'],
+      take: q => { o[2] -= q; S.owned.add(id); }, give: q => { o[2] += q; } };   // 결제 완료 → 컬렉션 자동 추가 (환불해도 컬렉션은 그대로 — Member 는 payment.completed 만 구독)
   }
   const g = GD(id);
   return { kind: '굿즈', name: g.name, artist: g.artist, price: g.price, stock: g.stock, qty: Math.min(S.gq[id] || 1, g.stock),
-    back: ['goods', id, '상품으로 돌아가기'], more: ['artist', g.artist, '다른 굿즈 보기'], take: q => { g.stock -= q; delete S.gq[id]; } };
+    back: ['goods', id, '상품으로 돌아가기'], more: ['artist', g.artist, '다른 굿즈 보기'],
+    take: q => { g.stock -= q; delete S.gq[id]; }, give: q => { g.stock += q; } };
 }
 V.gpay = ({ id }) => checkout(buyItem('gpay', id));
 V.lpay = ({ id }) => checkout(buyItem('lpay', id));
@@ -1054,7 +1242,7 @@ function checkout(it) {
     ${tossBox()}
     <label class="check fail" for="failsim"><input type="checkbox" id="failsim" name="fail"> (시연) 토스 인증 뒤 승인 단계에서 거절되는 상황</label>
     <button class="btn btn-primary" type="submit" id="payBtn" disabled>${won(it.price * q)} 결제하기</button>
-    <p class="tag">토스페이먼츠 테스트 환경이에요. 실제 카드 정보를 넣어도 돈은 나가지 않아요.</p>
+    <p class="tag">토스페이먼츠 테스트 환경이에요. 실제 카드 정보를 넣어도 돈은 나가지 않아요. 카카오페이 · 페이코는 테스트 키로 결제되지 않아요 — 카드 · 토스페이로 진행해 주세요.</p>
     ${dev(`토스 주문서형 widgets({ customerKey: ANONYMOUS }) → setAmount(${it.price * q}) → renderPaymentMethods · renderAgreement (결제수단 · 약관 UI 는 토스가 그림) · 결제하기 = C9 POST /api/catalog/orders { items: [{ productId, qty: ${q} }], shipping: { recipientName, phone, zonecode, address, addressDetail } } (금액은 안 보냄 · 재고 차감 · shipping 은 고른 배송지의 값 — 주문에 복사) → { orderId, amount, pgOrderId, expiresAt } → 토스 requestPayment({ orderId: pgOrderId, orderName }) → { paymentKey, orderId, amount } → P1 POST /api/payments/confirm { paymentKey, orderId: pgOrderId, amount } · 409 OUT_OF_STOCK · 실패: payment.failed → 주문 CANCELLED · 재고 복구`)}
   </form>
   <aside class="panel sec"><h2 style="font-size:17px">주문 정보</h2>
@@ -1087,9 +1275,9 @@ V.gdone = () => {
     <dt>주문 번호</dt><dd class="mono">${o.id}</dd><dt>상품</dt><dd>${esc(o.name)}</dd><dt>수량</dt><dd class="num">${o.qty}개</dd>
     <dt>결제 금액</dt><dd class="num">${won(o.total)}</dd>
     <dt>배송지</dt><dd>${esc(o.ship.recipientName)} · ${esc(o.ship.phone)}<br>${esc(addrLine(o.ship))}</dd></dl></div>
-  ${dev(`토스 paymentKey ${esc(o.paymentKey || '')} → P1 APPROVED → payment.completed → 주문 CONFIRMED · C11 GET /api/catalog/orders/{id} 의 shipping = 주문 당시 배송지 (MY › 배송지를 고쳐도 그대로) · 데모는 승인(P1)을 흉내만 내서 토스 쪽 테스트 결제는 10분 뒤 만료`)}
+  ${dev(`토스 paymentKey ${esc(o.paymentKey || '')} → P1 APPROVED → payment.completed → 주문 CONFIRMED · 음반이면 Member 컬렉션 자동 추가 (PURCHASE) · C11 GET /api/catalog/orders/{id} 의 shipping = 주문 당시 배송지 (MY › 배송지를 고쳐도 그대로) · 데모는 승인(P1)을 흉내만 내서 토스 쪽 테스트 결제는 10분 뒤 만료`)}
   <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
-    <button class="btn btn-primary" data-go="${mk}" data-id="${mid}">${ml}</button><button class="btn" data-go="home">홈으로</button></div>
+    <button class="btn btn-primary" data-act="toOrders">주문 내역 보기</button><button class="btn" data-go="${mk}" data-id="${mid}">${ml}</button><button class="btn" data-go="home">홈으로</button></div>
 </div>`;
 };
 
@@ -1162,8 +1350,15 @@ V.concerts = () => {
 </div>`;
 };
 
+// N2 의 saleStatus — ConcertEntity.saleStatus 와 같은 규칙. 관리자가 데모에서 만든 공연은 오픈 시각이 없어 바로 판매 중으로 둠
+const saleOf = c => TODAY >= startOf(c) ? 'CLOSED' : c.open && TODAY < new Date(c.open) ? 'SCHEDULED' : 'ON_SALE';
+const openLabel = c => `${md(c.open.slice(0, 10))} ${c.open.slice(11)}`;
 V.concert = ({ id }) => {
-  const c = CO(id), a = A(c.artists[0]), it = S.interest.has(id);
+  const c = CO(id), a = A(c.artists[0]), it = S.interest.has(id), sale = saleOf(c);
+  const cta = sale === 'CLOSED' ? '<button class="btn btn-primary" disabled>판매가 끝났어요</button>'
+    : c.noSeats ? '<p class="notice">좌석을 준비하고 있어요. 예매가 열리면 알려 드릴게요</p>'
+    : sale === 'SCHEDULED' ? `<button class="btn btn-primary" disabled>${openLabel(c)} 예매 오픈</button>`
+    : `<button class="btn btn-primary" data-act="book" data-id="${id}">예매하기</button>`;
   return `
 <button class="link" data-go="concerts">← 공연 목록</button>
 <div class="split" style="margin-top:16px">
@@ -1174,11 +1369,12 @@ V.concert = ({ id }) => {
   </div>
   <aside class="panel sec">
     <dl class="kv"><dt>일시</dt><dd>${md(c.date)} ${c.time}</dd><dt>장소</dt><dd>${esc(c.venue)}</dd><dt>주소</dt><dd>${esc(c.addr)}</dd>
-      <dt>유형</dt><dd>${c.type}</dd><dt>가격</dt><dd class="num">${won(c.price)}</dd></dl>
-    ${c.noSeats ? '<p class="notice">좌석을 준비하고 있어요. 예매가 열리면 알려 드릴게요</p>' : `<button class="btn btn-primary" data-act="book" data-id="${id}">예매하기</button>`}
+      <dt>유형</dt><dd>${c.type}</dd><dt>가격</dt><dd class="num">${won(c.price)}</dd>
+      ${c.open ? `<dt>예매 오픈</dt><dd>${openLabel(c)}</dd>` : ''}</dl>
+    ${cta}
     <button class="btn ${it ? 'on' : ''}" data-act="interest" data-id="${id}" aria-pressed="${it}">${it ? '관심 공연에 담았어요' : '관심 공연 담기'}</button>
-    <p class="tag">예매하기를 누르면 대기열에 들어가요. 순서가 되면 10분 동안 좌석을 고를 수 있어요.</p>
-    ${dev(`POST /api/concerts/${id}/queue → ZADD queue:concert:${id}`)}
+    <p class="tag">${c.queueEnabled ? '예매하기를 누르면 대기열에 들어가요. 순서가 되면 10분 동안 좌석을 고를 수 있어요.' : '대기열 없이 바로 좌석을 골라요.'} 공연마다 1인 1석이에요.</p>
+    ${dev(`N2 GET /api/concerts/${id} → { saleStatus: ${sale}, bookingOpenAt, queueEnabled: ${!!c.queueEnabled} } · ${c.queueEnabled ? `N4 POST /api/concerts/${id}/queue → 입장 토큰 → N7 · N10` : `대기열 없음 → 바로 N7 · N10 (X-Entry-Token 불필요)`}`)}
   </aside>
 </div>`;
 };
@@ -1200,6 +1396,7 @@ V.queue = ({ id }) => {
   </div>
 </div>`;
 };
+const newFlow = (cid, entryUntil) => ({ cid, entryUntil, floor: null, sec: null, pick: null, pickLabel: null, sel: null, busy: null, err: null, loading: 0, bookingId: null });
 AFTER.queue = () => {
   const c = CO(S.p.id), total = c.queue; let pos = total;
   const t = setInterval(() => {
@@ -1212,7 +1409,7 @@ AFTER.queue = () => {
     $('#qTitle').textContent = '내 차례예요';
     $('#qSub').textContent = '입장 토큰을 받았어요. 10분 안에 좌석을 골라 주세요';
     $('#qDev').textContent = `N5 → ADMITTED { entryToken, expiresIn: 600 } · 이후 N10 에 X-Entry-Token`;
-    S.flow = { cid: c.id, entryUntil: Date.now() + 600000, floor: null, sec: null, pick: null, pickLabel: null, sel: null, busy: null, err: null, loading: 0, bookingId: null };
+    S.flow = newFlow(c.id, Date.now() + 600000);
     timers.push(setTimeout(() => go('seats', { id: c.id }), 1100));
   }, 700);
   timers.push(t);
@@ -1248,6 +1445,8 @@ function venueSecs(venue) {
 const secKey = s => `${s.floor}|${s.name}`;
 const secOf = (c, k) => venueSecs(c.venue).find(s => secKey(s) === k);
 const secName = n => /구역$/.test(n) ? n : n + '구역';
+// N7 의 좌석 price — 결제 금액은 공연 대표 가격이 아니라 좌석 가격. 관리자가 구역 가격을 정했으면 그 값 (키는 secsOf 의 구역 이름)
+const secPrice = (c, s) => c.secPrices?.[`${s.floor} ${s.name}`] ?? c.secPrices?.[`${s.floor} ${secName(s.name)}`] ?? c.price;
 const seatKey = (s, t) => `${FLOORS[s.floor] || s.floor}-${s.name}-${t.row}-${t.num}`;
 const seatLabel = (s, t) => `${secName(s.name)} ${t.row}열 ${t.num}번`;
 // 좌석 상태(빈 좌석 free · 다른 분 선점 held · 판매 paid)는 공연별로 처음 볼 때 정해 두고, 결제 · 취소가 바꿈
@@ -1269,7 +1468,8 @@ const seatLegend = `<div class="legend"><span><i class="lg-free"></i>빈 좌석<
   <span><i class="lg-paid"></i>판매 완료</span><span><i class="lg-on"></i>내가 선점한 좌석</span></div>`;
 const takenErr = `<p class="err" role="alert"><b>이미 선택된 좌석입니다.</b><br>방금 다른 분이 먼저 선점했어요. 다른 좌석을 골라 주세요.</p>`;
 const holdErr = l => `<p class="err" role="alert"><b>이미 선점한 좌석이 있어요.</b><br>${esc(l)} 선점을 먼저 풀어야 다른 좌석을 고를 수 있어요 (1인 1석).</p>`;
-const seatErr = f => f.err?.code === 'SEAT_TAKEN' ? takenErr : f.err?.code === 'HOLD_EXISTS' && f.sel ? holdErr(f.sel.label) : '';
+const limitErr = `<p class="err" role="alert"><b>이 공연은 이미 예매했어요.</b><br>공연마다 1인 1석만 예매할 수 있어요. MY › 예매 내역에서 확인해 주세요.</p>`;
+const seatErr = f => f.err?.code === 'SEAT_TAKEN' ? takenErr : f.err?.code === 'SEAT_LIMIT_EXCEEDED' ? limitErr : f.err?.code === 'HOLD_EXISTS' && f.sel ? holdErr(f.sel.label) : '';
 
 V.seats = ({ id }) => {
   const c = CO(id), f = S.flow;
@@ -1298,11 +1498,11 @@ V.seats = ({ id }) => {
     ${seatErr(f)}
     <h2 style="font-size:17px">구역을 골라 주세요</h2>
     <p class="muted">배치도에서 구역을 누르면 그 구역을 무대 정면 방향으로 돌려서 크게 보여줘요.</p>
-    <div class="list">${secs.map(s => `<button class="li" data-act="openSec" data-v="${esc(secKey(s))}"><span class="main"><b>${esc(secName(s.name))}</b><small>${s.rows}열 · ${s.seats.length}석</small></span>
+    <div class="list">${secs.map(s => `<button class="li" data-act="openSec" data-v="${esc(secKey(s))}"><span class="main"><b>${esc(secName(s.name))}</b><small>${s.rows}열 · ${s.seats.length}석 · ${won(secPrice(c, s))}</small></span>
       <span class="end"><span class="num">${freeIn(id, s)}석 남음</span></span></button>`).join('')}</div>
     <p class="tag">공연마다 1인 1석이에요. 좌석을 선택완료하면 8분 동안 나만 결제할 수 있어요 (선점). 그 안에 결제하지 않으면 좌석이 풀려요.</p>`;
   return `
-<div class="page-head"><div><p class="eyebrow">${md(c.date)} ${c.time} · ${esc(c.venue)}</p><h1>좌석 선택</h1></div><span class="timer" id="entryT">입장 시간 10:00</span></div>
+<div class="page-head"><div><p class="eyebrow">${md(c.date)} ${c.time} · ${esc(c.venue)}</p><h1>좌석 선택</h1></div>${isFinite(f.entryUntil) ? '<span class="timer" id="entryT">입장 시간 10:00</span>' : ''}</div>
 <div class="split">
   <div class="panel sec">
     ${floors.length > 1 ? `<div class="chips">${floors.map(fl => `<button class="chip ${fl === f.floor ? 'on' : ''}" data-act="seatFloor" data-v="${fl}" aria-pressed="${fl === f.floor}">${fl}</button>`).join('')}</div>` : ''}
@@ -1319,7 +1519,7 @@ let loadSeq = 0;
 function modalInner() {
   const f = S.flow, c = CO(f.cid), s = secOf(c, f.sec);
   const head = `<div class="sheet-head"><div><p class="eyebrow">${s.floor} · 무대를 정면으로 보게 돌렸어요</p><h2 id="secTitle">${esc(secName(s.name))}</h2></div>
-    <span class="timer" id="entryT2">입장 시간 ${mmss(f.entryUntil - Date.now())}</span><button class="btn btn-s" data-act="closeSec">닫기</button></div>`;
+    ${isFinite(f.entryUntil) ? `<span class="timer" id="entryT2">입장 시간 ${mmss(f.entryUntil - Date.now())}</span>` : ''}<button class="btn btn-s" data-act="closeSec">닫기</button></div>`;
   if (f.loading) return `<div class="sheet-in one"><div class="sec">${head}<div class="empty"><p>좌석 상태를 불러오는 중이에요…</p></div>
     ${dev('N7 다시 조회 — 이때 뒤로가기 = 창만 닫고 AbortController.abort() · 늦게 온 응답은 버림 (조회라 서버에 되돌릴 것 없음)')}</div></div>`;
   // 배치도에서 무대를 바라보던 기울기(s.rot)만큼 반대로 돌리면 앞줄이 위, 좌석 번호가 왼쪽 → 오른쪽
@@ -1349,12 +1549,12 @@ function pickPanel() {
   const swap = f.sel && f.sel.key !== f.pick;
   return `<h2 style="font-size:17px">선택한 좌석</h2>
     <dl class="kv"><dt>공연</dt><dd>${esc(c.title)}</dd><dt>일시</dt><dd>${md(c.date)} ${c.time}</dd><dt>장소</dt><dd>${esc(c.venue)}</dd>
-      <dt>좌석</dt><dd><b>${esc(f.pickLabel)}</b></dd><dt>가격</dt><dd class="num">${won(c.price)}</dd></dl>
+      <dt>좌석</dt><dd><b>${esc(f.pickLabel)}</b></dd><dt>가격</dt><dd class="num">${won(secPrice(c, secOf(c, f.sec)))}</dd></dl>
     ${err}
     ${swap ? `<p class="tag">지금 <b>${esc(f.sel.label)}</b> 을 선점하고 있어요. 다른 좌석을 고르려면 먼저 선점을 풀어 주세요 (1인 1석).</p>` : ''}
     <button class="btn btn-primary" data-act="selectSeat" id="selBtn">선택완료</button>
     <p class="tag">선택완료하면 이 좌석을 8분 동안 잡아 둬요 (선점). 그 안에 결제해 주세요.</p>
-    ${dev(`N10 POST /api/concerts/${c.id}/bookings { seatId } + X-Entry-Token → 200 { bookingId, amount, pgOrderId, status: PENDING, expiresAt, expiresIn: 480 } (✏️ 11/04 77A 선점 · 같은 좌석 = 같은 선점 · 타이머 그대로) · 409 SEAT_TAKEN (남이 선점 · 판매) · 409 HOLD_EXISTS (내 선점이 다른 좌석에 · result.bookingId) · 처리 중 뒤로가기는 무시`)}`;
+    ${dev(`N10 POST /api/concerts/${c.id}/bookings { seatId }${c.queueEnabled ? ' + X-Entry-Token' : ''} → 200 { bookingId, amount(좌석 가격 · 요청 금액 없음), pgOrderId, status: PENDING, expiresAt, expiresIn: 480 } (✏️ 11/04 77A 선점 · 같은 좌석 = 같은 선점 · 타이머 그대로) · 409 SEAT_TAKEN (남이 선점 · 판매) · 409 HOLD_EXISTS (내 선점이 다른 좌석에 · result.bookingId) · 409 SEAT_LIMIT_EXCEEDED (이미 예매 · 1인 1석) · 처리 중 뒤로가기는 무시`)}`;
 }
 function refreshModal() {
   const m = $('#secModal'); if (!m) return;
@@ -1373,7 +1573,7 @@ function closeSec() {
 // 내 선점 풀기 (N13 · 만료) — 좌석은 바로 빈 좌석 (seatMap 은 free 그대로 · 'mine' 표시만 사라짐)
 function dropSel() { const f = S.flow; f.sel = null; f.bookingId = null; f.pgOrderId = null; }
 AFTER.seats = () => {
-  if (!$('#entryT')) return;
+  if (!$('#secModal')) return;
   const f = S.flow, m = $('#secModal');
   m.addEventListener('cancel', e => { e.preventDefault(); if (!f.busy) history.back(); });   // Esc 도 뒤로가기와 같은 길
   m.addEventListener('click', e => { if (e.target === m && !f.busy) history.back(); });      // 창 바깥 누르기
@@ -1410,13 +1610,13 @@ V.pay = ({ id }) => {
     ${tossBox()}
     <label class="check fail" for="failsim"><input type="checkbox" id="failsim" name="fail"> (시연) 토스 인증 뒤 승인 단계에서 거절되는 상황 (한도초과 등)</label>
     <label class="check sim" for="raceSim"><input type="checkbox" id="raceSim" name="race"> (시연) 결제창에서 시간을 넘겨 선점이 끝난 상황</label>
-    <button class="btn btn-primary" type="submit" id="payBtn" disabled>${won(c.price)} 결제하기</button>
-    <p class="tag">토스페이먼츠 테스트 환경이에요. 실제 카드 정보를 넣어도 돈은 나가지 않아요.</p>
-    ${dev(`토스 주문서형 setAmount(N10 의 amount ${c.price}) → 결제하기 = requestPayment({ orderId: N10 의 pgOrderId, orderName }) → { paymentKey, amount } → N16 POST /api/concerts/bookings/${f.bookingId}/confirm { paymentKey, amount } → 서버가 내 선점을 결제 중(PAYING)으로 바꾼 뒤 결제 승인 → { status: CONFIRMED | PENDING | EXPIRED, paymentStatus, pgOrderId? } · 410 HOLD_EXPIRED = 선점 시간(서버 9분) 지남 (결제를 부르지 않음 · 돈 안 나감) · DECLINED = 선점 유지 + 새 pgOrderId 로 다시 결제 · 503 PAYMENT_PENDING = 결과 확인 중 → N12 · 티켓은 P1 으로 결제 불가`)}
+    <button class="btn btn-primary" type="submit" id="payBtn" disabled>${won(f.sel.price)} 결제하기</button>
+    <p class="tag">토스페이먼츠 테스트 환경이에요. 실제 카드 정보를 넣어도 돈은 나가지 않아요. 카카오페이 · 페이코는 테스트 키로 결제되지 않아요 — 카드 · 토스페이로 진행해 주세요.</p>
+    ${dev(`토스 주문서형 setAmount(N10 의 amount ${f.sel.price}) → 결제하기 = requestPayment({ orderId: N10 의 pgOrderId, orderName }) → { paymentKey, amount } → N16 POST /api/concerts/bookings/${f.bookingId}/confirm { paymentKey, amount } → 서버가 내 선점을 결제 중(PAYING)으로 바꾼 뒤 결제 승인 → { status: CONFIRMED | PENDING | EXPIRED, paymentStatus, pgOrderId? } · 410 HOLD_EXPIRED = 선점 시간(서버 9분) 지남 (결제를 부르지 않음 · 돈 안 나감) · DECLINED = 선점 유지 + 새 pgOrderId 로 다시 결제 · 503 PAYMENT_PENDING = 결과 확인 중 → N12 · 티켓은 P1 으로 결제 불가`)}
   </form>
   <aside class="panel sec"><h2 style="font-size:17px">예매 정보</h2>
     <dl class="kv"><dt>공연</dt><dd>${esc(c.title)}</dd><dt>일시</dt><dd>${md(c.date)} ${c.time}</dd><dt>장소</dt><dd>${esc(c.venue)}</dd>
-      <dt>좌석</dt><dd>${esc(f.sel.label)}</dd><dt>금액</dt><dd class="num">${won(c.price)}</dd></dl>
+      <dt>좌석</dt><dd>${esc(f.sel.label)}</dd><dt>금액</dt><dd class="num">${won(f.sel.price)}</dd></dl>
     <div id="backBox">${backLink}</div>
     <p class="tag">휴대폰 · 브라우저 뒤로가기로 나가면 고른 좌석은 남은 시간 동안 그대로 두고 좌석 화면으로 돌아가요.</p>
   </aside>
@@ -1425,7 +1625,7 @@ V.pay = ({ id }) => {
 AFTER.pay = () => {
   if (!$('#selT')) return;
   const f = S.flow;
-  mountToss(CO(f.cid).price);
+  mountToss(f.sel.price);
   const tick = () => {
     if (!f.sel || f.busy) return;
     const left = f.sel.until - Date.now();
@@ -1445,7 +1645,7 @@ V.done = ({ id }) => {
   <div class="panel" style="width:100%;text-align:left"><dl class="kv">
     <dt>예매 번호</dt><dd class="mono">${b.id}</dd><dt>공연</dt><dd>${esc(c.title)}</dd><dt>일시</dt><dd>${md(c.date)} ${c.time}</dd>
     <dt>장소</dt><dd>${esc(c.venue)}</dd><dt>좌석</dt><dd>${esc((b.labels || b.seats).join(', '))}</dd><dt>결제 금액</dt><dd class="num">${won(b.total)}</dd></dl></div>
-  ${dev(`토스 paymentKey ${esc(b.paymentKey || '')} → N16 CONFIRMED → booking PAID → 분산 락 해제 → concert.booked 발행 → Member · AI 구독 · 데모는 승인(N16)을 흉내만 냄`)}
+  ${dev(`토스 paymentKey ${esc(b.paymentKey || '')} → N16 CONFIRMED → 예매 CONFIRMED · 좌석 HELD → PAYING → SOLD (조건부 UPDATE) → booking.completed 발행 → Member 알림 (BOOKING_DONE) · 데모는 승인(N16)을 흉내만 냄`)}
   <div style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
     <button class="btn btn-primary" data-act="toBookings" data-id="${b.id}">모바일 티켓 보기</button><button class="btn" data-go="concerts">다른 공연 보기</button></div>
 </div>`;
@@ -1513,7 +1713,7 @@ V.album = ({ id }) => {
 /* ===== MY ===== */
 const emptyBox = (t, to, label) => `<div class="empty"><p>${t}</p><button class="btn btn-s" data-go="${to}">${label}</button></div>`;
 V.my = () => {
-  const fol = followedIds(), tabs = ['관심 아티스트', '관심 공연', '위시리스트', '컬렉션', '예매 내역', '배송지', '취향 설정', '약관 · 동의'];
+  const fol = followedIds(), tabs = ['관심 아티스트', '관심 공연', '위시리스트', '컬렉션', '예매 내역', '주문 내역', '배송지', '취향 설정', '약관 · 동의'];
   let body = '';
   if (S.mtab === '관심 아티스트') body = fol.length ? `<div class="grid">${fol.map(id => acard(A(id))).join('')}</div>` : emptyBox('팔로우한 아티스트가 없어요.', 'artists', '아티스트 둘러보기');
   if (S.mtab === '관심 공연') { const l = [...S.interest].map(CO).sort(byDate); body = l.length ? `<div class="list">${l.map(concertLi).join('')}</div>` : emptyBox('관심 공연으로 담은 공연이 없어요.', 'concerts', '공연 보기'); }
@@ -1525,6 +1725,11 @@ V.my = () => {
       ${b.status === 'PAID' ? `<span class="pill ok">${b.checkedInAt ? '입장 완료' : '예매 완료'}</span><button class="btn btn-s" data-act="ticket" data-id="${b.id}" aria-pressed="${S.ticket === b.id}">${S.ticket === b.id ? '티켓 닫기' : '모바일 티켓'}</button>${b.checkedInAt ? '' : `<button class="btn btn-s" data-act="cancel" data-id="${b.id}">취소</button>`}` : '<span class="pill">취소됨</span>'}</div>`; }).join('')}</div>
       ${ticketPanel()}`
     : emptyBox('예매한 공연이 없어요.', 'concerts', '공연 보기');
+  if (S.mtab === '주문 내역') body = S.orders.length ? `<div class="list">${S.orders.map(o => `<div class="li">
+      <span class="main"><b>${esc(o.name)} · <span class="num">${o.qty}개</span></b><small><span class="mono">${o.id}</span> · ${won(o.total)}<br>${esc(o.ship.recipientName)} · ${esc(addrLine(o.ship))}</small></span>
+      ${o.status === 'CONFIRMED' ? `<span class="pill ok">결제 완료</span><button class="btn btn-s" data-act="orderCancel" data-id="${o.id}">취소</button>` : '<span class="pill">취소됨</span>'}</div>`).join('')}</div>
+      ${dev('C10 GET /api/catalog/orders → C11 GET /api/catalog/orders/{id} (status: PENDING · CONFIRMED · CANCELLED · shipping = 주문 당시 배송지) · 취소 = C12 POST /api/catalog/orders/{id}/cancel → 토스 환불 → CANCELLED · 재고 복구 (재입고 알림은 안 나감)')}`
+    : emptyBox('주문한 굿즈 · LP가 없어요.', 'albums', 'LP 둘러보기');
   if (S.mtab === '배송지') body = addrTab();
   if (S.mtab === '취향 설정') body = `<div class="panel sec" style="max-width:720px">
       <h2 style="font-size:17px">즐겨 듣는 장르</h2><p class="tag">여기서 바꾼 취향은 홈 추천과 AI 챗봇에 바로 반영돼요.</p>
@@ -1532,17 +1737,12 @@ V.my = () => {
       <h2 style="font-size:17px;margin-top:8px">팔로우 중인 밴드</h2><p>${fol.length ? esc(names(fol)) : '<span class="muted">아직 없어요</span>'}</p>
       <button class="btn btn-primary" data-act="saveTaste" style="justify-self:start">취향 저장</button>
       ${dev('PUT /api/members/me/preferences → outbox → member.preference.updated (전체 스냅샷) → ai_db.user_taste 덮어쓰기')}</div>`;
-  if (S.mtab === '약관 · 동의') { const g = S.user.agreements; body = g ? `<div class="panel sec" style="max-width:720px">
-      <dl class="kv">
-        <dt>이용약관</dt><dd>${g.tos} · ${g.at} 동의 <button class="link" data-go="terms" data-id="tos">보기</button></dd>
-        <dt>개인정보 수집 · 이용</dt><dd>${g.privacy} · ${g.at} 동의 <button class="link" data-go="terms" data-id="privacy">개인정보처리방침</button></dd>
-        <dt>만 14세 이상</dt><dd>${g.at} 확인</dd>
-        <dt>마케팅 정보 수신</dt><dd>${g.mkt ? '<span class="pill ok">받음</span>' : '<span class="pill">받지 않음</span>'} ${g.mktAt}부터</dd>
-      </dl>
-      <button class="btn" data-act="toggleMkt" style="justify-self:start">${g.mkt ? '마케팅 정보 그만 받기' : '마케팅 정보 받기'}</button>
+  if (S.mtab === '약관 · 동의') { const g = S.user.agreements, mk = g?.find(x => x.code === 'MARKETING'), link = { TOS: ['tos', '보기'], PRIVACY: ['privacy', '개인정보처리방침'], MARKETING: ['marketing', '보기'] }; body = g ? `<div class="panel sec" style="max-width:720px">
+      <dl class="kv">${g.map(x => `<dt>${esc(x.title)}</dt><dd>${x === mk ? `${x.agreed ? '<span class="pill ok">받음</span>' : '<span class="pill">받지 않음</span>'} ${x.at}부터` : `${x.version} · ${x.at} 동의`}${link[x.code] ? ` <button class="link" data-go="terms" data-id="${link[x.code][0]}">${link[x.code][1]}</button>` : ''}</dd>`).join('')}</dl>
+      <button class="btn" data-act="toggleMkt" style="justify-self:start">${mk.agreed ? '마케팅 정보 그만 받기' : '마케팅 정보 받기'}</button>
       <p class="tag">팔로우한 밴드의 새 소식 · 재입고 알림은 요청하신 알림이라 이 설정과 상관없이 와요. 마케팅 수신에 동의하면 2년마다 동의 상태를 다시 알려 드려요.</p>
-      ${dev('가입(POST /api/auth/signup) 때 콜백에서 받은 카카오 싱크 동의 내역(service_terms)을 member.user_agreement 에 복사 (구현) · M17 GET /api/members/me/agreements · M18 철회 = 카카오 POST /v2/user/revoke/service_terms + 이력 한 줄 · 다시 동의 = 카카오 추가 동의 화면 — M17 · M18 은 설계')}</div>`
-    : emptyBox('카카오로 가입하면 카카오 동의 화면에서 동의한 약관이 여기 보여요. 이 데모는 가입 흐름 없이 시작했어요.', 'signup', '가입 흐름 보기'); }
+      ${dev('M17 GET /api/members/me/agreements → items[{ termsId, code, version, title, required, agreed, at }] (약관 코드마다 마지막 기록) · M18 PUT /api/members/me/agreements/marketing { agreed } → { agreed, at } — user_terms 에 channel=MY 한 줄 추가 (INSERT 만) · 동의 이력은 가입(G13) 때 channel=SIGNUP 으로 약관마다 한 줄')}</div>`
+    : emptyBox('가입할 때 동의한 약관이 여기 보여요. 이 데모는 가입 흐름 없이 시작했어요.', 'signup', '가입 흐름 보기'); }
   return `
 <div class="page-head"><div style="display:flex;gap:14px;align-items:center">
   <span class="avatar" style="--c1:var(--accent);--c2:#c46bd8;--s:56px" aria-hidden="true">${esc(S.user.nick[0] || '나')}</span>
@@ -2516,9 +2716,9 @@ function go(route, p = {}) {
   S.route = route; S.p = p; render(); window.scrollTo(0, 0);
 }
 function render() {
-  document.body.classList.toggle('bare', ['landing', 'signup', 'pickArtists', 'admin', 'adminSaved', 'adminLogin', 'adminHome'].includes(S.route));
-  // 푸터: 가입 단계(밴드 고르기)와 관리자 화면만 빼고 모든 화면 — 첫 화면 · 로그인 화면 포함
-  $('#foot').hidden = S.route === 'pickArtists' || S.route.startsWith('admin');
+  document.body.classList.toggle('bare', ['landing', 'signup', 'agree', 'pickArtists', 'admin', 'adminSaved', 'adminLogin', 'adminHome'].includes(S.route));
+  // 푸터: 가입 단계(약관 동의 · 밴드 고르기)와 관리자 화면만 빼고 모든 화면 — 첫 화면 · 로그인 화면 포함
+  $('#foot').hidden = S.route === 'agree' || S.route === 'pickArtists' || S.route.startsWith('admin');
   $('#loginBtn').hidden = S.route !== 'landing';
   $('#app').innerHTML = V[S.route](S.p);
   drawNav();
@@ -2543,12 +2743,16 @@ const ACT = {
       S.user.provider = d.v;
       S.user.email = 'listener@kakao.com';
       S.user.addresses = [];   // 새로 가입 — 배송지는 첫 결제 때
-      S.draft = { artists: [], shown: [], chain: [] };
-      const at = dot(TODAY);   // 카카오 싱크 — 동의는 카카오 화면에서 끝남 (데모는 필수만 동의 · 마케팅 안 받음)
-      S.user.agreements = { tos: TERMS.tos.ver, privacy: TERMS.privacy.ver, mkt: false, at, mktAt: at };
-      toast('카카오 동의 화면에서 약관에 동의했어요. 좋아하는 밴드를 고르면 가입이 끝나요');
-      go('pickArtists');
+      S.draft = { artists: [], shown: [], chain: [], agreed: {} };
+      toast('카카오 로그인이 됐어요. 약관에 동의하고 좋아하는 밴드를 고르면 가입이 끝나요');
+      go('agree');
     }, 900));
+  },
+  agree(d, el) { S.draft.agreed[d.id] = el.checked; drawAgree(); },
+  agreeAll(_, el) { TERMS_CONSENT.forEach(t => { S.draft.agreed[t.termsId] = el.checked; }); drawAgree(); },
+  termsView(d, el) {
+    const body = $('#tc' + d.id); body.hidden = !body.hidden;
+    el.setAttribute('aria-expanded', String(!body.hidden)); el.textContent = body.hidden ? '보기' : '접기';
   },
   // 처음 고를 때만 비슷한 밴드를 받아 이어 붙임 — 지금까지 보여 준 밴드는 빼고 (서버의 exclude)
   pickArtist(d) {
@@ -2560,14 +2764,15 @@ const ACT = {
     }
     rerender();
   },
+  // G13 — 회원 · 팔로우 · 약관 동의 이력을 한 번에. 체크하지 않은 선택 약관은 '동의 안 함'으로 기록
   finishOnb() {
-    const now = Date.now();
+    const now = Date.now(), at = dot(TODAY), a = S.draft.agreed;
     S.draft.artists.forEach(id => { S.user.follows[id] = now; });
+    S.user.agreements = TERMS_CONSENT.map(t => ({ code: t.code, version: t.version, title: t.title, agreed: !!a[t.termsId], at }));
     S.user.onboarded = true; S.lastSeen = now;
     toast(`가입을 마쳤어요. 밴드 ${S.draft.artists.length}팀을 팔로우했어요`);
     go('home');
   },
-  skipOnb() { toast('가입을 마쳤어요. 취향은 MY › 취향 설정에서 언제든 고를 수 있어요'); go('home'); },
   follow(d) {
     const on = following(d.id), n = A(d.id).name;
     if (on) delete S.user.follows[d.id]; else S.user.follows[d.id] = Date.now();
@@ -2590,7 +2795,13 @@ const ACT = {
   ctype(d) { S.ctype = d.v; rerender(); },
   atab(d) { S.atab = d.v; rerender(); },
   mtab(d) { S.mtab = d.v; rerender(); },
-  book(d) { go('queue', { id: d.id }); },
+  // N2 의 queueEnabled 로 분기 — 대기열이 없는 공연은 입장 토큰 없이 바로 좌석으로 (이미 잡은 선점은 그대로 이어감)
+  book(d) {
+    const c = CO(d.id);
+    if (c.queueEnabled) { go('queue', { id: c.id }); return; }
+    if (S.flow?.cid !== c.id) S.flow = newFlow(c.id, Infinity);
+    go('seats', { id: c.id });
+  },
   interest(d) { toast(toggle(S.interest, d.id) ? '관심 공연에 담았어요. MY에서 모아 볼 수 있어요' : '관심 공연에서 뺐어요'); rerender(); },
   wish(d) {
     const on = toggle(S.wish, d.id), st = stockState(AL(d.id))[0];
@@ -2606,20 +2817,30 @@ const ACT = {
     if (!ship) return;
     const save = pick === 'new' && (!S.user.addresses.length || form.elements.saveAddr?.checked);   // 첫 배송지는 늘 저장 (기본)
     btn.disabled = true; btn.textContent = '토스 결제창에서 결제하는 중…';
-    const paid = await tossRequest(newPgOrderId('G'), q > 1 ? `${it.name} ${q}개` : it.name,
+    const paid = await tossRequest(newPgOrderId('GOODS'), q > 1 ? `${it.name} ${q}개` : it.name,
       { customerName: ship.recipientName, customerMobilePhone: ship.phone.replace(/\D/g, '') });
     if (!paid) { btn.disabled = false; btn.textContent = label; return; }   // 주문은 15분 뒤 자동 취소 · 다시 결제 = 새 주문
     btn.textContent = '결제 승인 중…';
     timers.push(setTimeout(() => {
+      const { recipientName, phone, zonecode, address, addressDetail } = ship;
+      const order = { id: 'OD-261008-' + String(++orderNo).padStart(4, '0'), name: it.name, qty: q, total: it.price * q, more: it.more, status: fail ? 'CANCELLED' : 'CONFIRMED',
+        ship: { recipientName, phone, zonecode, address, addressDetail }, paymentKey: paid.paymentKey, give: () => it.give(q) };   // 주문 당시 값 — 배송지를 고쳐도 그대로
+      S.orders.unshift(order);
       if (fail) { toast('토스 인증은 됐지만 승인이 거절돼서 주문을 취소했어요. 돈은 나가지 않았어요'); btn.disabled = false; btn.textContent = label; return; }
       if (save) addAddr(ship);
       it.take(q);
-      const { recipientName, phone, zonecode, address, addressDetail } = ship;
-      S.order = { id: 'OD-261008-' + String(++orderNo).padStart(4, '0'), name: it.name, qty: q, total: it.price * q, more: it.more,
-        ship: { recipientName, phone, zonecode, address, addressDetail }, paymentKey: paid.paymentKey };   // 주문 당시 값 — 배송지를 고쳐도 그대로
+      S.order = order;
       S.ship = null;
       go('gdone');
     }, 900));
+  },
+  toOrders() { S.mtab = '주문 내역'; go('my'); },
+  // C12 — 토스 환불 → 주문 CANCELLED · 재고 복구
+  orderCancel(d) {
+    const o = S.orders.find(x => x.id === d.id);
+    o.status = 'CANCELLED'; o.give();
+    toast('주문을 취소하고 전액 환불했어요');
+    rerender();
   },
   postcode(_, el) {
     const f = el.closest('form'), box = f.querySelector('.postcode');
@@ -2683,6 +2904,10 @@ const ACT = {
     btn.disabled = true; btn.textContent = '처리 중…';
     timers.push(setTimeout(() => {
       f.busy = null;
+      if (S.bookings.some(b => b.cid === f.cid && b.status === 'PAID')) {
+        f.err = { code: 'SEAT_LIMIT_EXCEEDED' };
+        refreshModal(); return;
+      }
       if (seatSt(f.cid, k) !== 'free') {
         Object.assign(f, { pick: null, pickLabel: null, err: { code: 'SEAT_TAKEN' } });
         refreshModal(); return;
@@ -2693,9 +2918,10 @@ const ACT = {
       }
       if (f.sel?.key === k) toast('이미 선점한 좌석이에요. 남은 시간은 그대로예요');
       else {
-        f.sel = { key: k, label: l, until: Date.now() + 480000 };
+        const c = CO(f.cid);
+        f.sel = { key: k, label: l, until: Date.now() + 480000, price: secPrice(c, secOf(c, f.sec)) };
         f.bookingId = 'BK-261008-' + String(S.bookings.length + 1).padStart(4, '0');
-        f.pgOrderId = newPgOrderId('T');   // 같은 좌석 다시 결제 = 같은 pgOrderId
+        f.pgOrderId = newPgOrderId('TICKET');   // 같은 좌석 다시 결제 = 같은 pgOrderId
       }
       Object.assign(f, { sec: null, pick: null, pickLabel: null });
       history.replaceState({ pay: 1 }, '');   // 확대 창 기록을 결제 화면 기록으로 바꿈 — 결제에서 뒤로가기 = 좌석 화면
@@ -2731,11 +2957,11 @@ const ACT = {
     timers.push(setTimeout(() => {
       f.busy = null;
       if (fail) {   // 80B — 선점 · 타이머 그대로, 새 pgOrderId 로 다시 결제
-        f.pgOrderId = newPgOrderId('T'); btn.disabled = false; btn.textContent = label;
+        f.pgOrderId = newPgOrderId('TICKET'); btn.disabled = false; btn.textContent = label;
         toast('승인이 거절됐어요 (한도초과 등). 좌석은 그대로 잡혀 있어요 — 다른 결제수단으로 다시 결제해 주세요'); return;
       }
       seatMap(c.id)[f.sel.key] = 'paid';
-      const bk = { id: f.bookingId, cid: c.id, seats: [f.sel.key], labels: [f.sel.label], total: c.price, status: 'PAID', paymentKey: paid.paymentKey };
+      const bk = { id: f.bookingId, cid: c.id, seats: [f.sel.key], labels: [f.sel.label], total: f.sel.price, status: 'PAID', paymentKey: paid.paymentKey };
       S.bookings.unshift(bk); S.flow = null;
       history.replaceState(null, '');
       go('done', { id: bk.id });
@@ -2761,15 +2987,16 @@ const ACT = {
   cancel(d) {
     const b = S.bookings.find(x => x.id === d.id), map = seatMap(b.cid);
     if (b.checkedInAt) { toast('입장한 예매는 취소할 수 없어요'); return; }   // N13 409 BOOKING_NOT_CANCELLABLE
+    if (demoNow() >= startOf(CO(b.cid)) - 24 * 3600e3) { toast('공연 24시간 전까지만 취소할 수 있어요'); return; }   // N13 409 BOOKING_NOT_CANCELLABLE
     b.status = 'CANCELLED'; b.seats.forEach(k => { map[k] = 'free'; });
-    toast('예매를 취소했어요. 좌석은 다른 분이 고를 수 있게 풀렸어요');
+    toast('예매를 취소하고 전액 환불했어요. 좌석은 다른 분이 고를 수 있게 풀렸어요');
     rerender();
   },
   tasteGenre(d) { flip(S.user.genres, d.v); rerender(); },
   saveTaste() { toast('취향을 저장했어요. AI 추천에 바로 반영돼요'); },
   toggleMkt() {
-    const g = S.user.agreements; g.mkt = !g.mkt; g.mktAt = dot(TODAY);
-    toast(`${g.mktAt} 마케팅 정보 수신 ${g.mkt ? '동의' : '철회'}를 처리했어요`);
+    const g = S.user.agreements.find(x => x.code === 'MARKETING'); g.agreed = !g.agreed; g.at = dot(TODAY);
+    toast(`${g.at} 마케팅 정보 수신 ${g.agreed ? '동의' : '철회'}를 처리했어요`);
     rerender();
   },
   openTaste() { S.mtab = '취향 설정'; go('my'); },
@@ -2801,7 +3028,7 @@ const ACT = {
     Object.assign(S, {
       user: { nick: '새벽청취자', email: '', provider: null, genres: [], follows: {}, onboarded: false, addresses: [] },
       draft: { artists: [], shown: [], chain: [] }, addrEdit: null, ship: null, ticket: null,
-      wish: new Set(), gwish: new Set(), owned: new Set(), interest: new Set(), bookings: [], activity: [], flow: null, chat: [], chatOpen: false
+      wish: new Set(), gwish: new Set(), owned: new Set(), interest: new Set(), bookings: [], orders: [], activity: [], flow: null, chat: [], chatOpen: false
     });
     toast('탈퇴했어요. 그동안 이용해 주셔서 고마워요');
     go('landing');
