@@ -1417,7 +1417,7 @@ V.queue = ({ id }) => {
   </div>
 </div>`;
 };
-const TIMER_NOTE = '⚠️ 화면 타이머는 제안안: 대기열 통과부터 결제하기까지 7분 하나 + 토스 결제창 유예 약 3분 (서버 마감 약 10분). 현재 백엔드는 입장 토큰 10분 + 선점 화면 8분 · 서버 9분';
+const TIMER_NOTE = '시계 하나: 입장 토큰 7분 = 화면 시계 · N10 선점 마감 = 입장 토큰 남은 시간 + 유예 179초 (서버 마감은 입장 후 최대 599초)';
 AFTER.queue = () => {
   const c = CO(S.p.id), total = c.queue; let pos = total;
   const t = setInterval(() => {
@@ -1451,7 +1451,7 @@ document.addEventListener('visibilitychange', () => {
   else if (Date.now() - qHiddenAt > 15000) dropQueue();
 });
 
-/* 좌석 — 무대 모양 배치도 → 구역을 누르면 무대 정면으로 돌린 확대 창 → 좌석 고르기(화면만) → 선택완료(N10 · ✏️ 11/04 77A 선점 — 한 명만 · 8분)
+/* 좌석 — 무대 모양 배치도 → 구역을 누르면 무대 정면으로 돌린 확대 창 → 좌석 고르기(화면만) → 선택완료(N10 · ✏️ 11/04 77A 선점 — 한 명만)
    → 결제(N16 · 내 선점일 때만 승인). 좌석 상태 = 빈 좌석 · 선점(회색) · 판매(회색) */
 // 공연장 구역: 관리자가 그린 구역이 있으면 그걸, 없으면 관리자 화면 샘플 도면의 A~D 구역 (400×300 좌표)
 const SAMPLE_SECS = { A: [[68, 90], [121, 151], [76, 190], [23, 129]], B: [[140, 92], [260, 92], [260, 196], [140, 196]],
@@ -1634,7 +1634,7 @@ V.pay = ({ id }) => {
     <label class="check sim" for="raceSim"><input type="checkbox" id="raceSim" name="race"> (시연) 결제창에서 시간을 넘겨 선점이 끝난 상황</label>
     <button class="btn btn-primary" type="submit" id="payBtn" disabled>${won(f.sel.price)} 결제하기</button>
     <p class="tag">토스페이먼츠 테스트 환경이에요. 실제 카드 정보를 넣어도 돈은 나가지 않아요. 카카오페이 · 페이코는 테스트 키로 결제되지 않아요 — 카드 · 토스페이로 진행해 주세요.</p>
-    ${dev(`토스 주문서형 setAmount(N10 의 amount ${f.sel.price}) → 결제하기 = requestPayment({ orderId: N10 의 pgOrderId, orderName }) → { paymentKey, amount } → N16 POST /api/concerts/bookings/${f.bookingId}/confirm { paymentKey, amount } → 서버가 내 선점을 결제 중(PAYING)으로 바꾼 뒤 결제 승인 → { status: CONFIRMED | PENDING | EXPIRED, paymentStatus, pgOrderId? } · 410 HOLD_EXPIRED = 선점 시간(서버 9분) 지남 (결제를 부르지 않음 · 돈 안 나감) · DECLINED = 선점 유지 + 새 pgOrderId 로 다시 결제 · 503 PAYMENT_PENDING = 결과 확인 중 → N12 · 티켓은 P1 으로 결제 불가 · ${TIMER_NOTE}`)}
+    ${dev(`토스 주문서형 setAmount(N10 의 amount ${f.sel.price}) → 결제하기 = requestPayment({ orderId: N10 의 pgOrderId, orderName }) → { paymentKey, amount } → N16 POST /api/concerts/bookings/${f.bookingId}/confirm { paymentKey, amount } → 서버가 내 선점을 결제 중(PAYING)으로 바꾼 뒤 결제 승인 → { status: CONFIRMED | PENDING | EXPIRED, paymentStatus, pgOrderId? } · 410 HOLD_EXPIRED = 선점 서버 마감 지남 (결제를 부르지 않음 · 돈 안 나감) · DECLINED = 선점 유지 + 새 pgOrderId 로 다시 결제 · 503 PAYMENT_PENDING = 결과 확인 중 → N12 · 티켓은 P1 으로 결제 불가 · ${TIMER_NOTE}`)}
   </form>
   <aside class="panel sec"><h2 style="font-size:17px">예매 정보</h2>
     <dl class="kv"><dt>공연</dt><dd>${esc(c.title)}</dd><dt>일시</dt><dd>${md(c.date)} ${c.time}</dd><dt>장소</dt><dd>${esc(c.venue)}</dd>
