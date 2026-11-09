@@ -261,6 +261,14 @@ button.li:hover{background:var(--surface-2)}
 /* 구역 확대 창 — 넓은 화면은 가운데 창, 폰은 아래에서 올라오는 시트 */
 .sheet{width:min(1040px,calc(100vw - 32px));max-width:none;max-height:calc(100dvh - 32px);padding:0;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg);overflow:auto}
 .sheet::backdrop{background:rgba(0,0,0,.6)}
+.askbox{width:min(400px,calc(100vw - 32px));margin:auto;padding:20px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg)}
+.askbox::backdrop{background:rgba(0,0,0,.6)}
+.askbox h2{margin:0 0 8px;font-size:17px}
+.askbox p{margin:0;font-size:14px;word-break:keep-all}
+.askbox-acts{display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px;margin-top:16px}
+.pay-clock{display:grid;justify-items:end;gap:8px;max-width:320px}
+.pay-clock .notice{margin:0;padding:8px 12px;font-size:13px;word-break:keep-all}
+@media (max-width:760px){.pay-clock{justify-items:start;max-width:none}}
 .sheet-in{display:grid;grid-template-columns:minmax(0,1fr) 300px;gap:20px;padding:20px;align-items:start}
 .sheet-in.one{grid-template-columns:minmax(0,1fr)}
 .sheet-in > *{min-width:0}
@@ -437,6 +445,7 @@ img{max-width:100%}
 <footer class="site-foot" id="foot"></footer>
 <nav class="tabbar" id="tabbar" aria-label="주요 메뉴"></nav>
 <div class="toast" id="toast" role="status" hidden></div>
+<dialog class="askbox" id="ask" aria-labelledby="askT"></dialog>
 <button class="fab" id="fab" data-act="toggleChat" aria-controls="cpanel" aria-expanded="false" aria-label="AI 챗봇 열기" hidden><svg viewBox="0 0 24 24" aria-hidden="true"></svg></button>
 <section class="cpanel" id="cpanel" aria-label="AI 챗봇" hidden>
   <header class="cpanel-head">
@@ -563,19 +572,19 @@ const GOODS = [
 ];
 
 const CONCERTS = [
-  // queueEnabled · open(bookingOpenAt) = N2 응답. queue 는 대기열 시연용 앞사람 수
-  {id:'c1',artists:['a1'],title:'소음정원 단독 공연 〈젖은 신호〉',venue:'KT&G 상상마당 라이브홀',region:'서울',addr:'서울 마포구 어울마당로 65',date:'2026-10-17',time:'18:00',type:'단독',price:66000,queue:1284,queueEnabled:true,open:'2026-10-01T20:00'},
-  {id:'c2',artists:['a2','a7','a11'],title:'가을 소풍 페스티벌 2026',venue:'난지 한강공원',region:'서울',addr:'서울 마포구 한강난지로 162',date:'2026-10-24',time:'13:00',type:'페스티벌',price:99000,queue:3420,queueEnabled:true,open:'2026-10-01T20:00'},
-  {id:'c3',artists:['a3'],title:'한낮의 고래 〈수면 위 오후〉 앙코르',venue:'오방가르드',region:'부산',addr:'부산 수영구 광남로 172',date:'2026-10-31',time:'19:00',type:'단독',price:55000,queue:640,queueEnabled:true,open:'2026-10-01T20:00'},
-  {id:'c4',artists:['a6'],title:'네온극장 단독 〈심야 상영〉',venue:'웨스트브릿지',region:'서울',addr:'서울 마포구 양화로 188',date:'2026-11-07',time:'19:00',type:'단독',price:58000,queue:820,queueEnabled:true,open:'2026-10-05T20:00'},
-  {id:'c5',artists:['a4'],title:'모래시계클럽 10주년',venue:'클럽 헤비',region:'대구',addr:'대구 중구 동성로',date:'2026-11-14',time:'18:00',type:'단독',price:50000,queue:310,queueEnabled:false,open:'2026-10-01T20:00'},
-  {id:'c6',artists:['a9'],title:'유리온실 첫 정규 쇼케이스',venue:'벨로주 망원',region:'서울',addr:'서울 마포구 망원동',date:'2026-11-21',time:'19:30',type:'단독',price:45000,queue:420,queueEnabled:false,open:'2026-10-01T20:00'},
-  {id:'c7',artists:['a8','a10','a2'],title:'라우드 시티 2026',venue:'송도 달빛축제공원',region:'인천',addr:'인천 연수구 송도동',date:'2026-12-05',time:'12:00',type:'페스티벌',price:120000,queue:2860,queueEnabled:true,open:'2026-10-15T20:00'},
-  {id:'c8',artists:['a5'],title:'새벽세탁소 연말 공연',venue:'롤링홀',region:'서울',addr:'서울 마포구 어울마당로 35',date:'2026-12-19',time:'18:00',type:'단독',price:55000,queue:560,queueEnabled:true,open:'2026-10-20T20:00'},
-  {id:'c9',artists:['a12'],title:'반지하 오케스트라 정기 공연',venue:'무대륙',region:'서울',addr:'서울 마포구 독막로',date:'2026-10-10',time:'19:00',type:'단독',price:40000,queue:180,queueEnabled:false,open:'2026-10-01T20:00'},
-  {id:'c10',artists:['a8'],title:'검은 우산 목요 펑크 나이트',venue:'클럽 FF',region:'서울',addr:'서울 마포구 와우산로',date:'2026-10-08',time:'20:00',type:'단독',price:30000,queue:150,queueEnabled:false,open:'2026-10-01T20:00'},
-  {id:'c11',artists:['a5'],title:'새벽세탁소 어쿠스틱 라이브',venue:'언플러그드',region:'서울',addr:'서울 마포구 서교동',date:'2026-10-08',time:'19:30',type:'단독',price:38000,queue:260,queueEnabled:false,open:'2026-10-01T20:00'},
-  {id:'c12',artists:['a10'],title:'열대야 심야 잼 세션',venue:'프리버드',region:'서울',addr:'서울 마포구 서교동',date:'2026-10-08',time:'21:00',type:'단독',price:33000,queue:210,queueEnabled:false,open:'2026-10-01T20:00'}
+  // open = N2 의 bookingOpenAt. queue 는 대기열 시연용 앞사람 수
+  {id:'c1',artists:['a1'],title:'소음정원 단독 공연 〈젖은 신호〉',venue:'KT&G 상상마당 라이브홀',region:'서울',addr:'서울 마포구 어울마당로 65',date:'2026-10-17',time:'18:00',type:'단독',price:66000,queue:1284,open:'2026-10-01T20:00'},
+  {id:'c2',artists:['a2','a7','a11'],title:'가을 소풍 페스티벌 2026',venue:'난지 한강공원',region:'서울',addr:'서울 마포구 한강난지로 162',date:'2026-10-24',time:'13:00',type:'페스티벌',price:99000,queue:3420,open:'2026-10-01T20:00'},
+  {id:'c3',artists:['a3'],title:'한낮의 고래 〈수면 위 오후〉 앙코르',venue:'오방가르드',region:'부산',addr:'부산 수영구 광남로 172',date:'2026-10-31',time:'19:00',type:'단독',price:55000,queue:640,open:'2026-10-01T20:00'},
+  {id:'c4',artists:['a6'],title:'네온극장 단독 〈심야 상영〉',venue:'웨스트브릿지',region:'서울',addr:'서울 마포구 양화로 188',date:'2026-11-07',time:'19:00',type:'단독',price:58000,queue:820,open:'2026-10-05T20:00'},
+  {id:'c5',artists:['a4'],title:'모래시계클럽 10주년',venue:'클럽 헤비',region:'대구',addr:'대구 중구 동성로',date:'2026-11-14',time:'18:00',type:'단독',price:50000,queue:310,open:'2026-10-01T20:00'},
+  {id:'c6',artists:['a9'],title:'유리온실 첫 정규 쇼케이스',venue:'벨로주 망원',region:'서울',addr:'서울 마포구 망원동',date:'2026-11-21',time:'19:30',type:'단독',price:45000,queue:420,open:'2026-10-01T20:00'},
+  {id:'c7',artists:['a8','a10','a2'],title:'라우드 시티 2026',venue:'송도 달빛축제공원',region:'인천',addr:'인천 연수구 송도동',date:'2026-12-05',time:'12:00',type:'페스티벌',price:120000,queue:2860,open:'2026-10-15T20:00'},
+  {id:'c8',artists:['a5'],title:'새벽세탁소 연말 공연',venue:'롤링홀',region:'서울',addr:'서울 마포구 어울마당로 35',date:'2026-12-19',time:'18:00',type:'단독',price:55000,queue:560,open:'2026-10-20T20:00'},
+  {id:'c9',artists:['a12'],title:'반지하 오케스트라 정기 공연',venue:'무대륙',region:'서울',addr:'서울 마포구 독막로',date:'2026-10-10',time:'19:00',type:'단독',price:40000,queue:180,open:'2026-10-01T20:00'},
+  {id:'c10',artists:['a8'],title:'검은 우산 목요 펑크 나이트',venue:'클럽 FF',region:'서울',addr:'서울 마포구 와우산로',date:'2026-10-08',time:'20:00',type:'단독',price:30000,queue:150,open:'2026-10-01T20:00'},
+  {id:'c11',artists:['a5'],title:'새벽세탁소 어쿠스틱 라이브',venue:'언플러그드',region:'서울',addr:'서울 마포구 서교동',date:'2026-10-08',time:'19:30',type:'단독',price:38000,queue:260,open:'2026-10-01T20:00'},
+  {id:'c12',artists:['a10'],title:'열대야 심야 잼 세션',venue:'프리버드',region:'서울',addr:'서울 마포구 서교동',date:'2026-10-08',time:'21:00',type:'단독',price:33000,queue:210,open:'2026-10-01T20:00'}
 ];
 </script>
 
@@ -625,6 +634,18 @@ function stockState(al) {
 function toast(t) {
   const el = $('#toast'); el.textContent = t; el.hidden = false;
   clearTimeout(toast.t); toast.t = setTimeout(() => { el.hidden = true; }, 3000);
+}
+// 취소 · 탈퇴 · 로그아웃 · 시간 종료 전에 꼭 거치는 창 — no 가 없으면 확인만 있는 고지 (Esc 로 닫아도 확인과 같은 길)
+function ask({ title, body, ok, no, danger, onOk }) {
+  const m = $('#ask');
+  let done = false;
+  const finish = () => { if (done) return; done = true; m.close(); onOk(); };
+  m.innerHTML = `<h2 id="askT">${esc(title)}</h2><p>${esc(body)}</p><div class="askbox-acts">${no ? `<button class="btn" id="askNo">${esc(no)}</button>` : ''}<button class="btn ${danger ? 'btn-danger' : 'btn-primary'}" id="askOk">${esc(ok)}</button></div>`;
+  m.onclose = no ? null : finish;
+  $('#askOk').onclick = finish;
+  if (no) $('#askNo').onclick = () => m.close();
+  if (!m.open) m.showModal();
+  m.querySelector('button').focus();   // 되돌릴 수 없는 동작이면 '돌아가기'에 먼저 포커스
 }
 
 /* ===== 취향 점수 (개인 RAG 흉내) ===== */
@@ -1373,8 +1394,8 @@ V.concert = ({ id }) => {
       ${c.open ? `<dt>예매 오픈</dt><dd>${openLabel(c)}</dd>` : ''}</dl>
     ${cta}
     <button class="btn ${it ? 'on' : ''}" data-act="interest" data-id="${id}" aria-pressed="${it}">${it ? '관심 공연에 담았어요' : '관심 공연 담기'}</button>
-    <p class="tag">${c.queueEnabled ? '예매하기를 누르면 대기열에 들어가요. 순서가 되면 10분 동안 좌석을 고를 수 있어요.' : '대기열 없이 바로 좌석을 골라요.'} 공연마다 1인 1석이에요.</p>
-    ${dev(`N2 GET /api/concerts/${id} → { saleStatus: ${sale}, bookingOpenAt, queueEnabled: ${!!c.queueEnabled} } · ${c.queueEnabled ? `N4 POST /api/concerts/${id}/queue → 입장 토큰 → N7 · N10` : `대기열 없음 → 바로 N7 · N10 (X-Entry-Token 불필요)`}`)}
+    <p class="tag">예매하기를 누르면 대기열에 들어가요. 순서가 되면 7분 안에 좌석을 고르고 결제하기를 눌러 주세요. 공연마다 1인 1석이에요.</p>
+    ${dev(`N2 GET /api/concerts/${id} → { saleStatus: ${sale}, bookingOpenAt, queueEnabled: true } · N4 POST /api/concerts/${id}/queue → 입장 토큰 → N7 · N10 → N16 · ${TIMER_NOTE}`)}
   </aside>
 </div>`;
 };
@@ -1391,12 +1412,12 @@ V.queue = ({ id }) => {
   <p class="muted">순서가 되면 좌석 선택 화면으로 자동으로 넘어가요.</p>
   ${dev(`N4 POST /api/concerts/${id}/queue → N5 GET /queue/status 를 pollAfterMs 마다 (하트비트 겸용 · 15초 끊기면 이탈) · 화면 나갈 때 N6 DELETE /queue`)}<code class="dev" id="qDev">대기 중</code>
   <div id="qAct" style="display:flex;gap:8px;flex-wrap:wrap;justify-content:center">
-    <button class="btn" data-go="concert" data-id="${id}">대기 취소</button>
+    <button class="btn" data-act="queueCancel" data-id="${id}">대기 취소</button>
     <button class="btn btn-s" data-act="dropQueue">(시연) 앱을 15초 넘게 내렸다 돌아오기</button>
   </div>
 </div>`;
 };
-const newFlow = (cid, entryUntil) => ({ cid, entryUntil, floor: null, sec: null, pick: null, pickLabel: null, sel: null, busy: null, err: null, loading: 0, bookingId: null });
+const TIMER_NOTE = '⚠️ 화면 타이머는 제안안: 대기열 통과부터 결제하기까지 7분 하나 + 토스 결제창 유예 약 3분 (서버 마감 약 10분). 현재 백엔드는 입장 토큰 10분 + 선점 화면 8분 · 서버 9분';
 AFTER.queue = () => {
   const c = CO(S.p.id), total = c.queue; let pos = total;
   const t = setInterval(() => {
@@ -1407,9 +1428,9 @@ AFTER.queue = () => {
     if (pos > 0) return;
     clearInterval(t);
     $('#qTitle').textContent = '내 차례예요';
-    $('#qSub').textContent = '입장 토큰을 받았어요. 10분 안에 좌석을 골라 주세요';
-    $('#qDev').textContent = `N5 → ADMITTED { entryToken, expiresIn: 600 } · 이후 N10 에 X-Entry-Token`;
-    S.flow = newFlow(c.id, Date.now() + 600000);
+    $('#qSub').textContent = '입장 토큰을 받았어요. 7분 안에 좌석을 고르고 결제하기를 눌러 주세요';
+    $('#qDev').textContent = `N5 → ADMITTED { entryToken, expiresIn: 420 } · 이후 N10 에 X-Entry-Token · ${TIMER_NOTE}`;
+    S.flow = { cid: c.id, until: Date.now() + 420000, floor: null, sec: null, pick: null, pickLabel: null, sel: null, busy: null, err: null, loading: 0, bookingId: null };
     timers.push(setTimeout(() => go('seats', { id: c.id }), 1100));
   }, 700);
   timers.push(t);
@@ -1473,7 +1494,7 @@ const seatErr = f => f.err?.code === 'SEAT_TAKEN' ? takenErr : f.err?.code === '
 
 V.seats = ({ id }) => {
   const c = CO(id), f = S.flow;
-  if (!f || f.cid !== id || Date.now() > f.entryUntil)
+  if (!f || f.cid !== id || Date.now() > f.until)
     return `<div class="empty"><p>입장 토큰이 없어요. 대기열을 거쳐야 좌석을 고를 수 있어요.</p><button class="btn btn-primary" data-act="book" data-id="${id}">대기열 들어가기</button></div>`;
   const all = venueSecs(c.venue), floors = Object.keys(FLOORS).filter(fl => all.some(s => s.floor === fl));
   if (!floors.includes(f.floor)) f.floor = floors[0];
@@ -1489,7 +1510,7 @@ V.seats = ({ id }) => {
   </svg>`;
   const side = f.sel ? `
     <h2 style="font-size:17px">선점한 좌석이 있어요</h2>
-    <dl class="kv"><dt>좌석</dt><dd>${esc(f.sel.label)}</dd><dt>남은 시간</dt><dd><span class="timer" id="selT">-:--</span></dd></dl>
+    <dl class="kv"><dt>좌석</dt><dd>${esc(f.sel.label)}</dd></dl>
     ${seatErr(f)}
     <button class="btn btn-primary" data-act="toPay">이어서 결제하기</button>
     <button class="btn" data-act="unsel">선점 풀고 다시 고르기</button>
@@ -1500,9 +1521,9 @@ V.seats = ({ id }) => {
     <p class="muted">배치도에서 구역을 누르면 그 구역을 무대 정면 방향으로 돌려서 크게 보여줘요.</p>
     <div class="list">${secs.map(s => `<button class="li" data-act="openSec" data-v="${esc(secKey(s))}"><span class="main"><b>${esc(secName(s.name))}</b><small>${s.rows}열 · ${s.seats.length}석 · ${won(secPrice(c, s))}</small></span>
       <span class="end"><span class="num">${freeIn(id, s)}석 남음</span></span></button>`).join('')}</div>
-    <p class="tag">공연마다 1인 1석이에요. 좌석을 선택완료하면 8분 동안 나만 결제할 수 있어요 (선점). 그 안에 결제하지 않으면 좌석이 풀려요.</p>`;
+    <p class="tag">공연마다 1인 1석이에요. 좌석을 선택완료하면 남은 시간 동안 나만 결제할 수 있어요 (선점). 시간이 끝나면 좌석이 풀리고 대기열부터 다시 시작해요.</p>`;
   return `
-<div class="page-head"><div><p class="eyebrow">${md(c.date)} ${c.time} · ${esc(c.venue)}</p><h1>좌석 선택</h1></div>${isFinite(f.entryUntil) ? '<span class="timer" id="entryT">입장 시간 10:00</span>' : ''}</div>
+<div class="page-head"><div><p class="eyebrow">${md(c.date)} ${c.time} · ${esc(c.venue)}</p><h1>좌석 선택</h1></div><span class="timer" id="flowT">남은 시간 -:--</span></div>
 <div class="split">
   <div class="panel sec">
     ${floors.length > 1 ? `<div class="chips">${floors.map(fl => `<button class="chip ${fl === f.floor ? 'on' : ''}" data-act="seatFloor" data-v="${fl}" aria-pressed="${fl === f.floor}">${fl}</button>`).join('')}</div>` : ''}
@@ -1519,7 +1540,7 @@ let loadSeq = 0;
 function modalInner() {
   const f = S.flow, c = CO(f.cid), s = secOf(c, f.sec);
   const head = `<div class="sheet-head"><div><p class="eyebrow">${s.floor} · 무대를 정면으로 보게 돌렸어요</p><h2 id="secTitle">${esc(secName(s.name))}</h2></div>
-    ${isFinite(f.entryUntil) ? `<span class="timer" id="entryT2">입장 시간 ${mmss(f.entryUntil - Date.now())}</span>` : ''}<button class="btn btn-s" data-act="closeSec">닫기</button></div>`;
+    <span class="timer" id="flowT2">남은 시간 ${mmss(f.until - Date.now())}</span><button class="btn btn-s" data-act="closeSec">닫기</button></div>`;
   if (f.loading) return `<div class="sheet-in one"><div class="sec">${head}<div class="empty"><p>좌석 상태를 불러오는 중이에요…</p></div>
     ${dev('N7 다시 조회 — 이때 뒤로가기 = 창만 닫고 AbortController.abort() · 늦게 온 응답은 버림 (조회라 서버에 되돌릴 것 없음)')}</div></div>`;
   // 배치도에서 무대를 바라보던 기울기(s.rot)만큼 반대로 돌리면 앞줄이 위, 좌석 번호가 왼쪽 → 오른쪽
@@ -1553,8 +1574,8 @@ function pickPanel() {
     ${err}
     ${swap ? `<p class="tag">지금 <b>${esc(f.sel.label)}</b> 을 선점하고 있어요. 다른 좌석을 고르려면 먼저 선점을 풀어 주세요 (1인 1석).</p>` : ''}
     <button class="btn btn-primary" data-act="selectSeat" id="selBtn">선택완료</button>
-    <p class="tag">선택완료하면 이 좌석을 8분 동안 잡아 둬요 (선점). 그 안에 결제해 주세요.</p>
-    ${dev(`N10 POST /api/concerts/${c.id}/bookings { seatId }${c.queueEnabled ? ' + X-Entry-Token' : ''} → 200 { bookingId, amount(좌석 가격 · 요청 금액 없음), pgOrderId, status: PENDING, expiresAt, expiresIn: 480 } (✏️ 11/04 77A 선점 · 같은 좌석 = 같은 선점 · 타이머 그대로) · 409 SEAT_TAKEN (남이 선점 · 판매) · 409 HOLD_EXISTS (내 선점이 다른 좌석에 · result.bookingId) · 409 SEAT_LIMIT_EXCEEDED (이미 예매 · 1인 1석) · 처리 중 뒤로가기는 무시`)}`;
+    <p class="tag">선택완료하면 남은 시간 동안 이 좌석을 잡아 둬요 (선점). 시간은 늘어나지 않고 그대로 이어져요.</p>
+    ${dev(`N10 POST /api/concerts/${c.id}/bookings { seatId } + X-Entry-Token → 200 { bookingId, amount(좌석 가격 · 요청 금액 없음), pgOrderId, status: PENDING, expiresAt, expiresIn: 남은 초 } (${TIMER_NOTE}) (✏️ 11/04 77A 선점 · 같은 좌석 = 같은 선점 · 타이머 그대로) · 409 SEAT_TAKEN (남이 선점 · 판매) · 409 HOLD_EXISTS (내 선점이 다른 좌석에 · result.bookingId) · 409 SEAT_LIMIT_EXCEEDED (이미 예매 · 1인 1석) · 처리 중 뒤로가기는 무시`)}`;
 }
 function refreshModal() {
   const m = $('#secModal'); if (!m) return;
@@ -1572,6 +1593,12 @@ function closeSec() {
 }
 // 내 선점 풀기 (N13 · 만료) — 좌석은 바로 빈 좌석 (seatMap 은 free 그대로 · 'mine' 표시만 사라짐)
 function dropSel() { const f = S.flow; f.sel = null; f.bookingId = null; f.pgOrderId = null; }
+// 처음 배치도부터 결제까지 시계 하나 — 끝나면 잡고 있던 좌석도 풀리고 대기열부터 다시
+function timeUp(f, msg = '7분이 지나 잡고 있던 좌석이 풀렸어요. 대기열에 다시 들어가 주세요') {
+  timers.forEach(t => { clearInterval(t); clearTimeout(t); }); timers = [];
+  S.flow = null; history.replaceState(null, '');
+  ask({ title: '예매 시간이 끝났어요', body: msg, ok: '공연으로 돌아가기', onOk: () => go('concert', { id: f.cid }) });
+}
 AFTER.seats = () => {
   if (!$('#secModal')) return;
   const f = S.flow, m = $('#secModal');
@@ -1579,13 +1606,9 @@ AFTER.seats = () => {
   m.addEventListener('click', e => { if (e.target === m && !f.busy) history.back(); });      // 창 바깥 누르기
   if (f.sec) { f.loading = 0; m.innerHTML = modalInner(); m.showModal(); }
   const tick = () => {
-    const left = f.entryUntil - Date.now();
-    if (left <= 0) { S.flow = null; toast('입장 시간이 끝났어요. 대기열에 다시 들어가 주세요'); go('concert', { id: f.cid }); return; }
-    document.querySelectorAll('#entryT, #entryT2').forEach(el => { el.textContent = '입장 시간 ' + mmss(left); el.classList.toggle('warn', left < 120000); });
-    if (!f.sel) return;
-    const hl = f.sel.until - Date.now();
-    if (hl <= 0) { if (f.busy) return; dropSel(); toast('8분이 지나 선점이 풀렸어요. 다시 골라 주세요'); redraw(); return; }
-    const ht = $('#selT'); if (ht) { ht.textContent = mmss(hl); ht.classList.toggle('warn', hl < 60000); }
+    const left = f.until - Date.now();
+    if (left <= 0) { if (!f.busy) timeUp(f); return; }
+    document.querySelectorAll('#flowT, #flowT2').forEach(el => { el.textContent = '남은 시간 ' + mmss(left); el.classList.toggle('warn', left < 120000); });
   };
   tick(); timers.push(setInterval(tick, 1000));
 };
@@ -1598,12 +1621,11 @@ window.addEventListener('popstate', () => {
   if (S.route === 'pay') { if (f.sel) toast('선점한 좌석은 남은 시간 동안 그대로예요'); go('seats', { id: f.cid }); }
 });
 
-const backLink = '<button class="link" data-act="backAsk">← 좌석 다시 고르기</button>';
 V.pay = ({ id }) => {
   const c = CO(id), f = S.flow;
   if (!f || !f.sel) return `<div class="empty"><p>고른 좌석이 없어요.</p><button class="btn" data-go="concert" data-id="${id}">공연으로 돌아가기</button></div>`;
   return `
-<div class="page-head"><div><p class="eyebrow">${esc(c.title)}</p><h1>결제</h1></div><span class="timer" id="selT">선점 8:00</span></div>
+<div class="page-head"><div><p class="eyebrow">${esc(c.title)}</p><h1>결제</h1></div><div class="pay-clock"><span class="timer" id="flowT">남은 시간 -:--</span><p class="notice" role="note">남은 시간이 끝나기 전에 결제하기를 눌러 주세요. 토스 결제창에서는 최소 3분이 보장돼요.</p></div></div>
 <div class="split">
   <form class="panel form" data-submit="pay">
     <h2>결제 수단</h2>
@@ -1612,26 +1634,27 @@ V.pay = ({ id }) => {
     <label class="check sim" for="raceSim"><input type="checkbox" id="raceSim" name="race"> (시연) 결제창에서 시간을 넘겨 선점이 끝난 상황</label>
     <button class="btn btn-primary" type="submit" id="payBtn" disabled>${won(f.sel.price)} 결제하기</button>
     <p class="tag">토스페이먼츠 테스트 환경이에요. 실제 카드 정보를 넣어도 돈은 나가지 않아요. 카카오페이 · 페이코는 테스트 키로 결제되지 않아요 — 카드 · 토스페이로 진행해 주세요.</p>
-    ${dev(`토스 주문서형 setAmount(N10 의 amount ${f.sel.price}) → 결제하기 = requestPayment({ orderId: N10 의 pgOrderId, orderName }) → { paymentKey, amount } → N16 POST /api/concerts/bookings/${f.bookingId}/confirm { paymentKey, amount } → 서버가 내 선점을 결제 중(PAYING)으로 바꾼 뒤 결제 승인 → { status: CONFIRMED | PENDING | EXPIRED, paymentStatus, pgOrderId? } · 410 HOLD_EXPIRED = 선점 시간(서버 9분) 지남 (결제를 부르지 않음 · 돈 안 나감) · DECLINED = 선점 유지 + 새 pgOrderId 로 다시 결제 · 503 PAYMENT_PENDING = 결과 확인 중 → N12 · 티켓은 P1 으로 결제 불가`)}
+    ${dev(`토스 주문서형 setAmount(N10 의 amount ${f.sel.price}) → 결제하기 = requestPayment({ orderId: N10 의 pgOrderId, orderName }) → { paymentKey, amount } → N16 POST /api/concerts/bookings/${f.bookingId}/confirm { paymentKey, amount } → 서버가 내 선점을 결제 중(PAYING)으로 바꾼 뒤 결제 승인 → { status: CONFIRMED | PENDING | EXPIRED, paymentStatus, pgOrderId? } · 410 HOLD_EXPIRED = 선점 시간(서버 9분) 지남 (결제를 부르지 않음 · 돈 안 나감) · DECLINED = 선점 유지 + 새 pgOrderId 로 다시 결제 · 503 PAYMENT_PENDING = 결과 확인 중 → N12 · 티켓은 P1 으로 결제 불가 · ${TIMER_NOTE}`)}
   </form>
   <aside class="panel sec"><h2 style="font-size:17px">예매 정보</h2>
     <dl class="kv"><dt>공연</dt><dd>${esc(c.title)}</dd><dt>일시</dt><dd>${md(c.date)} ${c.time}</dd><dt>장소</dt><dd>${esc(c.venue)}</dd>
       <dt>좌석</dt><dd>${esc(f.sel.label)}</dd><dt>금액</dt><dd class="num">${won(f.sel.price)}</dd></dl>
-    <div id="backBox">${backLink}</div>
+    <div><button class="link" data-act="backAsk">← 좌석 다시 고르기</button></div>
+    ${dev('좌석 다시 고르기 = 창에서 확인 → N13 POST /api/concerts/bookings/{id}/cancel → 좌석 바로 AVAILABLE · 시계는 그대로')}
     <p class="tag">휴대폰 · 브라우저 뒤로가기로 나가면 고른 좌석은 남은 시간 동안 그대로 두고 좌석 화면으로 돌아가요.</p>
   </aside>
 </div>`;
 };
 AFTER.pay = () => {
-  if (!$('#selT')) return;
+  if (!$('#flowT')) return;
   const f = S.flow;
   mountToss(f.sel.price);
   const tick = () => {
-    if (!f.sel || f.busy) return;
-    const left = f.sel.until - Date.now();
-    if (left <= 0) { dropSel(); toast('8분이 지나 선점이 풀렸어요. 다시 골라 주세요'); history.back(); return; }
-    $('#selT').textContent = '선점 ' + mmss(left);
-    $('#selT').classList.toggle('warn', left < 60000);
+    if (f.busy) return;
+    const left = f.until - Date.now();
+    if (left <= 0) { timeUp(f); return; }
+    $('#flowT').textContent = '남은 시간 ' + mmss(left);
+    $('#flowT').classList.toggle('warn', left < 120000);
   };
   tick(); timers.push(setInterval(tick, 1000));
 };
@@ -1746,7 +1769,8 @@ V.my = () => {
   return `
 <div class="page-head"><div style="display:flex;gap:14px;align-items:center">
   <span class="avatar" style="--c1:var(--accent);--c2:#c46bd8;--s:56px" aria-hidden="true">${esc(S.user.nick[0] || '나')}</span>
-  <div><h1>${esc(S.user.nick)}</h1><p class="muted">${S.user.provider ? `카카오 계정 · ${esc(S.user.email)}` : '로그인 정보 없음'}</p></div></div></div>
+  <div><h1>${esc(S.user.nick)}</h1><p class="muted">${S.user.provider ? `카카오 계정 · ${esc(S.user.email)}` : '로그인 정보 없음'}</p></div></div><button class="btn btn-s" data-act="logout">로그아웃</button></div>
+${dev('로그아웃 = 창에서 확인 → G4 POST /api/auth/logout → 쿠키 삭제 · 항상 200')}
 <div class="tabs" role="tablist">${tabs.map(t => `<button role="tab" aria-selected="${S.mtab === t}" data-act="mtab" data-v="${t}">${t}</button>`).join('')}</div>
 ${body}`;
 };
@@ -1885,7 +1909,7 @@ const HUM_ANSWER = {
   albums: ['al1'], ctx: ['허밍 인식 · MVP 이후 기능 데모', '멜로디 특징 → 곡 후보 매칭'],
   dev: 'POST /api/assistant/hum (오디오 → 멜로디 특징 추출 → 곡 매칭) · MVP 제외'
 };
-function msgHtml(m, i) {
+function msgHtml(m) {
   if (m.rec) return `<div class="msg me"><span>${EQ}듣고 있어요… 흥얼거려 보세요</span><small style="opacity:.8">데모라 실제로 녹음하지는 않아요</small></div>`;
   if (m.me) return `<div class="msg me">${esc(m.text)}</div>`;
   if (m.typing) return m.hum ? `<div class="msg bot typing"><span>${EQ}멜로디를 분석하고 있어요…</span></div>` : '<div class="msg bot typing">취향과 공연 정보를 찾고 있어요…</div>';
@@ -1893,10 +1917,7 @@ function msgHtml(m, i) {
     ${m.artists ? `<div class="grid">${m.artists.map(r => acard(A(r.id), { pct: r.pct, reason: r.reason })).join('')}</div>` : ''}
     ${m.concerts ? `<div class="list">${m.concerts.map(id => concertLi(CO(id))).join('')}</div>` : ''}
     ${m.albums ? `<div class="grid albums">${m.albums.map(id => alCard(AL(id))).join('')}</div>` : ''}
-    ${m.withdraw ? (m.confirm
-      ? `<div class="panel sec" style="padding:14px"><p><b>정말 탈퇴할까요?</b> 되돌릴 수 없어요.</p>
-          <div style="display:flex;gap:8px"><button class="btn btn-s btn-danger" data-act="withdraw">탈퇴 확정</button><button class="btn btn-s" data-act="withdrawCancel" data-i="${i}">취소</button></div></div>`
-      : `<button class="btn btn-danger" data-act="withdrawAsk" data-i="${i}" style="justify-self:start">회원 탈퇴하기</button>`)
+    ${m.withdraw ? `<button class="btn btn-danger" data-act="withdrawAsk" style="justify-self:start">회원 탈퇴하기</button>`
       + dev('DELETE /api/members/me → outbox member.withdrawn → 서비스별 개인 데이터 삭제') : ''}
     ${m.dev ? dev(m.dev) : ''}
     <div class="ctx"><span>참고한 정보</span>${m.ctx.map(c => `<span class="pill">${esc(c)}</span>`).join('')}</div></div>`;
@@ -2141,7 +2162,7 @@ const MEMBERS = [
   { id: 1003, nick: '공짜티켓드림010', email: 'promo.ticket@kakao.com', provider: '카카오', joined: '2026-10-01', status: 'ACTIVE', hist: [] },
   { id: 1004, nick: '슈게이저', email: 'shoegazer@gmail.com', provider: '카카오', joined: '2026-07-21', status: 'ACTIVE',
     hist: [['예매', 'BK-261003-0107', '소음정원 단독 공연 〈젖은 신호〉 · A구역 3열 11번', 66000, 'CONFIRMED'], ['결제', 'PAY-TICKET-0107', '티켓 · 카드', 66000, 'APPROVED'],
-      ['예매', 'BK-261004-0221', '모래시계클럽 10주년 · C구역', 50000, 'EXPIRED'], ['결제', 'PAY-TICKET-0221', '티켓 · 선점 8분 안에 결제 안 함', 50000, 'CANCELLED']] },
+      ['예매', 'BK-261004-0221', '모래시계클럽 10주년 · C구역', 50000, 'EXPIRED'], ['결제', 'PAY-TICKET-0221', '티켓 · 시간 안에 결제 안 함', 50000, 'CANCELLED']] },
   { id: 1005, nick: '(탈퇴)', email: null, provider: '카카오', joined: '2026-05-11', status: 'WITHDRAWN', hist: [] }
 ];
 
@@ -2710,6 +2731,7 @@ function nextEvent() {
 const NAV = [['home', '홈'], ['artists', '아티스트'], ['concerts', '공연'], ['albums', '음반·LP'], ['my', 'MY']];
 const SECTION = { home: 'home', artists: 'artists', artist: 'artists', concerts: 'concerts', concert: 'concerts', queue: 'concerts', seats: 'concerts', pay: 'concerts', done: 'concerts', albums: 'albums', album: 'albums', lpay: 'albums', goods: 'artists', gpay: 'artists', gdone: 'artists', my: 'my' };
 function go(route, p = {}) {
+  $('#ask').close();   // 대기 중 차례가 오면 열려 있던 확인 창은 닫음
   timers.forEach(t => { clearInterval(t); clearTimeout(t); }); timers = [];
   if (NARROW.matches) S.chatOpen = false;
   if (route === 'gpay' || route === 'lpay') S.ship = null;   // 결제 화면은 늘 기본 배송지를 미리 고른 채로
@@ -2795,13 +2817,8 @@ const ACT = {
   ctype(d) { S.ctype = d.v; rerender(); },
   atab(d) { S.atab = d.v; rerender(); },
   mtab(d) { S.mtab = d.v; rerender(); },
-  // N2 의 queueEnabled 로 분기 — 대기열이 없는 공연은 입장 토큰 없이 바로 좌석으로 (이미 잡은 선점은 그대로 이어감)
-  book(d) {
-    const c = CO(d.id);
-    if (c.queueEnabled) { go('queue', { id: c.id }); return; }
-    if (S.flow?.cid !== c.id) S.flow = newFlow(c.id, Infinity);
-    go('seats', { id: c.id });
-  },
+  // 시간이 남아 있으면 줄을 다시 서지 않고 이어감 — 시계는 처음 배치도부터 결제까지 하나
+  book(d) { const f = S.flow; go(f?.cid === d.id && f.until > Date.now() ? 'seats' : 'queue', { id: d.id }); },
   interest(d) { toast(toggle(S.interest, d.id) ? '관심 공연에 담았어요. MY에서 모아 볼 수 있어요' : '관심 공연에서 뺐어요'); rerender(); },
   wish(d) {
     const on = toggle(S.wish, d.id), st = stockState(AL(d.id))[0];
@@ -2838,9 +2855,15 @@ const ACT = {
   // C12 — 토스 환불 → 주문 CANCELLED · 재고 복구
   orderCancel(d) {
     const o = S.orders.find(x => x.id === d.id);
-    o.status = 'CANCELLED'; o.give();
-    toast('주문을 취소하고 전액 환불했어요');
-    rerender();
+    ask({
+      title: '주문을 취소할까요?', ok: '주문 취소하기', no: '돌아가기', danger: true,
+      body: `${o.name} ${o.qty}개 주문을 취소하면 전액 환불돼요. 카드 환불은 카드사에 따라 3~7영업일 걸려요. 취소하면 되돌릴 수 없어요.`,
+      onOk: () => {
+        o.status = 'CANCELLED'; o.give();
+        toast('주문을 취소하고 전액 환불했어요');
+        rerender();
+      }
+    });
   },
   postcode(_, el) {
     const f = el.closest('form'), box = f.querySelector('.postcode');
@@ -2882,6 +2905,13 @@ const ACT = {
   },
   own(d) { toggle(S.owned, d.id); rerender(); },
   dropQueue,
+  queueCancel(d) {
+    ask({
+      title: '대기를 취소할까요?', ok: '대기 취소하기', no: '계속 기다리기', danger: true,
+      body: '지금 순번이 사라져요. 다시 예매하면 줄 맨 뒤부터 기다려야 해요.',
+      onOk: () => { if (S.flow?.cid === d.id) S.flow = null; go('concert', { id: d.id }); }   // 창을 띄운 사이 차례가 왔어도 취소
+    });
+  },
   openSec(d) {
     const f = S.flow, seq = ++loadSeq;
     Object.assign(f, { sec: d.v, pick: null, pickLabel: null, err: null, loading: seq });
@@ -2919,7 +2949,7 @@ const ACT = {
       if (f.sel?.key === k) toast('이미 선점한 좌석이에요. 남은 시간은 그대로예요');
       else {
         const c = CO(f.cid);
-        f.sel = { key: k, label: l, until: Date.now() + 480000, price: secPrice(c, secOf(c, f.sec)) };
+        f.sel = { key: k, label: l, price: secPrice(c, secOf(c, f.sec)) };
         f.bookingId = 'BK-261008-' + String(S.bookings.length + 1).padStart(4, '0');
         f.pgOrderId = newPgOrderId('TICKET');   // 같은 좌석 다시 결제 = 같은 pgOrderId
       }
@@ -2929,14 +2959,23 @@ const ACT = {
     }, 800));
   },
   toPay() { history.pushState({ pay: 1 }, ''); go('pay', { id: S.flow.cid }); },
-  unsel() { dropSel(); S.flow.err = null; toast('선점을 풀었어요. 다른 좌석을 골라 주세요'); redraw(); },
+  unsel() {
+    ask({
+      title: '선점을 풀까요?', ok: '선점 풀기', no: '돌아가기', danger: true,
+      body: `${S.flow.sel.label} 좌석이 풀려서 다른 분이 가져갈 수 있어요. 남은 시간은 그대로 흘러요.`,
+      onOk: () => { dropSel(); S.flow.err = null; toast('선점을 풀었어요. 다른 좌석을 골라 주세요'); redraw(); }
+    });
+  },
   seatFloor(d) { S.flow.floor = d.v; redraw(); },
   backAsk() {
-    $('#backBox').innerHTML = `<div class="confirm" role="alert"><p>좌석 화면으로 돌아갈까요? <b>${esc(S.flow.sel.label)}</b> 선점은 남은 시간 동안 그대로예요. 다른 좌석을 고르려면 좌석 화면에서 선점을 풀어 주세요.</p>
-      <button class="btn btn-danger" data-act="backConfirm">좌석 다시 고르기</button><button class="btn" data-act="backCancel">계속 결제하기</button></div>`;
+    const f = S.flow;
+    if (f.busy) { toast(f.busy); return; }   // 결제 진행 중에는 선점을 풀지 않음
+    ask({
+      title: '좌석을 다시 고를까요?', ok: '좌석 다시 고르기', no: '계속 결제하기', danger: true,
+      body: `${f.sel.label} 선점이 바로 풀려서 다른 분이 가져갈 수 있어요. 남은 시간은 그대로 흘러요.`,
+      onOk: () => { dropSel(); f.err = null; toast('선점을 풀었어요. 다른 좌석을 골라 주세요'); history.back(); }
+    });
   },
-  backConfirm() { history.back(); },
-  backCancel() { $('#backBox').innerHTML = backLink; },
   // 결제하기 = N16. 서버가 내 선점을 결제 중으로 바꾼 뒤 승인 — 선점 시간이 지났으면 결제를 부르지 않고 410
   async pay(form) {
     const btn = $('#payBtn'), fail = form.fail.checked, race = form.race.checked, f = S.flow, c = CO(f.cid), label = btn.textContent;
@@ -2948,8 +2987,7 @@ const ACT = {
     if (race) {
       timers.push(setTimeout(() => {
         f.busy = null;
-        dropSel();
-        toast('선점 시간이 끝나 결제하지 않았어요 (410 HOLD_EXPIRED · 돈은 나가지 않았어요). 좌석을 다시 골라 주세요'); history.back();
+        timeUp(f, '시간이 끝나 결제하지 않았어요 (410 HOLD_EXPIRED · 돈은 나가지 않았어요). 대기열에 다시 들어가 주세요');
       }, 600));
       return;
     }
@@ -2988,9 +3026,15 @@ const ACT = {
     const b = S.bookings.find(x => x.id === d.id), map = seatMap(b.cid);
     if (b.checkedInAt) { toast('입장한 예매는 취소할 수 없어요'); return; }   // N13 409 BOOKING_NOT_CANCELLABLE
     if (demoNow() >= startOf(CO(b.cid)) - 24 * 3600e3) { toast('공연 24시간 전까지만 취소할 수 있어요'); return; }   // N13 409 BOOKING_NOT_CANCELLABLE
-    b.status = 'CANCELLED'; b.seats.forEach(k => { map[k] = 'free'; });
-    toast('예매를 취소하고 전액 환불했어요. 좌석은 다른 분이 고를 수 있게 풀렸어요');
-    rerender();
+    ask({
+      title: '예매를 취소할까요?', ok: '예매 취소하기', no: '돌아가기', danger: true,
+      body: `${CO(b.cid).title} · ${(b.labels || b.seats).join(', ')} 예매를 취소하면 전액 환불되고 좌석은 다른 분이 고를 수 있게 풀려요. 카드 환불은 카드사에 따라 3~7영업일 걸려요. 취소하면 되돌릴 수 없어요.`,
+      onOk: () => {
+        b.status = 'CANCELLED'; b.seats.forEach(k => { map[k] = 'free'; });
+        toast('예매를 취소하고 전액 환불했어요. 좌석은 다른 분이 고를 수 있게 풀렸어요');
+        rerender();
+      }
+    });
   },
   tasteGenre(d) { flip(S.user.genres, d.v); rerender(); },
   saveTaste() { toast('취향을 저장했어요. AI 추천에 바로 반영돼요'); },
@@ -3022,8 +3066,20 @@ const ACT = {
       }, 1600);
     }, 2600);
   },
-  withdrawAsk(d) { S.chat[d.i].confirm = true; drawChat(); },
-  withdrawCancel(d) { S.chat[d.i].confirm = false; drawChat(); },
+  logout() {
+    ask({
+      title: '로그아웃할까요?', ok: '로그아웃', no: '돌아가기',
+      body: '다시 이용하려면 카카오로 로그인해 주세요.',
+      onOk: () => { S.user.provider = null; S.flow = null; toast('로그아웃했어요'); go('landing'); }
+    });
+  },
+  withdrawAsk() {
+    ask({
+      title: '정말 탈퇴할까요?', ok: '탈퇴하기', no: '돌아가기', danger: true,
+      body: `팔로우 ${followedIds().length}팀, 위시리스트 ${S.wish.size + S.gwish.size}개, 고른 취향, 예매 내역, 대화 기록이 모두 지워지고 되돌릴 수 없어요.`,
+      onOk: ACT.withdraw
+    });
+  },
   withdraw() {
     Object.assign(S, {
       user: { nick: '새벽청취자', email: '', provider: null, genres: [], follows: {}, onboarded: false, addresses: [] },
@@ -3091,7 +3147,13 @@ const ACT = {
     Object.assign(S.adm, { gateRes: r, gateTok: '', gateLog: [{ ...r, at: nowAt(c), title: c.title }, ...(S.adm.gateLog || [])] });
     rerender();
   },
-  admLogout() { Object.assign(S.adm, { me: null, step: 'id', edit: null, err: null, imp: null, member: null, wd: null }); toast('로그아웃했어요'); go('adminLogin'); },
+  admLogout() {
+    ask({
+      title: '로그아웃할까요?', ok: '로그아웃', no: '돌아가기',
+      body: '관리자 화면에서 나가요. 다시 들어오려면 로그인과 OTP 인증이 필요해요.',
+      onOk: () => { Object.assign(S.adm, { me: null, step: 'id', edit: null, err: null, imp: null, member: null, wd: null }); toast('로그아웃했어요'); go('adminLogin'); }
+    });
+  },
   admTab(d) { Object.assign(S.adm, { tab: d.v, edit: null, err: null, wd: null }); if (d.v === 'products') S.adm.ptab = '굿즈'; rerender(); },
   admPtab(d) { Object.assign(S.adm, { ptab: d.v, edit: null, err: null }); rerender(); },
   admNew(d) { admOpen({ t: d.t, m: 'new' }); },
@@ -3250,10 +3312,16 @@ const ACT = {
   csWdCancel() { Object.assign(S.adm, { wd: null, wdErr: null }); rerender(); },
   csWithdraw(f) {
     if (!/^\d{6}$/.test(fv(f, 'otp'))) { S.adm.wdErr = '내 OTP 6자리를 넣어 주세요 — 되돌릴 수 없는 작업이라 다시 확인해요'; rerender(); $('#wdOtp').focus(); return; }
-    const m = MEMBERS.find(x => x.id === S.adm.wd);
-    Object.assign(m, { status: 'WITHDRAWN', nick: '(탈퇴)', email: null });
-    Object.assign(S.adm, { wd: null, wdErr: null });
-    toast(`#${m.id} 회원을 탈퇴 처리했어요 (사유 ${fv(f, 'reason')})`); rerender();
+    const m = MEMBERS.find(x => x.id === S.adm.wd), reason = fv(f, 'reason');
+    ask({
+      title: `#${m.id} 회원을 탈퇴 처리할까요?`, ok: '탈퇴 처리', no: '돌아가기', danger: true,
+      body: `${m.nick} 계정의 개인정보가 지워지고 되돌릴 수 없어요.`,
+      onOk: () => {
+        Object.assign(m, { status: 'WITHDRAWN', nick: '(탈퇴)', email: null });
+        Object.assign(S.adm, { wd: null, wdErr: null });
+        toast(`#${m.id} 회원을 탈퇴 처리했어요 (사유 ${reason})`); rerender();
+      }
+    });
   }
 };
 
