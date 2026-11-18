@@ -2393,7 +2393,17 @@ function goodsForm(e) {
 }
 function stockForm(g) {
   const log = S.adm.ledger.filter(x => x.id === g.id);
-  return `<form class="panel form adm-form" data-submit="admStock">
+  return `<form class="panel form adm-form" data-submit="admStockSet">
+  <h2>${esc(g.name)} 재고 설정</h2>
+  <p class="tag">수집 · 시드로 들어온 굿즈는 재고 0 으로 들어와요. 실제 들어온 수량을 여기서 정해요.</p>
+  <div class="fgrid">
+    <div><label for="fsQty">재고 (개)</label><input type="number" id="fsQty" name="qty" min="0" step="1" required value="${g.stock}"></div>
+    <div><label for="fsSetReason">사유</label><input type="text" id="fsSetReason" name="setReason" maxlength="200" required placeholder="예: 첫 입고"></div>
+  </div>
+  ${formActs('설정')}
+  ${dev('PUT /api/studio/products/options/{optionId}/stock { qty, reason } → Catalog PUT /internal/admin/catalog/options/{optionId}/stock · 실제는 옵션(사이즈)마다 · STOCK 권한')}
+</form>
+<form class="panel form adm-form" data-submit="admStock">
   <h2>${esc(g.name)} 재고 조정</h2>
   <p class="tag">지금 재고 <b class="num">${g.stock}개</b> · 공식판매처 입고는 엑셀로, 회수 · 파손 · 실사 보정은 여기서 해요.</p>
   <div class="fgrid">
@@ -3220,6 +3230,13 @@ const ACT = {
     if (g.stock + delta < 0) return admErr(`409 STOCK_NEGATIVE — 지금 재고(${g.stock}개)보다 많이 뺄 수 없어요`);
     g.stock += delta; S.adm.ledger.unshift({ id: g.id, delta, reason, at: nowStr() });
     toast(`재고를 ${delta > 0 ? '+' : ''}${delta}개 조정했어요 → ${g.stock}개`); admDone();
+  },
+  admStockSet(f) {
+    const g = GD(S.adm.edit.id), qty = parseInt(fv(f, 'qty'), 10), reason = fv(f, 'setReason');
+    if (!(qty >= 0)) return admErr('재고는 0 이상으로 넣어 주세요');
+    if (!reason) return admErr('사유를 넣어 주세요');
+    S.adm.ledger.unshift({ id: g.id, delta: qty - g.stock, reason: `${reason} · ${qty}개로 설정`, at: nowStr() });
+    g.stock = qty; toast(`재고를 ${qty}개로 설정했어요`); admDone();
   },
   admDel(d) {
     if (d.t === 'venue') {
