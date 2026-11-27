@@ -8,7 +8,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
 <style>
-/* 레이아웃: 상단 고정 내비 + 1120px 본문 · 폰에서는 하단 탭바 · 다크 우선 (기존 IA·온보딩 톤 계승) */
+/* 반응형 페이지 레이아웃. */
 :root{
   --bg:#0f0e14; --surface:#18161f; --surface-2:#221f2c; --line:#2e2a3a;
   --fg:#ecebf3; --muted:#958fab; --accent:#8b7cf6; --accent-weak:#272143; --on-accent:#ffffff;
@@ -49,7 +49,7 @@ p{margin:0}
 .num{font-variant-numeric:tabular-nums}
 .mono{font-family:var(--font-mono)}
 
-/* ---------- 상단 · 하단 내비 ---------- */
+/* 상단, 하단 내비 */
 .top{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
 .top-in{max-width:1120px;margin:0 auto;padding-inline:16px;height:58px;display:flex;align-items:center;gap:24px}
 .logo{background:none;border:0;padding:0;font-family:var(--font-display);font-size:21px;letter-spacing:-.5px;color:var(--fg);white-space:nowrap}
@@ -65,7 +65,7 @@ p{margin:0}
 .tabbar{display:none}
 body.bare .nav,body.bare .tabbar{display:none!important}
 
-/* ---------- 본문 ---------- */
+/* 본문 */
 .wrap{max-width:1120px;margin:0 auto;padding-inline:16px;padding-block:32px 56px}
 .eyebrow{font-size:12px;letter-spacing:.14em;color:var(--accent);font-weight:600}
 .display{font-family:var(--font-display);font-weight:400;font-size:clamp(34px,5vw,52px);line-height:1.15;letter-spacing:-.5px}
@@ -81,7 +81,7 @@ body.bare .nav,body.bare .tabbar{display:none!important}
 .split{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:32px;align-items:start}
 .split > *{min-width:0}
 
-/* ---------- 버튼 · 칩 · 상태 ---------- */
+/* 버튼, 칩, 상태 */
 .btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;border-radius:var(--r);padding:10px 18px;font-weight:600;border:1px solid var(--line);background:var(--surface-2);color:var(--fg);white-space:nowrap}
 .btn:hover{border-color:var(--muted)}
 .btn-primary{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
@@ -105,11 +105,11 @@ body.bare .nav,body.bare .tabbar{display:none!important}
 .tabs button[aria-selected="true"]{color:var(--fg);border-bottom-color:var(--accent)}
 .empty{border:1px dashed var(--line);border-radius:10px;padding:28px 20px;text-align:center;color:var(--muted);display:grid;gap:12px;justify-items:center}
 
-/* 개발 노트: API·이벤트 표시 (토글) */
+/* 개발 노트: API, 이벤트 표시 (토글) */
 .dev{display:none;font-family:var(--font-mono);font-size:11.5px;line-height:1.5;color:var(--warn);background:var(--warn-weak);padding:3px 8px;border-radius:4px;width:fit-content;max-width:100%;overflow-wrap:anywhere}
 body.devmode .dev{display:inline-block}
 
-/* ---------- 아바타 · 커버 ---------- */
+/* 아바타, 커버 */
 .avatar{--s:44px;width:var(--s);height:var(--s);flex:none;border-radius:50%;display:inline-grid;place-items:center;background:linear-gradient(140deg,var(--c1),var(--c2));color:#fff;font-weight:700;font-size:calc(var(--s) * .4);text-shadow:0 1px 2px rgba(0,0,0,.35)}
 .cover{position:relative;aspect-ratio:1;max-width:100%;border-radius:4px;overflow:hidden;background:linear-gradient(135deg,var(--c1),var(--c2));display:flex;align-items:flex-end;padding:10px;color:#fff;font-weight:700;font-size:13px;line-height:1.25}
 .cover.v1::before{content:"";position:absolute;top:14%;right:14%;width:48%;aspect-ratio:1;border-radius:50%;background:rgba(255,255,255,.2)}
@@ -119,7 +119,7 @@ body.devmode .dev{display:inline-block}
 .cover::after{content:"";position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.55),transparent 60%)}
 .cover span{position:relative;z-index:1;text-shadow:0 1px 3px rgba(0,0,0,.4)}
 
-/* ---------- 카드 그리드 ---------- */
+/* 카드 그리드 */
 .grid{display:grid;gap:16px;grid-template-columns:repeat(auto-fill,minmax(200px,1fr))}
 .grid.albums{grid-template-columns:repeat(auto-fill,minmax(160px,1fr))}
 .acard{display:grid;gap:12px;align-content:start;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:16px;text-align:left;min-width:0}
@@ -134,7 +134,7 @@ body.devmode .dev{display:inline-block}
 .alcard .s{font-size:12.5px;color:var(--muted)}
 .match{font-family:var(--font-mono);font-size:12px;color:var(--accent);font-weight:500}
 
-/* ---------- 리스트 ---------- */
+/* 리스트 */
 .list{display:grid;border:1px solid var(--line);border-radius:10px;background:var(--surface);overflow:hidden}
 .li{display:flex;align-items:center;gap:14px;padding:14px 16px;text-align:left;background:none;border:0;border-top:1px solid var(--line);width:100%;min-width:0}
 .li:first-child{border-top:0}
@@ -147,7 +147,7 @@ button.li:hover{background:var(--surface-2)}
 .date small{font-size:11.5px;color:var(--muted)}
 .li .new{width:7px;height:7px;border-radius:50%;background:var(--bad);flex:none}
 
-/* ---------- 폼 ---------- */
+/* 폼 */
 .form{display:grid;gap:8px}
 .form h2{font-size:20px;margin-bottom:8px}
 .form label{font-size:13px;color:var(--muted);font-weight:500;margin-top:6px}
@@ -156,7 +156,7 @@ button.li:hover{background:var(--surface-2)}
 .search{max-width:420px}
 .check{display:flex;align-items:center;gap:8px;font-size:14px}
 
-/* ---------- 가입 · 온보딩 ---------- */
+/* 가입, 온보딩 */
 .signup{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:56px;align-items:center;padding-block:24px}
 .signup-copy{display:grid;gap:22px}
 .points{display:grid;gap:10px;margin:0;padding:0;list-style:none}
@@ -169,13 +169,13 @@ button.li:hover{background:var(--surface-2)}
 .pick .ck{margin-left:auto;width:22px;height:22px;border-radius:50%;border:1.5px solid var(--line);display:grid;place-items:center;font-size:13px;color:var(--on-accent);flex:none}
 .pick.on .ck{background:var(--accent);border-color:var(--accent)}
 .saved{display:grid;gap:6px;font-size:13px;color:var(--muted)}
-/* 약관 화면 · 푸터 (docs/25) */
+/* 약관 화면, 푸터 (docs/25) */
 .terms-doc{max-width:760px;display:grid;gap:10px}
 .terms-doc h2{font-size:16px;margin-top:14px}
 .terms-doc p,.terms-doc li{color:var(--muted)}
 .terms-doc ul,.terms-doc ol{margin:0;padding-left:1.2em;display:grid;gap:4px}
 .terms-doc mark{background:var(--warn-weak);color:var(--warn);padding:0 4px;border-radius:3px}
-/* 가입 — 약관 동의 (M24) */
+/* 가입 - 약관 동의 (M24) */
 .steps{display:flex;flex-wrap:wrap;gap:6px 16px;margin:0;padding:0;list-style:none;font-size:13px;color:var(--muted)}
 .steps .on{color:var(--accent);font-weight:700}
 .agree{display:grid;padding:4px 20px}
@@ -195,11 +195,11 @@ button.li:hover{background:var(--surface-2)}
 .biz{display:flex;flex-wrap:wrap;gap:2px 16px;font-size:12px;color:var(--muted);line-height:1.7}
 .biz i{font-style:normal;color:var(--warn)}
 
-/* ---------- 첫 진입 (비로그인): 좌측 후킹 문구 · 우측 오늘 공연 ---------- */
+/* 첫 진입 (비로그인): 좌측 후킹 문구, 우측 오늘 공연 */
 .display.xl{font-size:clamp(40px,6.4vw,72px);line-height:1.08}
 .tm{flex:none;width:52px;font-family:var(--font-mono);font-size:15px;font-weight:500;font-variant-numeric:tabular-nums;color:var(--accent)}
 
-/* ---------- 아티스트 상세 ---------- */
+/* 아티스트 상세 */
 .hero-a{display:flex;flex-wrap:wrap;align-items:center;gap:20px 24px;padding-bottom:28px;border-bottom:1px solid var(--line);margin-bottom:28px}
 .hero-a .meta{flex:1;min-width:220px;display:grid;gap:6px}
 .hero-a h1{font-family:var(--font-display);font-weight:400;font-size:clamp(30px,4.4vw,42px)}
@@ -212,7 +212,7 @@ button.li:hover{background:var(--surface-2)}
 .table td.r,.table th.r{text-align:right}
 .tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px;background:var(--surface)}
 
-/* ---------- 공연 ---------- */
+/* 공연 */
 .cal{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));border:1px solid var(--line);border-radius:10px;overflow:hidden;background:var(--surface)}
 .cal .wd{padding:8px;font-size:12px;color:var(--muted);text-align:center;border-bottom:1px solid var(--line)}
 .cal .d{min-height:92px;padding:6px;border-top:1px solid var(--line);border-left:1px solid var(--line);display:grid;align-content:start;gap:4px;min-width:0}
@@ -228,7 +228,7 @@ button.li:hover{background:var(--surface-2)}
 .poster h1{font-family:var(--font-display);font-weight:400;font-size:clamp(26px,4vw,38px);line-height:1.15}
 .poster .tag{color:rgba(255,255,255,.85)}
 
-/* 대기열 · 좌석 · 결제 */
+/* 대기열, 좌석, 결제 */
 .queue{max-width:520px;margin:24px auto;text-align:center;display:grid;gap:18px;justify-items:center}
 .queue .big{font-family:var(--font-mono);font-size:64px;font-weight:500;line-height:1;font-variant-numeric:tabular-nums}
 .bar{width:100%;height:6px;border-radius:3px;background:var(--surface-2);overflow:hidden}
@@ -236,7 +236,7 @@ button.li:hover{background:var(--surface-2)}
 .timer{font-family:var(--font-mono);font-variant-numeric:tabular-nums;font-size:13px;padding:4px 10px;border-radius:4px;background:var(--accent-weak);color:var(--accent);white-space:nowrap}
 .timer.warn{background:var(--warn-weak);color:var(--warn)}
 .stage{text-align:center;font-size:12px;letter-spacing:.3em;color:var(--muted);border:1px solid var(--line);border-radius:4px 4px 40px 40px;padding:8px;margin-bottom:18px}
-/* 좌석 상태 색 — 배치도(.plan.pm) · 구역 확대 창(.secview.pm) 공용 */
+/* 좌석 상태 색 - 배치도(.plan.pm), 구역 확대 창(.secview.pm) 공용 */
 .pm rect.free,.pm .free rect{fill:var(--ok)}
 .pm rect.held,.pm .held rect{fill:color-mix(in srgb,var(--seat-taken) 55%,var(--bg))}
 .pm rect.paid,.pm .paid rect{fill:var(--seat-taken)}
@@ -258,7 +258,7 @@ button.li:hover{background:var(--surface-2)}
 .err{background:var(--bad-weak);color:var(--bad);border-radius:8px;padding:12px 14px;font-size:14px}
 .confirm{display:grid;gap:8px;padding:12px;border:1px solid var(--line);border-radius:8px;background:var(--surface-2);font-size:14px}
 .check.sim{color:var(--muted);font-size:13px}
-/* 구역 확대 창 — 넓은 화면은 가운데 창, 폰은 아래에서 올라오는 시트 */
+/* 구역 확대 창 - 넓은 화면은 가운데 창, 폰은 아래에서 올라오는 시트 */
 .sheet{width:min(1040px,calc(100vw - 32px));max-width:none;max-height:calc(100dvh - 32px);padding:0;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg);overflow:auto}
 .sheet::backdrop{background:rgba(0,0,0,.6)}
 .askbox{width:min(400px,calc(100vw - 32px));margin:auto;padding:20px;border:1px solid var(--line);border-radius:12px;background:var(--bg);color:var(--fg)}
@@ -293,7 +293,7 @@ button.li:hover{background:var(--surface-2)}
 .legend i{display:inline-block;width:14px;height:12px;border-radius:3px;vertical-align:-1px;margin-right:6px}
 .sumbar{display:flex;flex-wrap:wrap;gap:12px 20px;align-items:center;justify-content:space-between}
 
-/* ---------- AI 챗봇: 모든 화면 우측 하단 버튼 → 채팅 창 ---------- */
+/* AI 챗봇: 모든 화면 우측 하단 버튼 -> 채팅 창 */
 .fab{position:fixed;right:16px;bottom:calc(20px + env(safe-area-inset-bottom,0px));z-index:30;width:56px;height:56px;border-radius:50%;border:0;background:var(--accent);color:var(--on-accent);display:grid;place-items:center;box-shadow:0 8px 24px rgba(0,0,0,.3)}
 .fab:hover{filter:brightness(1.08)}
 .fab svg{width:24px;height:24px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
@@ -321,7 +321,7 @@ button.li:hover{background:var(--surface-2)}
 .btn-danger{background:var(--bad);border-color:var(--bad);color:#fff}
 .btn-danger:hover{filter:brightness(1.08);border-color:var(--bad)}
 
-/* ---------- 관리자 · 좌석 구역 편집 (구역 꼭짓점 → 무대를 바라보게 좌석 자동 배치) ---------- */
+/* 관리자, 좌석 구역 편집 (구역 꼭짓점 -> 무대를 바라보게 좌석 자동 배치) */
 .admin-grid{display:grid;grid-template-columns:300px minmax(0,1fr);gap:24px;align-items:start}
 .admin-grid > *{min-width:0}
 .inline{display:flex;gap:8px}
@@ -340,7 +340,7 @@ button.li:hover{background:var(--surface-2)}
 .table.adm{min-width:760px}
 .table.adm th,.table.adm td{word-break:keep-all}
 .qr{width:168px;height:168px;background:#fff;padding:8px;border-radius:8px;border:1px solid var(--line)}
-/* 배송지 · 모바일 티켓 */
+/* 배송지, 모바일 티켓 */
 .form input[type=tel]{width:100%;background:var(--bg);border:1px solid var(--line);border-radius:var(--r);padding:11px 14px}
 .form input[readonly]{color:var(--muted)}
 .postcode{height:420px;border:1px solid var(--line);border-radius:8px;overflow:hidden}
@@ -370,7 +370,7 @@ button.li:hover{background:var(--surface-2)}
 .plan .secl{fill:var(--fg);font-size:8px;font-weight:700;font-family:var(--font-body);text-anchor:middle;dominant-baseline:central;paint-order:stroke;stroke:var(--bg);stroke-width:2.5px}
 .json{margin:0;max-height:360px;overflow:auto;background:var(--bg);border:1px solid var(--line);border-radius:8px;padding:12px 14px;font-family:var(--font-mono);font-size:12px;line-height:1.55;white-space:pre}
 
-/* ---------- 보조 ---------- */
+/* 보조 */
 .acard button.row{background:none;border:0;padding:0;text-align:left;color:inherit}
 .nm{min-width:0;overflow-wrap:anywhere}
 .mini-cover{width:52px;flex:none}
@@ -396,10 +396,10 @@ button.li:hover{background:var(--surface-2)}
 .sso.kakao{background:#FEE500;border-color:#FEE500;color:rgba(0,0,0,.85)}
 .sso.kakao:hover{filter:brightness(.96)}
 
-/* ---------- 토스트 ---------- */
+/* 토스트 */
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:50;background:var(--fg);color:var(--bg);padding:12px 18px;border-radius:8px;font-size:14px;font-weight:500;max-width:calc(100% - 32px);box-shadow:0 8px 24px rgba(0,0,0,.25)}
 
-/* ---------- 반응형 ---------- */
+/* 반응형 */
 @media (max-width:960px){
   .split,.admin-grid{grid-template-columns:minmax(0,1fr)}
   .signup{grid-template-columns:minmax(0,1fr);gap:32px}
@@ -422,7 +422,7 @@ button.li:hover{background:var(--surface-2)}
 }
 @media (prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
 
-/* 배포용 기본 리셋 (아티팩트 스켈레톤이 대신하던 부분) */
+/* 페이지 기본 스타일 초기화. */
 body{margin:0}
 img{max-width:100%}
 [hidden]{display:none!important}
@@ -459,7 +459,7 @@ img{max-width:100%}
 </section>
 
 <script>
-/* ===== 샘플 데이터 (가상의 밴드 · 실제 공연장 이름) ===== */
+/* 샘플 데이터 (가상의 밴드, 실제 공연장 이름) */
 const TODAY = new Date('2026-10-08T12:00:00');
 const GENRES = ['인디록','슈게이징','드림팝','포스트록','포크','신스팝','시티팝','펑크','사이키델릭','재즈 인디'];
 
@@ -589,7 +589,7 @@ const CONCERTS = [
 </script>
 
 <script>
-/* ===== 상태 ===== */
+/* 상태 */
 const S = {
   route:'landing', p:{},
   user:{nick:'새벽청취자', email:'', provider:null, genres:[], follows:{}, onboarded:false,
@@ -603,7 +603,7 @@ const S = {
 };
 let timers = [];
 
-/* ===== 도우미 ===== */
+/* 도우미 */
 const $ = s => document.querySelector(s);
 const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const won = n => n.toLocaleString('ko-KR') + '원';
@@ -635,7 +635,7 @@ function toast(t) {
   const el = $('#toast'); el.textContent = t; el.hidden = false;
   clearTimeout(toast.t); toast.t = setTimeout(() => { el.hidden = true; }, 3000);
 }
-// 취소 · 탈퇴 · 로그아웃 · 시간 종료 전에 꼭 거치는 창 — no 가 없으면 확인만 있는 고지 (Esc 로 닫아도 확인과 같은 길)
+// 취소, 탈퇴, 로그아웃, 시간 종료 전에 꼭 거치는 창 - no 가 없으면 확인만 있는 고지 (Esc 로 닫아도 확인과 같은 길)
 function ask({ title, body, ok, no, danger, onOk }) {
   const m = $('#ask');
   let done = false;
@@ -648,7 +648,7 @@ function ask({ title, body, ok, no, danger, onOk }) {
   m.querySelector('button').focus();   // 되돌릴 수 없는 동작이면 '돌아가기'에 먼저 포커스
 }
 
-/* ===== 취향 점수 (개인 RAG 흉내) ===== */
+/* 샘플 데이터로 취향 점수를 계산합니다. */
 function tasteScore(a) {
   const fg = followedIds().flatMap(id => A(id).genres);
   return a.genres.reduce((s, g) => s + (S.user.genres.includes(g) ? 2 : 0) + (fg.includes(g) ? 1 : 0), 0);
@@ -670,7 +670,7 @@ function recommend(n = 3, pool = ARTISTS) {
     .map(({ a, s }) => ({ a, pct: Math.min(97, 52 + s * 10 + (a.followers % 7)) }));
 }
 
-/* ===== 공용 조각 ===== */
+/* 공용 조각 */
 const followBtn = id => `<button class="btn btn-s ${following(id) ? 'on' : ''}" data-act="follow" data-id="${id}" aria-pressed="${following(id)}">${following(id) ? '팔로잉' : '팔로우'}</button>`;
 function acard(a, o = {}) {
   return `<article class="acard">
@@ -690,13 +690,13 @@ const stockTable = al => `<div class="tbl-wrap"><table class="table"><thead><tr>
   ${al.stock.map(([s, p, q]) => `<tr><td>${esc(s)}</td><td class="r num">${won(p)}</td><td class="r">${q > 0 ? `<span class="pill ok num">${q}장</span>` : '<span class="pill bad">품절</span>'}</td></tr>`).join('')}
   </tbody></table></div>`;
 
-/* ===== 배송지 — 굿즈 · LP 만 (티켓은 배송 없음) · 주소 검색은 카카오 우편번호 서비스 (프론트 · 키 없음) ===== */
+/* 배송지 - 굿즈, LP 만 (티켓은 배송 없음), 주소 검색은 카카오 우편번호 서비스 (프론트, 키 없음) */
 const MAX_ADDR = 10;
 let addrNo = 1;
 const addrLine = a => `(${a.zonecode}) ${a.address}${a.addressDetail ? ' ' + a.addressDetail : ''}`;
-const addrList = () => S.user.addresses.slice().sort((x, y) => y.isDefault - x.isDefault || y.id - x.id);   // M19 순서: 기본 → 최근
+const addrList = () => S.user.addresses.slice().sort((x, y) => y.isDefault - x.isDefault || y.id - x.id);   // M19 순서: 기본 -> 최근
 const setDefault = a => S.user.addresses.forEach(x => { x.isDefault = x === a; });
-// 받는 분 · 연락처 · 주소 칸. 우편번호 · 주소는 읽기 전용 — 「주소 검색」으로만 채움 (손으로 친 주소는 우편번호가 안 맞음)
+// 받는 분, 연락처, 주소 칸. 우편번호, 주소는 읽기 전용 - 「주소 검색」으로만 채움 (손으로 친 주소는 우편번호가 안 맞음)
 const addrFields = (a = {}, o = {}) => `
   ${o.label ? `<label for="ad-label">배송지 이름 <small>(선택 · 집, 회사)</small></label><input type="text" id="ad-label" name="label" maxlength="20" value="${esc(a.label || '')}" autocomplete="off">` : ''}
   <label for="ad-name">받는 분</label><input type="text" id="ad-name" name="recipientName" maxlength="20" required value="${esc(a.recipientName || '')}" autocomplete="name">
@@ -706,20 +706,20 @@ const addrFields = (a = {}, o = {}) => `
   <input type="text" name="address" readonly placeholder="「주소 검색」을 눌러 주세요" value="${esc(a.address || '')}" aria-label="주소">
   <div class="postcode" hidden></div>
   <input type="text" name="addressDetail" maxlength="100" placeholder="상세 주소 (동 · 호수)" value="${esc(a.addressDetail || '')}" aria-label="상세 주소" autocomplete="address-line2">`;
-// 폼 → M20 · C9 shipping 본문. 읽기 전용 칸은 required 로 못 막아서 여기서 확인
+// 폼 -> M20, C9 shipping 본문. 읽기 전용 칸은 required 로 못 막아서 여기서 확인
 function readAddr(f) {
   const v = k => (f.elements[k]?.value || '').trim();
   if (!v('zonecode') || !v('address')) { toast('「주소 검색」으로 주소를 넣어 주세요'); return null; }
   return { label: v('label') || null, recipientName: v('recipientName'), phone: v('phone'), zonecode: v('zonecode'), address: v('address'), addressDetail: v('addressDetail') || null };
 }
-// M20 — 첫 배송지는 자동으로 기본
+// M20 - 첫 배송지는 자동으로 기본
 function addAddr(a, makeDefault) {
   const n = { ...a, id: ++addrNo, isDefault: false };
   S.user.addresses.push(n);
   if (makeDefault || S.user.addresses.length === 1) setDefault(n);
   return n;
 }
-// 외부 스크립트는 처음 쓸 때 한 번만 받음 (카카오 우편번호 · QR). 실패하면 다음에 다시 시도
+// 외부 스크립트는 처음 쓸 때 한 번만 받음 (카카오 우편번호, QR). 실패하면 다음에 다시 시도
 const JS = {};
 const loadJs = src => JS[src] ||= new Promise((ok, no) => {
   const el = document.createElement('script');
@@ -727,12 +727,12 @@ const loadJs = src => JS[src] ||= new Promise((ok, no) => {
   document.head.appendChild(el);
 });
 const POSTCODE_JS = 'https://t1.kakaocdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js';
-// 결제는 토스페이먼츠 주문서형 — 결제수단 · 약관 UI 를 토스가 그리고 결제창도 토스가 띄움. 테스트 키라 실제 카드를 넣어도 돈이 나가지 않음
-// 클라이언트 키는 브라우저용 공개 값(토스 문서의 테스트 키). 시크릿 키(test_gsk_)는 절대 여기 두지 않음 — 승인은 서버(P1 · N16)
+// 결제는 토스페이먼츠 주문서형 - 결제수단, 약관 UI 를 토스가 그리고 결제창도 토스가 띄움. 테스트 키라 실제 카드를 넣어도 돈이 나가지 않음
+// 클라이언트 키는 브라우저용 공개 값(토스 문서의 테스트 키). 시크릿 키(test_gsk_)는 절대 여기 두지 않음 - 승인은 서버(P1, N16)
 const TOSS_JS = 'https://js.tosspayments.com/v2/standard';
 const TOSS_CK = 'test_gck_docs_Ovk5rk1EwkEbP0W43n07xlzm';
 const toss = { widgets: null, ui: [], job: Promise.resolve() };
-// 결제 화면을 그릴 때마다 #tossPay · #tossTerms 에 다시 렌더 — 화면을 다시 그리면 iframe 도 사라지므로 이전 UI 를 지우고 (한 페이지에 하나씩만 렌더 가능)
+// 결제 화면을 그릴 때마다 #tossPay, #tossTerms 에 다시 렌더 - 화면을 다시 그리면 iframe 도 사라지므로 이전 UI 를 지우고 (한 페이지에 하나씩만 렌더 가능)
 function mountToss(amount) {
   const box = $('#tossPay'), btn = $('#payBtn');
   if (!box) return;
@@ -743,7 +743,7 @@ function mountToss(amount) {
       toss.widgets ||= TossPayments(TOSS_CK).widgets({ customerKey: TossPayments.ANONYMOUS });
       await Promise.all(toss.ui.splice(0).map(w => Promise.resolve().then(() => w.destroy()).catch(() => {})));
       await toss.widgets.setAmount({ currency: 'KRW', value: amount });
-      box.replaceChildren();   // 토스가 비우지 않고 덧붙임 — 로딩 문구 대신 토스 스켈레톤
+      box.replaceChildren();   // 토스가 비우지 않고 덧붙임 - 로딩 문구 대신 토스 스켈레톤
       toss.ui = await Promise.all([
         toss.widgets.renderPaymentMethods({ selector: '#tossPay', variantKey: 'DEFAULT' }),
         toss.widgets.renderAgreement({ selector: '#tossTerms', variantKey: 'AGREEMENT' })]);
@@ -753,7 +753,7 @@ function mountToss(amount) {
     }
   });
 }
-// 결제창 띄우기 — 데모는 Promise 방식(PC · 화면 상태 유지). 휴대폰은 토스가 페이지 이동(successUrl · failUrl)만 지원 — 운영 프론트는 23 §5 대로
+// 결제창 띄우기 - 데모는 Promise 방식(PC, 화면 상태 유지). 휴대폰은 토스가 페이지 이동(successUrl, failUrl)만 지원 - 운영 프론트는 23 §5 대로
 async function tossRequest(orderId, orderName, customer = {}) {
   try {
     return await toss.widgets.requestPayment({ orderId, orderName: orderName.slice(0, 100), ...customer });
@@ -764,9 +764,9 @@ async function tossRequest(orderId, orderName, customer = {}) {
     return null;
   }
 }
-const newPgOrderId = kind => `${kind}-${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;   // 서버(C9 · N10)가 만들어 주는 pgOrderId(GOODS-… · TICKET-…) 흉내
+const newPgOrderId = kind => `${kind}-${Date.now().toString(36)}${Math.random().toString(36).slice(2, 8)}`;   // 서버(C9, N10)가 만들어 주는 pgOrderId(GOODS-..., TICKET-...) 흉내
 
-/* ===== 화면 ===== */
+/* 화면 */
 const V = {}, AFTER = {};
 
 V.landing = () => {
@@ -815,16 +815,16 @@ V.signup = () => `
   </div>
 </section>`;
 
-/* ===== 약관 · 정책 (docs/25) — 초안 · 법무 검토 전. 【확인 필요】는 결정이 남은 자리 ===== */
+/* 약관, 정책 (docs/25) - 초안, 법무 검토 전. 【확인 필요】는 결정이 남은 자리 */
 const dot = d => `${d.getFullYear()}.${String(d.getMonth() + 1).padStart(2, '0')}.${String(d.getDate()).padStart(2, '0')}`;
 const todo = t => `<mark>【확인 필요】 ${t}</mark>`;
-// 전자상거래법 제10조 표시 항목. 사업자 등록 · 통신판매업 신고 전이라 비어 있음
+// 전자상거래법 제10조 표시 항목. 사업자 등록, 통신판매업 신고 전이라 비어 있음
 const BIZ = [
   ['상호', '인디 아카이브 (가칭)'], ['대표자', '<i>등록 후 기재</i>'], ['사업자등록번호', '<i>사업자 등록 전</i>'],
   ['통신판매업 신고번호', '<i>신고 전</i>'], ['주소', '<i>등록 후 기재</i>'], ['전화', '<i>등록 후 기재</i>'],
   ['이메일', '<i>도메인 확정 후 기재</i>'], ['개인정보 보호책임자', '<i>등록 후 기재</i>'], ['호스팅 제공자', 'Amazon Web Services, Inc.']
 ];
-/* 약관 본문은 운영 DB 시드 그대로 (member V9 · V10 — 법무 검토 전 초안). 화면은 M24 · M25 응답 모양을 씀. PRIVACY v2 는 11/14 시행이라 지금은 v1 */
+/* 약관 본문은 운영 DB 시드 그대로 (member V9, V10 - 법무 검토 전 초안). 화면은 M24, M25 응답 모양을 씀. PRIVACY v2 는 시행이라 지금은 v1 */
 const TERMS_CONSENT = [
   { termsId: 1, code: 'AGE14', version: 'v1', title: '만 14세 이상입니다', required: true, content: `# 만 14세 이상 확인
 
@@ -1003,7 +1003,7 @@ const PRIVACY_POLICY_MD = `# 개인정보처리방침
 **11. 시행일**
 
 이 방침은 2026년 11월 6일부터 적용합니다.`;
-// 약관 본문(마크다운) → HTML. 시드에 쓰인 문법만 — # 제목(화면 제목과 같아서 뺌) · 한 줄 전체 **굵게**(소제목) · - 목록 · 1. 목록 · 【확인 필요】
+// 약관 본문(마크다운) -> HTML. 시드에 쓰인 문법만 - # 제목(화면 제목과 같아서 뺌), 한 줄 전체 **굵게**(소제목), - 목록, 1. 목록, 【확인 필요】
 function termsHtml(md) {
   const inline = s => esc(s).replace(/\*\*(.+?)\*\*/g, '<b>$1</b>').replace(/【확인 필요[^】]*】/g, m => `<mark>${m}</mark>`);
   let html = '', list = null;
@@ -1064,15 +1064,15 @@ V.terms = ({ id }) => {
 </article>`;
 };
 
-// 비슷한 밴드: 운영은 artist 임베딩 유사도(pgvector) · 데모는 장르 겹침 + 같은 레이블로 흉내. skip(이미 보여 준 밴드)은 top-3 를 고르기 전에 뺌
+// 비슷한 밴드: 운영은 artist 임베딩 유사도(pgvector), 데모는 장르 겹침 + 같은 레이블로 흉내. skip(이미 보여 준 밴드)은 top-3 를 고르기 전에 뺌
 function similar(a, skip) {
   return ARTISTS.filter(b => b.id !== a.id && !skip.has(b.id))
     .map(b => ({ b, s: b.genres.filter(x => a.genres.includes(x)).length * 2 + (a.label !== '독립' && b.label === a.label ? 1 : 0) }))
     .filter(x => x.s > 0).sort((x, y) => y.s - x.s || y.b.followers - x.b.followers).slice(0, 3).map(x => x.b);
 }
-// 가입 = 카카오 로그인 → /welcome 한 화면에서 ① 약관 동의 ② 밴드 고르기 → G13 에서 한 번에 회원 생성. 그 전에는 회원이 아니라 아무것도 저장되지 않음
+// 가입 = 카카오 로그인 -> /welcome 한 화면에서 1 약관 동의 2 밴드 고르기 -> G13 에서 한 번에 회원 생성. 그 전에는 회원이 아니라 아무것도 저장되지 않음
 const stepper = n => `<ol class="steps">${['약관 동의', '밴드 고르기'].map((t, i) => `<li class="${i + 1 === n ? 'on' : ''}" ${i + 1 === n ? 'aria-current="step"' : ''}>${i + 1}. ${t}</li>`).join('')}</ol>`;
-// ① 약관 동의 — M24 의 약관을 순서대로 체크박스로. 체크는 화면에만 두고 서버에는 G13 에서 밴드와 함께 보냄
+// 1 약관 동의 - M24 의 약관을 순서대로 체크박스로. 체크는 화면에만 두고 서버에는 G13 에서 밴드와 함께 보냄
 V.agree = () => {
   const a = S.draft.agreed;
   return `
@@ -1104,9 +1104,9 @@ function drawAgree() {
   $('#agreeNext').disabled = !TERMS_CONSENT.every(t => !t.required || a[t.termsId]);
 }
 AFTER.agree = drawAgree;
-// ② 밴드 고르기 — 첫 세트를 보여 주고, 고른 밴드마다 비슷한 밴드를 이어서 엶 (체인)
-// 이미 보여 준 밴드(shown)는 요청에 실어 보내고 서버가 빼서 줌 — 같은 밴드가 두 번 나오지 않음
-const SEED = 12;   // 데모 밴드 30팀 중 인기순 12팀 — 나머지 18팀은 체인으로 열림 (운영은 24팀쯤)
+// 2 밴드 고르기 - 첫 세트를 보여 주고, 고른 밴드마다 비슷한 밴드를 이어서 엶 (체인)
+// 이미 보여 준 밴드(shown)는 요청에 실어 보내고 서버가 빼서 줌 - 같은 밴드가 두 번 나오지 않음
+const SEED = 12;   // 데모 밴드 30팀 중 인기순 12팀 - 나머지 18팀은 체인으로 열림 (운영은 24팀쯤)
 const seedArtists = () => ARTISTS.slice().sort((x, y) => y.followers - x.followers).slice(0, SEED);
 V.pickArtists = () => {
   const d = S.draft, n = d.artists.length;
@@ -1232,14 +1232,14 @@ V.goods = ({ id }) => {
 };
 
 let orderNo = 0;
-// 결제 화면이 파는 것 — 굿즈(gpay) · LP(lpay). LP 는 운영에선 상품 1개(가격 · 재고 1벌), 데모는 판매처 표의 최저가 재고로 흉내
+// 결제 화면이 파는 것 - 굿즈(gpay), LP(lpay). LP 는 운영에선 상품 1개(가격, 재고 1벌), 데모는 판매처 표의 최저가 재고로 흉내
 const lpOffer = al => al.lp && al.stock.filter(x => x[2] > 0).sort((x, y) => x[1] - y[1])[0];
 function buyItem(route, id) {
   if (route === 'lpay') {
     const al = AL(id), o = lpOffer(al);
     return { kind: 'LP', name: `${al.title} LP`, artist: al.artist, price: o ? o[1] : 0, stock: o ? o[2] : 0, qty: 1,
       back: ['album', id, '음반으로 돌아가기'], more: ['albums', '', '다른 음반 보기'],
-      take: q => { o[2] -= q; S.owned.add(id); }, give: q => { o[2] += q; } };   // 결제 완료 → 컬렉션 자동 추가 (환불해도 컬렉션은 그대로 — Member 는 payment.completed 만 구독)
+      take: q => { o[2] -= q; S.owned.add(id); }, give: q => { o[2] += q; } };   // 결제 완료 -> 컬렉션 자동 추가 (환불해도 컬렉션은 그대로 - Member 는 payment.completed 만 구독)
   }
   const g = GD(id);
   return { kind: '굿즈', name: g.name, artist: g.artist, price: g.price, stock: g.stock, qty: Math.min(S.gq[id] || 1, g.stock),
@@ -1275,7 +1275,7 @@ function checkout(it) {
 </div>`;
 }
 const tossBox = () => '<div class="toss-box"><div id="tossPay"><p class="toss-msg">토스 결제창을 불러오는 중…</p></div><div id="tossTerms"></div></div>';
-// 결제 화면의 배송지 — 기본 배송지를 미리 고르고, 「새 주소 입력」을 고르면 입력 칸이 열림
+// 결제 화면의 배송지 - 기본 배송지를 미리 고르고, 「새 주소 입력」을 고르면 입력 칸이 열림
 function shipBox() {
   const list = addrList(), pick = list.some(a => a.id === S.ship) ? S.ship : (list.length && S.ship !== 'new' ? list[0].id : 'new');
   return `${list.map(a => `<label class="ship-opt"><input type="radio" name="shipPick" value="${a.id}" ${pick === a.id ? 'checked' : ''}>
@@ -1338,7 +1338,7 @@ ${dev(`GET /api/artists/${id} + Concert API 동기 호출 (FR-CAT-05) · 팔로�
 </script>
 
 <script>
-/* ===== 공연 · 예매 ===== */
+/* 공연, 예매 */
 const mmss = ms => { const s = Math.max(0, Math.ceil(ms / 1000)); return `${Math.floor(s / 60)}:${String(s % 60).padStart(2, '0')}`; };
 const chip = (act, v, cur, label = v) => `<button class="chip ${cur === v ? 'on' : ''}" data-act="${act}" data-v="${v}">${label}</button>`;
 
@@ -1371,7 +1371,7 @@ V.concerts = () => {
 </div>`;
 };
 
-// N2 의 saleStatus — ConcertEntity.saleStatus 와 같은 규칙. 관리자가 데모에서 만든 공연은 오픈 시각이 없어 바로 판매 중으로 둠
+// N2 의 saleStatus - ConcertEntity.saleStatus 와 같은 규칙. 관리자가 데모에서 만든 공연은 오픈 시각이 없어 바로 판매 중으로 둠
 const saleOf = c => TODAY >= startOf(c) ? 'CLOSED' : c.open && TODAY < new Date(c.open) ? 'SCHEDULED' : 'ON_SALE';
 const openLabel = c => `${md(c.open.slice(0, 10))} ${c.open.slice(11)}`;
 V.concert = ({ id }) => {
@@ -1421,7 +1421,7 @@ const TIMER_NOTE = '시계 하나: 입장 토큰 7분 = 화면 시계 · N10 선
 AFTER.queue = () => {
   const c = CO(S.p.id), total = c.queue; let pos = total;
   const t = setInterval(() => {
-    if (document.hidden) return;   // 앱을 내리면 폴링이 멈춤 — 돌아왔을 때 15초가 지났으면 이탈 (visibilitychange)
+    if (document.hidden) return;   // 앱을 내리면 폴링이 멈춤 - 돌아왔을 때 15초가 지났으면 이탈 (visibilitychange)
     pos = Math.max(0, pos - Math.ceil(total * (0.05 + Math.random() * 0.08)));
     $('#qPos').textContent = pos.toLocaleString();
     $('#qBar').style.width = (100 - pos / total * 100) + '%';
@@ -1451,9 +1451,9 @@ document.addEventListener('visibilitychange', () => {
   else if (Date.now() - qHiddenAt > 15000) dropQueue();
 });
 
-/* 좌석 — 무대 모양 배치도 → 구역을 누르면 무대 정면으로 돌린 확대 창 → 좌석 고르기(화면만) → 선택완료(N10 · ✏️ 11/04 77A 선점 — 한 명만)
-   → 결제(N16 · 내 선점일 때만 승인). 좌석 상태 = 빈 좌석 · 선점(회색) · 판매(회색) */
-// 공연장 구역: 관리자가 그린 구역이 있으면 그걸, 없으면 관리자 화면 샘플 도면의 A~D 구역 (400×300 좌표)
+/* 좌석 - 무대 모양 배치도 -> 구역을 누르면 무대 정면으로 돌린 확대 창 -> 좌석 고르기(화면만) -> 선택완료(N10, 77A 선점 - 한 명만)
+   -> 결제(N16, 내 선점일 때만 승인). 좌석 상태 = 빈 좌석, 선점(회색), 판매(회색) */
+// 공연장 구역: 관리자가 그린 구역이 있으면 그걸, 없으면 관리자 화면 샘플 도면의 A~D 구역 (400*300 좌표)
 const SAMPLE_SECS = { A: [[68, 90], [121, 151], [76, 190], [23, 129]], B: [[140, 92], [260, 92], [260, 196], [140, 196]],
   C: [[332, 90], [279, 151], [324, 190], [377, 129]], D: [[60, 214], [340, 214], [360, 266], [40, 266]] };
 function venueSecs(venue) {
@@ -1466,11 +1466,11 @@ function venueSecs(venue) {
 const secKey = s => `${s.floor}|${s.name}`;
 const secOf = (c, k) => venueSecs(c.venue).find(s => secKey(s) === k);
 const secName = n => /구역$/.test(n) ? n : n + '구역';
-// N7 의 좌석 price — 결제 금액은 공연 대표 가격이 아니라 좌석 가격. 관리자가 구역 가격을 정했으면 그 값 (키는 secsOf 의 구역 이름)
+// N7 의 좌석 price - 결제 금액은 공연 대표 가격이 아니라 좌석 가격. 관리자가 구역 가격을 정했으면 그 값 (키는 secsOf 의 구역 이름)
 const secPrice = (c, s) => c.secPrices?.[`${s.floor} ${s.name}`] ?? c.secPrices?.[`${s.floor} ${secName(s.name)}`] ?? c.price;
 const seatKey = (s, t) => `${FLOORS[s.floor] || s.floor}-${s.name}-${t.row}-${t.num}`;
 const seatLabel = (s, t) => `${secName(s.name)} ${t.row}열 ${t.num}번`;
-// 좌석 상태(빈 좌석 free · 다른 분 선점 held · 판매 paid)는 공연별로 처음 볼 때 정해 두고, 결제 · 취소가 바꿈
+// 좌석 상태(빈 좌석 free, 다른 분 선점 held, 판매 paid)는 공연별로 처음 볼 때 정해 두고, 결제, 취소가 바꿈
 const seatMap = cid => S.seats[cid] || (S.seats[cid] = {});
 function seatSt(cid, key) {
   const m = seatMap(cid);
@@ -1483,7 +1483,7 @@ function seatSt(cid, key) {
   return m[key];
 }
 const seatCls = (f, key) => f.sel?.key === key ? 'mine' : seatSt(f.cid, key);
-const freeIn = (cid, s) => s.seats.filter(t => seatSt(cid, seatKey(s, t)) === 'free').length;   // 선점 · 판매 좌석은 고를 수 없음
+const freeIn = (cid, s) => s.seats.filter(t => seatSt(cid, seatKey(s, t)) === 'free').length;   // 선점, 판매 좌석은 고를 수 없음
 const SEAT_LABEL = { free: '빈 좌석', held: '다른 분이 선점한 좌석', paid: '판매 완료', mine: '내가 선점한 좌석' };
 const seatLegend = `<div class="legend"><span><i class="lg-free"></i>빈 좌석</span><span><i class="lg-held"></i>선점 중</span>
   <span><i class="lg-paid"></i>판매 완료</span><span><i class="lg-on"></i>내가 선점한 좌석</span></div>`;
@@ -1543,7 +1543,7 @@ function modalInner() {
     <span class="timer" id="flowT2">남은 시간 ${mmss(f.until - Date.now())}</span><button class="btn btn-s" data-act="closeSec">닫기</button></div>`;
   if (f.loading) return `<div class="sheet-in one"><div class="sec">${head}<div class="empty"><p>좌석 상태를 불러오는 중이에요…</p></div>
     ${dev('N7 다시 조회 — 이때 뒤로가기 = 창만 닫고 AbortController.abort() · 늦게 온 응답은 버림 (조회라 서버에 되돌릴 것 없음)')}</div></div>`;
-  // 배치도에서 무대를 바라보던 기울기(s.rot)만큼 반대로 돌리면 앞줄이 위, 좌석 번호가 왼쪽 → 오른쪽
+  // 배치도에서 무대를 바라보던 기울기(s.rot)만큼 반대로 돌리면 앞줄이 위, 좌석 번호가 왼쪽 -> 오른쪽
   const r = -s.rot * Math.PI / 180, cos = Math.cos(r), sin = Math.sin(r), [cx, cy] = mid(toC(s.pts));
   const pts = s.seats.map(t => { const x = t.x * CW - cx, y = t.y * CH - cy; return { t, x: cx + x * cos - y * sin, y: cy + x * sin + y * cos }; });
   const xs = pts.map(p => p.x), ys = pts.map(p => p.y);
@@ -1563,7 +1563,7 @@ function modalInner() {
     ${dev('구역 열기 · 좌석 고르기 = 화면 상태만 (history.pushState) · 서버 호출은 선택완료에서만')}
   </div><aside class="panel sec" id="pickPanel">${pickPanel()}</aside></div>`;
 }
-// 오른쪽 상자 — 고른 좌석 · 날짜 · 공연명 + 선택완료. 409 는 message 가 아니라 code 로 나눠 보여줌
+// 오른쪽 상자 - 고른 좌석, 날짜, 공연명 + 선택완료. 409 는 message 가 아니라 code 로 나눠 보여줌
 function pickPanel() {
   const f = S.flow, c = CO(f.cid), err = seatErr(f);
   if (!f.pick) return `<h2 style="font-size:17px">선택한 좌석</h2>${err}<p class="muted">좌석을 눌러 골라 주세요. 회색 좌석은 고를 수 없어요.</p>`;
@@ -1583,7 +1583,7 @@ function refreshModal() {
   m.innerHTML = modalInner();
   const v2 = m.querySelector('.secview-wrap'); if (v2) { v2.scrollLeft = sx; v2.scrollTop = sy; }
 }
-// 좌석 화면 다시 그리기 — rerender 만 하면 AFTER.seats 의 타이머가 겹침
+// 좌석 화면 다시 그리기 - rerender 만 하면 AFTER.seats 의 타이머가 겹침
 function redraw() { timers.forEach(t => { clearInterval(t); clearTimeout(t); }); timers = []; rerender(); }
 function closeSec() {
   const k = S.flow.sec;
@@ -1591,9 +1591,9 @@ function closeSec() {
   redraw();
   document.querySelector(`.plan [data-v="${CSS.escape(k)}"]`)?.focus();   // 창을 열었던 구역으로 포커스 돌려줌
 }
-// 내 선점 풀기 (N13 · 만료) — 좌석은 바로 빈 좌석 (seatMap 은 free 그대로 · 'mine' 표시만 사라짐)
+// 내 선점 풀기 (N13, 만료) - 좌석은 바로 빈 좌석 (seatMap 은 free 그대로, 'mine' 표시만 사라짐)
 function dropSel() { const f = S.flow; f.sel = null; f.bookingId = null; f.pgOrderId = null; }
-// 처음 배치도부터 결제까지 시계 하나 — 끝나면 잡고 있던 좌석도 풀리고 대기열부터 다시
+// 처음 배치도부터 결제까지 시계 하나 - 끝나면 잡고 있던 좌석도 풀리고 대기열부터 다시
 function timeUp(f, msg = '7분이 지나 잡고 있던 좌석이 풀렸어요. 대기열에 다시 들어가 주세요') {
   timers.forEach(t => { clearInterval(t); clearTimeout(t); }); timers = [];
   S.flow = null; history.replaceState(null, '');
@@ -1612,7 +1612,7 @@ AFTER.seats = () => {
   };
   tick(); timers.push(setInterval(tick, 1000));
 };
-// 뒤로가기 — 서버 요청 중이면 무시, 확대 창이 열려 있으면 그 창만 닫기, 결제 화면이면 선택을 둔 채 좌석 화면으로
+// 뒤로가기 - 서버 요청 중이면 무시, 확대 창이 열려 있으면 그 창만 닫기, 결제 화면이면 선택을 둔 채 좌석 화면으로
 window.addEventListener('popstate', () => {
   const f = S.flow;
   if (!f) return;
@@ -1676,7 +1676,7 @@ V.done = ({ id }) => {
 </script>
 
 <script>
-/* ===== 음반 · LP ===== */
+/* 음반, LP */
 const eul = w => w + (hasB(w) ? '을' : '를');
 const coverMini = al => `<div class="mini-cover">${cover(al)}</div>`;
 const lpLi = al => {
@@ -1733,7 +1733,7 @@ V.album = ({ id }) => {
 </div>`;
 };
 
-/* ===== MY ===== */
+/* MY */
 const emptyBox = (t, to, label) => `<div class="empty"><p>${t}</p><button class="btn btn-s" data-go="${to}">${label}</button></div>`;
 V.my = () => {
   const fol = followedIds(), tabs = ['관심 아티스트', '관심 공연', '위시리스트', '컬렉션', '예매 내역', '주문 내역', '배송지', '취향 설정', '약관 · 동의'];
@@ -1775,7 +1775,7 @@ ${dev('로그아웃 = 창에서 확인 → G4 POST /api/auth/logout → 쿠키 �
 ${body}`;
 };
 
-// MY › 배송지 — M19~M23. 최대 10개 · 기본 1개 · 기본을 지우면 가장 최근 배송지가 기본
+// MY › 배송지 - M19~M23. 최대 10개, 기본 1개, 기본을 지우면 가장 최근 배송지가 기본
 function addrTab() {
   const list = addrList(), e = S.addrEdit, cur = typeof e === 'number' ? list.find(a => a.id === e) : null;
   const card = a => `<div class="addr">
@@ -1799,16 +1799,16 @@ function addrTab() {
   </div>`;
 }
 
-/* ===== 모바일 티켓 — ✏️ 11/01 입장 QR 은 서버(N17)가 서명한 30초짜리 토큰. 앱은 20초마다 새로 받고, 검표(TICKET_CHECKER)가 한 번만 입장 처리 (docs/24 §5-1) ===== */
+/* 모바일 티켓 - 입장 QR 은 서버(N17)가 서명한 30초짜리 토큰. 앱은 20초마다 새로 받고, 검표(TICKET_CHECKER)가 한 번만 입장 처리 (docs/24 §5-1) */
 const QR_JS = 'https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js';
 const QR_TTL = 30, QR_REFRESH = 20, OPEN_BEFORE_H = 3, CLOSE_AFTER_H = 6;
 const startOf = c => new Date(`${c.date}T${c.time}:00`);
 const hm = d => `${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`;
-// 데모 시계는 10/08 이라 예매한 공연은 아직 QR 이 안 열림 — (시연) 그 공연 1시간 전으로 이동 (그 뒤로는 실제 시간만큼 흐름)
+// 데모 시계는 이라 예매한 공연은 아직 QR 이 안 열림 - (시연) 그 공연 1시간 전으로 이동 (그 뒤로는 실제 시간만큼 흐름)
 const demoNow = () => S.qrSim ? new Date(startOf(CO(S.qrSim)) - 3600e3 + (Date.now() - S.qrSimAt)) : TODAY;
 const nowAt = c => `${md(c.date)} ${hm(demoNow())}`;
 const entryOpen = (c, now = demoNow()) => now >= startOf(c) - OPEN_BEFORE_H * 3600e3 && now <= +startOf(c) + CLOSE_AFTER_H * 3600e3;
-// N17 흉내 — 서버는 { typ: entry, bid, cid, exp } 를 HS256(entry.qr-secret · Concert 만)으로 서명. 데모는 발급한 토큰을 기억해 두고 검표가 그걸로 '서명 확인'
+// N17 흉내 - 서버는 { typ: entry, bid, cid, exp } 를 HS256(entry.qr-secret, Concert 만)으로 서명. 데모는 발급한 토큰을 기억해 두고 검표가 그걸로 '서명 확인'
 const QR_ISSUED = {};
 const b64u = o => btoa(JSON.stringify(o)).replace(/=+$/, '').replace(/\+/g, '-').replace(/\//g, '_');
 function issueQr(b, at = Date.now()) {
@@ -1846,7 +1846,7 @@ function ticketPanel() {
       ${dev('N17 GET /api/concerts/bookings/{id}/entry-qr → { token, expiresAt(+30초) } · 20초마다 다시 · 409 ENTRY_NOT_OPEN (result.opensAt) · ALREADY_CHECKED_IN (result.checkedInAt) · ENTRY_CLOSED — token = HS256(entry.qr-secret · Concert 만) { typ: entry, bid, cid, exp }')}
     </div></div>`;
 }
-// 20초마다 새 QR (N17) · 1초마다 남은 시간 — 티켓을 닫거나 화면을 떠나면 멈춤
+// 20초마다 새 QR (N17), 1초마다 남은 시간 - 티켓을 닫거나 화면을 떠나면 멈춤
 let qrTick = null;
 function runQr(b) {
   clearTimeout(qrTick);
@@ -1864,11 +1864,11 @@ AFTER.my = () => {
   });
 };
 
-/* ===== AI 챗봇 ===== */
+/* AI 챗봇 */
 const SUGGEST = ['분위기 있는 인디 밴드 추천해줘', '재즈 느낌 나는 밴드 있어?', '내 취향에 맞는 공연 알려줘', '지금 살 수 있는 LP 추천해줘', '회원탈퇴하는 방법 알려줘'];
 const MOOD = ['드림팝', '슈게이징', '포크', '재즈 인디', '포스트록'];
 function aiAnswer(q) {
-  // 탈퇴는 안내와 버튼만. 실제 탈퇴는 사용자가 버튼 → 확정을 눌러야 실행 (챗봇 도구로는 실행하지 않음)
+  // 탈퇴는 안내와 버튼만. 실제 탈퇴는 사용자가 버튼 -> 확정을 눌러야 실행 (챗봇 도구로는 실행하지 않음)
   if (/탈퇴|계정\s*삭제/.test(q)) return {
     withdraw: true, ctx: ['회원 탈퇴 안내 · 실행은 버튼으로만'],
     text: `탈퇴하면 팔로우 ${followedIds().length}팀, 위시리스트 ${S.wish.size + S.gwish.size}개, 고른 취향, 예매 내역, 대화 기록이 모두 지워지고 되돌릴 수 없어요. 아래 버튼으로 바로 진행할 수 있어요.`
@@ -1902,7 +1902,7 @@ function aiAnswer(q) {
     artists: recs.map(r => ({ id: r.a.id, pct: r.pct, reason: hasTaste() ? why(r.a) : null })), ctx
   };
 }
-// 허밍 검색: MVP 제외 기능이라 녹음 없이 로딩 → 하드코딩 답변만 보여줌
+// 허밍 검색: MVP 제외 기능이라 녹음 없이 로딩 -> 하드코딩 답변만 보여줌
 const EQ = '<span class="eq" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>';
 const HUM_ANSWER = {
   text: '소음정원의 〈느린 섬광〉인 것 같아요. 정규 〈젖은 신호〉의 4번 트랙이고, 후렴 멜로디가 87% 일치해요.',
@@ -1924,7 +1924,7 @@ function msgHtml(m) {
 }
 const NARROW = matchMedia('(max-width:760px)');
 const ICON = { close: '<path d="M6 6l12 12M18 6 6 18"/>', chat: '<path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1.1-4.4A8 8 0 1 1 21 12z"/>' };
-// 채팅 창은 #app 밖에 있어서 화면을 옮겨도 대화가 이어짐. 가입·온보딩·관리자 화면에서는 숨김
+// 채팅 창은 #app 밖에 있어서 화면을 옮겨도 대화가 이어짐. 가입, 온보딩, 관리자 화면에서는 숨김
 function drawChat(toEnd) {
   const off = document.body.classList.contains('bare'), open = S.chatOpen && !off, fab = $('#fab'), log = $('#chatLog');
   fab.hidden = off;
@@ -1940,10 +1940,10 @@ function drawChat(toEnd) {
   log.scrollTop = toEnd ? log.scrollHeight : y;
 }
 
-/* ===== 관리자 · 좌석 구역 편집 ===== */
+/* 관리자, 좌석 구역 편집 */
 const VENUES = [...new Set(CONCERTS.map(c => c.venue))];
-const FLOORS = { '1층': '1F', '2층': '2F', '3층': '3F', '지하 1층': 'B1', '지하 2층': 'B2' };   // ✏️ 11/18 B2 — 현대카드 언더스테이지
-// 캔버스는 400×300 좌표계. 저장은 0~1 로 정규화한 좌표만 (밑그림 이미지는 올리지 않음)
+const FLOORS = { '1층': '1F', '2층': '2F', '3층': '3F', '지하 1층': 'B1', '지하 2층': 'B2' };   // B2 - 현대카드 언더스테이지
+// 캔버스는 400*300 좌표계. 저장은 0~1 로 정규화한 좌표만 (밑그림 이미지는 올리지 않음)
 const CW = 400, CH = 300;
 // 무대를 따로 그리지 않은 공연장은 위쪽 가운데(샘플 도면의 무대 자리)를 무대로 봄
 const DEFAULT_STAGE = [[.3, .08], [.7, .08], [.7, .2], [.3, .2]];
@@ -1951,7 +1951,7 @@ const stageOf = v => S.stages[v] || DEFAULT_STAGE;
 const drawing = () => S.admin.mode === 'stage' ? S.admin.spts : S.admin.pts;
 const SAMPLE_PLAN = 'data:image/svg+xml,' + encodeURIComponent(`<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="#f3f0e6"/><rect x="14" y="12" width="372" height="276" fill="none" stroke="#4a4a4a" stroke-width="4"/><rect x="120" y="24" width="160" height="36" fill="#d8ccb0" stroke="#4a4a4a" stroke-width="2"/><text x="200" y="47" font-family="sans-serif" font-size="13" text-anchor="middle" fill="#4a4a4a">STAGE</text><g fill="#e4dccb" stroke="#4a4a4a" stroke-width="1.5"><path d="M68 90L121 151L76 190L23 129Z"/><path d="M140 92H260V196H140Z"/><path d="M332 90L279 151L324 190L377 129Z"/><path d="M60 214H340L360 266H40Z"/></g><g font-family="sans-serif" font-size="14" text-anchor="middle" fill="#4a4a4a"><text x="72" y="145">A</text><text x="200" y="149">B</text><text x="328" y="145">C</text><text x="200" y="245">D</text></g><text x="28" y="280" font-family="sans-serif" font-size="10" fill="#4a4a4a">1F</text></svg>`);
 
-// 좌석 한 칸 크기·간격 (캔버스 단위)
+// 좌석 한 칸 크기, 간격 (캔버스 단위)
 const SEAT = { w: 7, h: 6, px: 9, py: 10 };
 const toC = pts => pts.map(([x, y]) => [x * CW, y * CH]);
 const mid = P => [0, 1].map(k => P.reduce((s, p) => s + p[k], 0) / P.length);
@@ -1964,7 +1964,7 @@ function inside([x, y], P) {
   }
   return c;
 }
-// 무대를 가장 정면으로 보는 변(길이 × 무대 쪽을 향한 정도)을 앞줄로 잡고,
+// 무대를 가장 정면으로 보는 변(길이 * 무대 쪽을 향한 정도)을 앞줄로 잡고,
 // 그 변과 나란한 격자를 깔아 네 모서리가 모두 도형 안에 드는 칸만 좌석으로 남김
 function layoutSeats(pts, stage) {
   const P = toC(pts), C = mid(P), T = mid(toC(stage));
@@ -1979,7 +1979,7 @@ function layoutSeats(pts, stage) {
     if (s > best) { best = s; f = { a, n }; }
   });
   if (!f) return { seats: [], rows: 0, rot: 0 };
-  // v: 앞줄 → 뒷줄 방향, u: 객석에서 무대를 볼 때 왼쪽 → 오른쪽 (좌석 번호 방향)
+  // v: 앞줄 -> 뒷줄 방향, u: 객석에서 무대를 볼 때 왼쪽 -> 오른쪽 (좌석 번호 방향)
   const v = [-f.n[0], -f.n[1]], u = [v[1], -v[0]];
   const at = (t, s) => [f.a[0] + u[0] * t + v[0] * s, f.a[1] + u[1] * t + v[1] * s];
   const Q = P.map(p => [(p[0] - f.a[0]) * u[0] + (p[1] - f.a[1]) * u[1], (p[0] - f.a[0]) * v[0] + (p[1] - f.a[1]) * v[1]]);
@@ -2114,8 +2114,8 @@ V.adminSaved = ({ id }) => {
 </div>`;
 };
 
-/* ===== 관리자 대시보드 — 역할 5종 (✏️ 11/01 검표 TICKET_CHECKER) · 시크릿 계정 (docs/24) ===== */
-// 관리자 계정은 화면에서 만들지 않음 — Member 시크릿(/etc/secrets/admin-accounts)에 등록된 계정만 (데모용 가상 계정)
+/* 관리자 대시보드 - 역할 5종 ( 검표 TICKET_CHECKER), 시크릿 계정 (docs/24) */
+// 관리자 계정은 화면에서 만들지 않음 - Member 시크릿(/etc/secrets/admin-accounts)에 등록된 계정만 (데모용 가상 계정)
 const ADMINS = [
   { loginId: 'venue.kim', name: '김공연장', roles: ['VENUE_ADMIN'], otp: true, last: '10.07 18:12' },
   { loginId: 'show.lee', name: '이공연', roles: ['CONCERT_ADMIN', 'VENUE_ADMIN'], otp: true, last: '10.08 09:40' },
@@ -2135,10 +2135,10 @@ const XL_HEAD = ['판매처 상품코드', '상품명', '분류', '가격', '입
 const sellerOf = aid => `${A(aid).name} 공식 스토어`;
 const slug = aid => A(aid).en.toLowerCase().replace(/\s+/g, '-');
 
-// 삭제(판매 중지)한 행 — 사용자 목록에서는 빠지고, 예매 · 주문 · 위시리스트에서 찾을 때만 씀 (묘비)
+// 삭제(판매 중지)한 행 - 사용자 목록에서는 빠지고, 예매, 주문, 위시리스트에서 찾을 때만 씀 (묘비)
 const TRASH = { c: [], g: [], al: [] };
 const VMETA = Object.fromEntries(VENUES.map(v => { const c = CONCERTS.find(x => x.venue === v); return [v, { region: c.region, addr: c.addr, cap: null, src: '수집', del: false, locked: [], stage: true }]; }));
-// ✏️ 11/18 실제 공연장 도면 — 좌석 구역 그리기에서 이 공연장을 고르면 밑그림으로 깔림 (plans/ 폴더)
+// 실제 공연장 도면 - 좌석 구역 그리기에서 이 공연장을 고르면 밑그림으로 깔림 (plans/ 폴더)
 const PLANS = { 'KT&G 상상마당 라이브홀': 'plans/sangsangmadang.png', '현대카드 언더스테이지': 'plans/understage.png', '올림픽공원 올림픽홀': 'plans/olympic-hall.jpg' };
 [['현대카드 언더스테이지', '서울 용산구 이태원로 246'], ['올림픽공원 올림픽홀', '서울 송파구 올림픽로 424']].forEach(([v, addr]) => {
   if (!VENUES.includes(v)) { VENUES.push(v); VMETA[v] = { region: '서울', addr, cap: null, src: '수집', del: false, locked: [], stage: false }; }
@@ -2147,7 +2147,7 @@ if (PLANS[S.admin.venue]) S.admin.img = PLANS[S.admin.venue];
 CONCERTS.forEach(c => Object.assign(c, { src: '수집', locked: [] }));
 ALBUMS.forEach(al => Object.assign(al, { src: '수집', locked: [] }));
 GOODS.forEach(g => Object.assign(g, { src: '엑셀', locked: [], seller: sellerOf(g.artist), code: 'SKU-' + g.id.slice(1).padStart(3, '0'), url: `https://store.example.com/${slug(g.artist)}/SKU-${g.id.slice(1).padStart(3, '0')}` }));
-GD('g4').pending = 1;   // (시연) 결제 대기 주문 1건 — 판매 중지가 막히는 경우
+GD('g4').pending = 1;   // (시연) 결제 대기 주문 1건 - 판매 중지가 막히는 경우
 let admSeq = 100;
 S.adm = {
   me: null, step: 'id', who: null, fill: '', err: null, tab: null, ptab: '굿즈', edit: null, cq: '', member: null, wd: null,
@@ -2159,7 +2159,7 @@ S.adm = {
     goods: [{ at: '10.08 04:30', by: '자동', n: 0, u: 1, s: 11, f: 0 }]
   }
 };
-// CS 데모 회원 — 1001 은 지금 이 데모를 쓰는 사용자라 예매 · 주문 내역이 실제로 쌓임
+// CS 데모 회원 - 1001 은 지금 이 데모를 쓰는 사용자라 예매, 주문 내역이 실제로 쌓임
 const MEMBERS = [
   { id: 1001, nick: '새벽청취자', email: 'listener@kakao.com', provider: '카카오', joined: '2026-09-02', status: 'ACTIVE', live: true },
   { id: 1002, nick: '기타치는고양이', email: 'cat.guitar@gmail.com', provider: '카카오', joined: '2026-08-15', status: 'ACTIVE',
@@ -2175,7 +2175,7 @@ const MEMBERS = [
 const can = r => !!S.adm.me && S.adm.me.roles.includes(r);
 const myTabs = () => ADM_TABS.filter(([, , rs]) => !rs || rs.some(can));
 const stageOk = v => VMETA[v].stage || Object.values(S.sections).some(s => s.venue === v);
-// 예매 수 — 데모: 좌석이 열린 공연은 대기열 규모의 30% 가 이미 예매했다고 봄 + 내 예매
+// 예매 수 - 데모: 좌석이 열린 공연은 대기열 규모의 30% 가 이미 예매했다고 봄 + 내 예매
 const bkCount = c => (c.noSeats ? 0 : Math.round(c.queue * .3)) + S.bookings.filter(b => b.cid === c.id && b.status === 'PAID').length;
 const nowStr = () => { const d = new Date(); return `10.08 ${String(d.getHours()).padStart(2, '0')}:${String(d.getMinutes()).padStart(2, '0')}`; };
 const abtn = (act, label, d = {}, cls = '') => `<button class="btn btn-s ${cls}" data-act="${act}" ${Object.entries(d).map(([k, v]) => `data-${k}="${esc(v)}"`).join(' ')}>${label}</button>`;
@@ -2183,7 +2183,7 @@ const srcPill = s => `<span class="pill ${s === '수집' ? 'ac' : s === '엑셀'
 const lockTag = (row, t, id) => row.locked.length ? `<br><small class="tag">🔒 ${row.locked.map(k => LOCK_LABEL[k]).join(' · ')} 잠김 — 수집이 덮어쓰지 않아요 · <button class="link" data-act="admUnlock" data-t="${t}" data-id="${esc(id)}">수집값 따르기</button></small>` : '';
 const fv = (f, k) => f.elements[k].value.trim();
 const opts = (list, cur) => list.map(([v, l]) => `<option value="${esc(v)}" ${v === cur ? 'selected' : ''}>${esc(l)}</option>`).join('');
-// 수집 · 엑셀로 들어온 행을 관리자가 고치면 고친 필드를 잠금 (docs/24 §3)
+// 수집, 엑셀로 들어온 행을 관리자가 고치면 고친 필드를 잠금 (docs/24 §3)
 function lockChanged(row, next) {
   Object.entries(next).forEach(([k, v]) => {
     if (row[k] === v) return;
@@ -2258,7 +2258,7 @@ ${admTodo()}
 <p class="err" role="alert" id="admErr" style="margin-bottom:16px" ${S.adm.err ? '' : 'hidden'}>${esc(S.adm.err || '')}</p>
 ${ADM[tab]()}`;
 };
-// 수집으로 새로 들어와 사람 손이 필요한 것 — 역할별
+// 수집으로 새로 들어와 사람 손이 필요한 것 - 역할별
 function admTodo() {
   const items = [];
   if (can('VENUE_ADMIN')) { const n = VENUES.filter(v => !stageOk(v)).length; if (n) items.push(['venues', `무대 미작성 콘서트장 ${n}곳`]); }
@@ -2267,7 +2267,7 @@ function admTodo() {
   return items.length ? `<div class="notice adm-todo"><span>할 일</span>${items.map(([t, l]) => `<button class="link" data-act="admTab" data-v="${t}">${l}</button>`).join('')}</div>` : '';
 }
 const ADM = {};
-// 폼을 열면 폼으로 스크롤 · 오류는 다시 그리지 않고 띄워서 입력한 값을 지키고 · 저장하면 폼을 닫음
+// 폼을 열면 폼으로 스크롤, 오류는 다시 그리지 않고 띄워서 입력한 값을 지키고, 저장하면 폼을 닫음
 function admOpen(e) {
   Object.assign(S.adm, { edit: e, err: null }); rerender();
   const f = $('.adm-form'); if (f) { f.scrollIntoView({ block: 'nearest' }); f.querySelector('input,select')?.focus(); }
@@ -2556,7 +2556,7 @@ ADM.crawl = () => `
 }).join('')}</div>
 ${dev('S37 GET /api/studio/crawl/runs?target= · S38 POST /api/studio/crawl/{target}/runs → Studio 가 CronJob 으로 Job 생성 (가안 · 실행 중 409 CRAWL_RUNNING) · 끝나면 CronJob → I27 요약 보고')}`;
 
-// 검표 — 입장 QR 을 찍으면 서버(I24)가 서명 · 30초 · 공연을 확인하고 한 번만 입장 처리 (docs/24 §5-1)
+// 검표 - 입장 QR 을 찍으면 서버(I24)가 서명, 30초, 공연을 확인하고 한 번만 입장 처리 (docs/24 §5-1)
 ADM.checkin = () => {
   const open = CONCERTS.filter(c => entryOpen(c)), cid = open.some(c => c.id === S.adm.gate) ? S.adm.gate : open[0]?.id;
   const sim = S.qrSim ? `<p class="notice" style="margin-bottom:12px">(시연) 지금 시각 = ${md(CO(S.qrSim).date)} ${hm(demoNow())} — ${esc(CO(S.qrSim).title)} 1시간 전 · ${abtn('qrSim', '시간 이동 끄기', { id: S.qrSim })}</p>` : '';
@@ -2588,7 +2588,7 @@ ADM.checkin = () => {
 </div>`;
 };
 const GATE_NO = { ENTRY_QR_INVALID: '우리 QR 이 아님', ENTRY_QR_EXPIRED: '30초 지난 QR (캡처본)', WRONG_CONCERT: '다른 공연 티켓', ALREADY_CHECKED_IN: '이미 입장함', ENTRY_NOT_AVAILABLE: '취소된 예매' };
-// I24 POST 흉내 — 서버와 같은 순서: 토큰(서명 · 30초) → 같은 공연 → 한 번만 입장
+// I24 POST 흉내 - 서버와 같은 순서: 토큰(서명, 30초) -> 같은 공연 -> 한 번만 입장
 function checkIn(cid, token) {
   const q = QR_ISSUED[token.trim()];
   if (!q) return { code: 'ENTRY_QR_INVALID', msg: '우리 앱이 만든 입장 QR 이 아니에요' };
@@ -2614,7 +2614,7 @@ ADM.me = () => {
 </div>`;
 };
 
-/* ===== 엑셀(.xlsx) 읽기 · 쓰기 — 라이브러리 없이 (zip + XML) ===== */
+/* 엑셀(.xlsx) 읽기, 쓰기 - 라이브러리 없이 (zip + XML) */
 async function readXlsx(buf) {
   const u8 = new Uint8Array(buf), dv = new DataView(buf), td = new TextDecoder();
   let e = u8.length - 22; while (e >= 0 && dv.getUint32(e, true) !== 0x06054b50) e--;
@@ -2654,7 +2654,7 @@ async function readXlsx(buf) {
 }
 const CRC = Array.from({ length: 256 }, (_, n) => { for (let k = 0; k < 8; k++) n = n & 1 ? 0xEDB88320 ^ (n >>> 1) : n >>> 1; return n >>> 0; });
 const crc32 = d => { let c = -1; for (const b of d) c = CRC[(c ^ b) & 255] ^ (c >>> 8); return (c ^ -1) >>> 0; };
-// 압축 없이(stored) zip 으로 묶음 — 양식 내려받기용
+// 압축 없이(stored) zip 으로 묶음 - 양식 내려받기용
 function zipBlob(entries) {
   const enc = new TextEncoder(), parts = [], cen = []; let off = 0;
   for (const [name, body] of entries) {
@@ -2678,7 +2678,7 @@ function xlsxBlob(rows) {
     ['xl/worksheets/sheet1.xml', `${X}<worksheet xmlns="${R}spreadsheetml/2006/main"><sheetData>${rows.map((row, j) => `<row r="${j + 1}">${row.map((v, i) => cell(v, i, j + 1)).join('')}</row>`).join('')}</sheetData></worksheet>`]
   ]);
 }
-// 샘플: 그 아티스트의 기존 굿즈 1개(재입고 → 변경) + 새 굿즈 2개(신규)
+// 샘플: 그 아티스트의 기존 굿즈 1개(재입고 -> 변경) + 새 굿즈 2개(신규)
 function sampleRows(aid, bad) {
   const a = A(aid), K = aid.toUpperCase(), url = code => `https://store.example.com/${slug(aid)}/${code}`;
   const mine = GOODS.filter(g => g.artist === aid && g.seller === S.adm.impSeller).slice(0, 1);
@@ -2726,7 +2726,7 @@ async function readImport(file) {
 </script>
 
 <script>
-/* ===== 새 소식 시뮬레이션 (Kafka 이벤트 → activity) ===== */
+/* 새 소식 시뮬레이션 (Kafka 이벤트 -> activity) */
 function nextEvent() {
   const fol = followedIds(), a = A(fol[S.simStep % Math.max(1, fol.length)] || 'a1'), step = S.simStep++ % 3;
   const sold = [...S.wish].map(AL).find(al => stockState(al)?.[0] === '품절');
@@ -2743,7 +2743,7 @@ function nextEvent() {
   return { kind: '공연', artist: a.id, text: `${a.name} 추가 공연 오픈 · 12.27 (일) 롤링홀`, go: ['artist', a.id] };
 }
 
-/* ===== 라우터 ===== */
+/* 라우터 */
 const NAV = [['home', '홈'], ['artists', '아티스트'], ['concerts', '공연'], ['albums', '음반·LP'], ['my', 'MY']];
 const SECTION = { home: 'home', artists: 'artists', artist: 'artists', concerts: 'concerts', concert: 'concerts', queue: 'concerts', seats: 'concerts', pay: 'concerts', done: 'concerts', albums: 'albums', album: 'albums', lpay: 'albums', goods: 'artists', gpay: 'artists', gdone: 'artists', my: 'my' };
 function go(route, p = {}) {
@@ -2755,7 +2755,7 @@ function go(route, p = {}) {
 }
 function render() {
   document.body.classList.toggle('bare', ['landing', 'signup', 'agree', 'pickArtists', 'admin', 'adminSaved', 'adminLogin', 'adminHome'].includes(S.route));
-  // 푸터: 가입 단계(약관 동의 · 밴드 고르기)와 관리자 화면만 빼고 모든 화면 — 첫 화면 · 로그인 화면 포함
+  // 푸터: 가입 단계(약관 동의, 밴드 고르기)와 관리자 화면만 빼고 모든 화면 - 첫 화면, 로그인 화면 포함
   $('#foot').hidden = S.route === 'agree' || S.route === 'pickArtists' || S.route.startsWith('admin');
   $('#loginBtn').hidden = S.route !== 'landing';
   $('#app').innerHTML = V[S.route](S.p);
@@ -2772,7 +2772,7 @@ function drawNav() {
 const toggle = (set, v) => { if (set.has(v)) { set.delete(v); return false; } set.add(v); return true; };
 const flip = (arr, v) => { const i = arr.indexOf(v); if (i >= 0) arr.splice(i, 1); else arr.push(v); };
 
-/* ===== 동작 ===== */
+/* 동작 */
 const ACT = {
   sso(d, el) {
     document.querySelectorAll('.sso').forEach(b => { b.disabled = true; });
@@ -2780,7 +2780,7 @@ const ACT = {
     timers.push(setTimeout(() => {
       S.user.provider = d.v;
       S.user.email = 'listener@kakao.com';
-      S.user.addresses = [];   // 새로 가입 — 배송지는 첫 결제 때
+      S.user.addresses = [];   // 새로 가입 - 배송지는 첫 결제 때
       S.draft = { artists: [], shown: [], chain: [], agreed: {} };
       toast('카카오 로그인이 됐어요. 약관에 동의하고 좋아하는 밴드를 고르면 가입이 끝나요');
       go('agree');
@@ -2792,7 +2792,7 @@ const ACT = {
     const body = $('#tc' + d.id); body.hidden = !body.hidden;
     el.setAttribute('aria-expanded', String(!body.hidden)); el.textContent = body.hidden ? '보기' : '접기';
   },
-  // 처음 고를 때만 비슷한 밴드를 받아 이어 붙임 — 지금까지 보여 준 밴드는 빼고 (서버의 exclude)
+  // 처음 고를 때만 비슷한 밴드를 받아 이어 붙임 - 지금까지 보여 준 밴드는 빼고 (서버의 exclude)
   pickArtist(d) {
     const s = S.draft;
     flip(s.artists, d.id);
@@ -2802,7 +2802,7 @@ const ACT = {
     }
     rerender();
   },
-  // G13 — 회원 · 팔로우 · 약관 동의 이력을 한 번에. 체크하지 않은 선택 약관은 '동의 안 함'으로 기록
+  // G13 - 회원, 팔로우, 약관 동의 이력을 한 번에. 체크하지 않은 선택 약관은 '동의 안 함'으로 기록
   finishOnb() {
     const now = Date.now(), at = dot(TODAY), a = S.draft.agreed;
     S.draft.artists.forEach(id => { S.user.follows[id] = now; });
@@ -2833,7 +2833,7 @@ const ACT = {
   ctype(d) { S.ctype = d.v; rerender(); },
   atab(d) { S.atab = d.v; rerender(); },
   mtab(d) { S.mtab = d.v; rerender(); },
-  // 시간이 남아 있으면 줄을 다시 서지 않고 이어감 — 시계는 처음 배치도부터 결제까지 하나
+  // 시간이 남아 있으면 줄을 다시 서지 않고 이어감 - 시계는 처음 배치도부터 결제까지 하나
   book(d) { const f = S.flow; go(f?.cid === d.id && f.until > Date.now() ? 'seats' : 'queue', { id: d.id }); },
   interest(d) { toast(toggle(S.interest, d.id) ? '관심 공연에 담았어요. MY에서 모아 볼 수 있어요' : '관심 공연에서 뺐어요'); rerender(); },
   wish(d) {
@@ -2842,7 +2842,7 @@ const ACT = {
     rerender();
   },
   gqty(d) { S.gq[d.id] = Math.min(GD(d.id).stock, Math.max(1, (S.gq[d.id] || 1) + Number(d.v))); rerender(); },
-  // 결제하기 = C9 주문 생성(재고 차감 · 배송지 값 복사) → 토스 결제창 인증 → P1 승인. 거절이면 payment.failed 로 주문 취소 · 재고 복구 → 다시 결제 = 새 주문
+  // 결제하기 = C9 주문 생성(재고 차감, 배송지 값 복사) -> 토스 결제창 인증 -> P1 승인. 거절이면 payment.failed 로 주문 취소, 재고 복구 -> 다시 결제 = 새 주문
   async gpay(form) {
     const it = buyItem(S.route, S.p.id), q = it.qty, btn = $('#payBtn'), fail = form.fail.checked, label = btn.textContent;
     const pick = form.elements.shipPick ? form.elements.shipPick.value : 'new';
@@ -2852,12 +2852,12 @@ const ACT = {
     btn.disabled = true; btn.textContent = '토스 결제창에서 결제하는 중…';
     const paid = await tossRequest(newPgOrderId('GOODS'), q > 1 ? `${it.name} ${q}개` : it.name,
       { customerName: ship.recipientName, customerMobilePhone: ship.phone.replace(/\D/g, '') });
-    if (!paid) { btn.disabled = false; btn.textContent = label; return; }   // 주문은 15분 뒤 자동 취소 · 다시 결제 = 새 주문
+    if (!paid) { btn.disabled = false; btn.textContent = label; return; }   // 주문은 15분 뒤 자동 취소, 다시 결제 = 새 주문
     btn.textContent = '결제 승인 중…';
     timers.push(setTimeout(() => {
       const { recipientName, phone, zonecode, address, addressDetail } = ship;
       const order = { id: 'OD-261008-' + String(++orderNo).padStart(4, '0'), name: it.name, qty: q, total: it.price * q, more: it.more, status: fail ? 'CANCELLED' : 'CONFIRMED',
-        ship: { recipientName, phone, zonecode, address, addressDetail }, paymentKey: paid.paymentKey, give: () => it.give(q) };   // 주문 당시 값 — 배송지를 고쳐도 그대로
+        ship: { recipientName, phone, zonecode, address, addressDetail }, paymentKey: paid.paymentKey, give: () => it.give(q) };   // 주문 당시 값 - 배송지를 고쳐도 그대로
       S.orders.unshift(order);
       if (fail) { toast('토스 인증은 됐지만 승인이 거절돼서 주문을 취소했어요. 돈은 나가지 않았어요'); btn.disabled = false; btn.textContent = label; return; }
       if (save) addAddr(ship);
@@ -2868,7 +2868,7 @@ const ACT = {
     }, 900));
   },
   toOrders() { S.mtab = '주문 내역'; go('my'); },
-  // C12 — 토스 환불 → 주문 CANCELLED · 재고 복구
+  // C12 - 토스 환불 -> 주문 CANCELLED, 재고 복구
   orderCancel(d) {
     const o = S.orders.find(x => x.id === d.id);
     ask({
@@ -2943,7 +2943,7 @@ const ACT = {
     Object.assign(f, { pick: d.v, pickLabel: d.l, err: null });
     $('#pickPanel').innerHTML = pickPanel();
   },
-  // 선택완료 = N10 선점 (✏️ 11/04 77A) — 남이 선점 · 판매한 좌석은 409 SEAT_TAKEN, 같은 좌석이면 같은 선점(타이머 그대로), 내 선점이 다른 좌석에 있으면 409 HOLD_EXISTS
+  // 선택완료 = N10 선점 ( 77A) - 남이 선점, 판매한 좌석은 409 SEAT_TAKEN, 같은 좌석이면 같은 선점(타이머 그대로), 내 선점이 다른 좌석에 있으면 409 HOLD_EXISTS
   selectSeat() {
     const f = S.flow, k = f.pick, l = f.pickLabel, btn = $('#selBtn');
     f.busy = '좌석 선택을 처리하는 중이에요. 잠시만 기다려 주세요'; f.err = null;
@@ -2970,7 +2970,7 @@ const ACT = {
         f.pgOrderId = newPgOrderId('TICKET');   // 같은 좌석 다시 결제 = 같은 pgOrderId
       }
       Object.assign(f, { sec: null, pick: null, pickLabel: null });
-      history.replaceState({ pay: 1 }, '');   // 확대 창 기록을 결제 화면 기록으로 바꿈 — 결제에서 뒤로가기 = 좌석 화면
+      history.replaceState({ pay: 1 }, '');   // 확대 창 기록을 결제 화면 기록으로 바꿈 - 결제에서 뒤로가기 = 좌석 화면
       go('pay', { id: f.cid });
     }, 800));
   },
@@ -2992,7 +2992,7 @@ const ACT = {
       onOk: () => { dropSel(); f.err = null; toast('선점을 풀었어요. 다른 좌석을 골라 주세요'); history.back(); }
     });
   },
-  // 결제하기 = N16. 서버가 내 선점을 결제 중으로 바꾼 뒤 승인 — 선점 시간이 지났으면 결제를 부르지 않고 410
+  // 결제하기 = N16. 서버가 내 선점을 결제 중으로 바꾼 뒤 승인 - 선점 시간이 지났으면 결제를 부르지 않고 410
   async pay(form) {
     const btn = $('#payBtn'), fail = form.fail.checked, race = form.race.checked, f = S.flow, c = CO(f.cid), label = btn.textContent;
     f.busy = '결제하는 중이에요. 잠시만 기다려 주세요';
@@ -3010,7 +3010,7 @@ const ACT = {
     timers.push(setTimeout(() => { btn.textContent = '결제 승인 중…'; }, 500));
     timers.push(setTimeout(() => {
       f.busy = null;
-      if (fail) {   // 80B — 선점 · 타이머 그대로, 새 pgOrderId 로 다시 결제
+      if (fail) {   // 80B - 선점, 타이머 그대로, 새 pgOrderId 로 다시 결제
         f.pgOrderId = newPgOrderId('TICKET'); btn.disabled = false; btn.textContent = label;
         toast('승인이 거절됐어요 (한도초과 등). 좌석은 그대로 잡혀 있어요 — 다른 결제수단으로 다시 결제해 주세요'); return;
       }
@@ -3023,7 +3023,7 @@ const ACT = {
   },
   toBookings(d) { S.mtab = '예매 내역'; if (d.id) S.ticket = d.id; go('my'); },
   ticket(d) { S.ticket = S.ticket === d.id ? null : d.id; rerender(); },
-  // 티켓 정보 저장 — 공연 · 일시 · 좌석 · 예매번호만 (✏️ 11/01 QR 저장 폐지 — 입장 QR 은 30초마다 바뀌어 저장해도 못 씀)
+  // 티켓 정보 저장 - 공연, 일시, 좌석, 예매번호만 ( QR 저장 폐지 - 입장 QR 은 30초마다 바뀌어 저장해도 못 씀)
   saveTicket(d) {
     const b = S.bookings.find(x => x.id === d.id), c = CO(b.cid), w = 360;
     const cv = document.createElement('canvas'); cv.width = w; cv.height = 200;
@@ -3134,7 +3134,7 @@ const ACT = {
     timers.push(setTimeout(() => { S.sections[key] = sec; a.pts = []; a.name = ''; go('adminSaved', { id: key }); }, 1200));
   },
   editSec(d) { const s = S.sections[d.v]; Object.assign(S.admin, { floor: s.floor, name: s.name, mode: 'sec', pts: s.pts.map(p => [...p]) }); rerender(); },
-  // ---- 관리자 대시보드 (docs/24) ----
+  // 관리자 대시보드 (docs/24)
   admFill(d) { Object.assign(S.adm, { fill: d.v, err: null }); rerender(); $('#admPw').focus(); },
   admLogin(f) {
     const w = ADMINS.find(a => a.loginId === fv(f, 'id'));
@@ -3151,7 +3151,7 @@ const ACT = {
     go('adminHome');
   },
   gatePick(d) { Object.assign(S.adm, { gate: d.id, gateRes: null }); rerender(); },
-  // (시연) 손님 폰 대신 — 지금 뜬 QR(20초마다 새로) 또는 31초 전에 캡처해 둔 QR
+  // (시연) 손님 폰 대신 - 지금 뜬 QR(20초마다 새로) 또는 31초 전에 캡처해 둔 QR
   gateFill(d) {
     const b = S.bookings.find(x => x.cid === d.id && x.status === 'PAID');
     if (!b) { toast('이 공연은 데모 사용자 예매가 없어요'); return; }
@@ -3363,7 +3363,7 @@ document.addEventListener('change', e => {
   if (t.id === 'admFloor') { S.admin.floor = t.value; rerender(); }
   if (t.id === 'admVenue') { if (t.value !== '__new') ACT.venue({ v: t.value }); else { S.admin.newVenue = true; rerender(); $('#newVenue').focus(); } }
 });
-// SVG 안의 버튼(구역 · 좌석)은 button 요소가 아니라서 Enter · Space 를 클릭으로 바꿔 줌
+// SVG 안의 버튼(구역, 좌석)은 button 요소가 아니라서 Enter, Space 를 클릭으로 바꿔 줌
 document.addEventListener('keydown', e => {
   const t = e.target;
   if ((e.key === 'Enter' || e.key === ' ') && t instanceof SVGElement && t.matches('[role=button][data-act]')) { e.preventDefault(); t.dispatchEvent(new MouseEvent('click', { bubbles: true })); }
