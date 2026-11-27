@@ -1942,7 +1942,7 @@ function drawChat(toEnd) {
 
 /* ===== 관리자 · 좌석 구역 편집 ===== */
 const VENUES = [...new Set(CONCERTS.map(c => c.venue))];
-const FLOORS = { '1층': '1F', '2층': '2F', '3층': '3F', '지하 1층': 'B1' };
+const FLOORS = { '1층': '1F', '2층': '2F', '3층': '3F', '지하 1층': 'B1', '지하 2층': 'B2' };   // ✏️ 11/18 B2 — 현대카드 언더스테이지
 // 캔버스는 400×300 좌표계. 저장은 0~1 로 정규화한 좌표만 (밑그림 이미지는 올리지 않음)
 const CW = 400, CH = 300;
 // 무대를 따로 그리지 않은 공연장은 위쪽 가운데(샘플 도면의 무대 자리)를 무대로 봄
@@ -2138,6 +2138,12 @@ const slug = aid => A(aid).en.toLowerCase().replace(/\s+/g, '-');
 // 삭제(판매 중지)한 행 — 사용자 목록에서는 빠지고, 예매 · 주문 · 위시리스트에서 찾을 때만 씀 (묘비)
 const TRASH = { c: [], g: [], al: [] };
 const VMETA = Object.fromEntries(VENUES.map(v => { const c = CONCERTS.find(x => x.venue === v); return [v, { region: c.region, addr: c.addr, cap: null, src: '수집', del: false, locked: [], stage: true }]; }));
+// ✏️ 11/18 실제 공연장 도면 — 좌석 구역 그리기에서 이 공연장을 고르면 밑그림으로 깔림 (plans/ 폴더)
+const PLANS = { 'KT&G 상상마당 라이브홀': 'plans/sangsangmadang.png', '현대카드 언더스테이지': 'plans/understage.png', '올림픽공원 올림픽홀': 'plans/olympic-hall.jpg' };
+[['현대카드 언더스테이지', '서울 용산구 이태원로 246'], ['올림픽공원 올림픽홀', '서울 송파구 올림픽로 424']].forEach(([v, addr]) => {
+  if (!VENUES.includes(v)) { VENUES.push(v); VMETA[v] = { region: '서울', addr, cap: null, src: '수집', del: false, locked: [], stage: false }; }
+});
+if (PLANS[S.admin.venue]) S.admin.img = PLANS[S.admin.venue];
 CONCERTS.forEach(c => Object.assign(c, { src: '수집', locked: [] }));
 ALBUMS.forEach(al => Object.assign(al, { src: '수집', locked: [] }));
 GOODS.forEach(g => Object.assign(g, { src: '엑셀', locked: [], seller: sellerOf(g.artist), code: 'SKU-' + g.id.slice(1).padStart(3, '0'), url: `https://store.example.com/${slug(g.artist)}/SKU-${g.id.slice(1).padStart(3, '0')}` }));
@@ -3099,7 +3105,7 @@ const ACT = {
     toast('탈퇴했어요. 그동안 이용해 주셔서 고마워요');
     go('landing');
   },
-  venue(d) { Object.assign(S.admin, { venue: d.v, newVenue: false, mode: 'sec', img: null, pts: [], spts: [] }); rerender(); },
+  venue(d) { Object.assign(S.admin, { venue: d.v, newVenue: false, mode: 'sec', img: PLANS[d.v] || null, pts: [], spts: [] }); rerender(); },
   addVenue(f) {
     const v = f.v.value.trim(); if (!v) return;
     if (VMETA[v]?.del) { toast('삭제한 콘서트장이에요. 대시보드 › 콘서트장에서 복구해 주세요'); return; }
